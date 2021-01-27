@@ -1,0 +1,17 @@
+<h1>Clients#edit</h1>
+<p>Find me in app/views/clients/edit.html.erb</p>
+
+
+
+<% @client do |c| %>
+  <p>Client: <%= c.first_name %> <%= c.last_name %></p>
+  <p>Email: <%= c.email %></p>
+  <p>Phone: <%= c.phone %></p>
+  <p>Address: <%= c.address_1 %></p>
+  <p>Address (Apt): <%= c.address_2 %></p>
+  <p>City: <%= c.city %></p>
+  <p>State: <%= c.state %></p>
+  <p>Zip: <%= c.zip %></p>
+  <p>Admin: <%= c.admin_id %></p>
+  <br>
+<% end %>
