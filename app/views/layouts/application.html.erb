@@ -11,6 +11,13 @@
   </head>
 
   <body>
+
+
+
+  <div> <%= render "layouts/nav" %> </div>
+  <div> <%= flash[:message] %> </div>
+
     <%= yield %>
+
   </body>
 </html>

@@ -13,18 +13,17 @@ class ClientsController < ApplicationController
     redirect_to client_path(@client)
   end
 
-  def show
-    @client = Client.find(params[:id])
-  end
+  # no show page needed
 
   def edit
     @client = Client.find(params[:id])
+    render "edit"
   end
   
   def update
     @client = Client.find(params[:id])
     @client.update(client_params)
-    redirect_to client_path(@client)
+    redirect_to edit_client_path(@client)
   end
 
   def destroy # we don't ever want to delete a client. how to hide a client?   
@@ -33,7 +32,7 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:email)
+    params.require(:client).permit!
   end
 
 end

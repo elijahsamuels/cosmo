@@ -2,6 +2,7 @@
 <p>Find me in app/views/clients/index.html.erb</p>
 <br>
 
+<h3>All Clients</h3>
 <!-- 
 <% @clients.each.with_index(1) do |c, i| %>
   <p><%= i %>. <a href="/clients"><%= c.first_name %> <%= c.last_name %></a></p>
@@ -9,5 +10,5 @@
 -->
 
 <% @clients.each.with_index(1) do |c, i| %>
-  <p><%= i %>. <%= link_to c.first_name , client_path(c.id) %></a></p>
+  <p><%= i %>. <%= link_to c.first_name , edit_client_path(c.id) %></a></p>
 <% end %>
