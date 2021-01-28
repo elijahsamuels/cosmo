@@ -3,12 +3,22 @@
 <br>
 
 <h3>All Clients</h3>
-<!-- 
-<% @clients.each.with_index(1) do |c, i| %>
-  <p><%= i %>. <a href="/clients"><%= c.first_name %> <%= c.last_name %></a></p>
-<% end %>
--->
+<table>
+  <thead>
+    <tr>
+      <th>Client Name</th>
+      <th>Job Date</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
 
 <% @clients.each.with_index(1) do |c, i| %>
-  <p><%= i %>. <%= link_to c.first_name , edit_client_path(c.id) %></a></p>
+<tr>
+  <td><%= i %>. <%= link_to c.first_name.concat(" ",c.last_name), edit_client_path(c.id) %></a></td>
+  <td> placeholder date </td>
 <% end %>
+</tr>
+  </tbody>
+</table>
