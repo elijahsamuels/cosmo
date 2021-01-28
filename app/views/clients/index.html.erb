@@ -14,14 +14,14 @@
 
   <tbody>
 
-<% @clients.each.with_index(1) do |c, i| %>
+<% @clients.each.with_index(1) do |client, i| %>
 <tr>
-  <td><%= i %>. <%= link_to c.first_name.concat(" ",c.last_name), edit_client_path(c.id) %></a></td>
-  <td> <%= link_to c.job_id, edit_job_path(c.id) %> </td>
+  <td><%= i %>. <%= link_to client.first_name.concat(" ",client.last_name), edit_client_path(client.id) %></a></td>
+  <td> <%= link_to client.admin.first_name, edit_job_path(client.id) %> </td>
+<%# binding.pry %>
 <% end %>
 </tr>
   </tbody>
 </table>
 
-<%# binding.pry %>
 

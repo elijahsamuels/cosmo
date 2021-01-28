@@ -1,2 +1,21 @@
 <h1>Jobs#edit</h1>
 <p>Find me in app/views/jobs/edit.html.erb</p>
+
+
+
+<h2>Job Info:</h2>
+
+<%= form_with model: @job do |form| %>
+  <p>Address 1: <%= form.text_field :address_1 %></p>
+  <p>Address 2: <%= form.text_field :address_2 %></p>
+  <p>City: <%= form.text_field :city %></p>
+  <p>State: <%= form.text_field :state %></p>
+  <p>Zip: <%= form.text_field :zip %></p>
+
+  <p>Admin: <%= form.text_field :admin_id %></p>
+  <p>Client: <%= form.text_field :client_id %></p>
+  <p>Status: <%= form.text_field :status %></p>
+
+  <%= form.submit "Save" %>
+
+<% end %>

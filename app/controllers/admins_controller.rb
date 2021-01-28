@@ -5,6 +5,8 @@ class AdminsController < ApplicationController
 
   def index
     @admins = Admin.all
+    # @jobs = Job.all
+    # @clients = Client.all
   end
 
   def create
@@ -12,9 +14,9 @@ class AdminsController < ApplicationController
     redirect_to admin_path(@admin)
   end
 
-  def show
-    @admin = Admin.find(params[:id])
-  end
+  # def show
+  #   @admin = Admin.find(params[:id])
+  # end
 
   def edit
     @admin = Admin.find(params[:id])
@@ -23,7 +25,7 @@ class AdminsController < ApplicationController
   def update
     @admin = Admin.find(params[:id])
     @admin.update(admin_params)
-    redirect_to admin_path(@admin)
+    redirect_to edit_admin_path(@admin)
   end
 
   def destroy # we don't ever want to delete a Admin. how to hide a admin?   

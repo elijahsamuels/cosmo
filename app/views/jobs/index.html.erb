@@ -1,2 +1,24 @@
 <h1>Jobs#index</h1>
 <p>Find me in app/views/jobs/index.html.erb</p>
+
+<h3>All Jobs</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Admin</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% @jobs.each.with_index(1) do |job, i| %>
+<tr>
+  <td><%= i %>. <%= link_to job.client.first_name, edit_job_path(job.id) %></a></td>
+  <td> <%= link_to job.admin.first_name, edit_admin_path(job.admin) %> </td>
+<%# binding.pry %>
+<% end %>
+</tr>
+  </tbody>
+</table>

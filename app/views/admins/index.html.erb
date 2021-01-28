@@ -1,2 +1,24 @@
 <h1>Admins#index</h1>
 <p>Find me in app/views/admins/index.html.erb</p>
+
+<h3>All Admins</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Admin Name</th>
+      <th>TBD</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% @admins.each.with_index(1) do |admin, i| %>
+<tr>
+  <td><%= i %>. <%= link_to admin.first_name.concat(" ", admin.last_name), edit_client_path(admin.id) %></a></td>
+  <td> <%= mail_to admin.email, "#{admin.first_name}", cc: "info@cosmo.com", subject: "Email drafted from website." %> </td>
+<%# binding.pry %>
+<% end %>
+</tr>
+  </tbody>
+</table>
