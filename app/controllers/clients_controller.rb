@@ -21,6 +21,7 @@ class ClientsController < ApplicationController
   end
   
   def update
+    datetime_for_job_start
     @client = Client.find(params[:id])
     @client.update(client_params)
     redirect_to edit_client_path(@client)
@@ -28,8 +29,9 @@ class ClientsController < ApplicationController
 
   def destroy # we don't ever want to delete a client. how to hide a client?   
   end
-
+  
   private
+
 
   def client_params
     params.require(:client).permit!

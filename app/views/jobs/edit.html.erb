@@ -24,23 +24,22 @@
 <div>
   <%= form_with model: @job do |form| %>
     <b>Job Info:</b>
+    <br>Status: <%= form.text_field :status %>
+    <br>Date: <%= form.date_select :job_start_datetime, order: [:day, :month, :year] %>
+    <br>
     <br>Address 1: <%= form.text_field :address_1 %>
     <br>Address 2: <%= form.text_field :address_2 %>
     <br>City: <%= form.text_field :city %>
     <br>State: <%= form.text_field :state %>
     <br>Zip: <%= form.text_field :zip %>
-    <br>Date/Time: <%= form.date_select :job_start_datetime %>
-    <br>Admin: <%= form.text_field :admin_id %>
-    <br>Client: <%= form.text_field :client_id %>
-    <br>Status: <%= form.text_field :status %>
     <br>Description: <%= form.text_area :description, size: "60x10" %>
     <br>
-    <br>Historical weather average on <%= @job.job_start_datetime %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
+    <br>Historical weather average on <%= @job.job_start_datetime.strftime("%A, %B %d, %Y") %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API
     <br>
-    <br>Last updated: <%= @job.updated_at %>
-    <br>Created by <%= @admin.first_name %> on <%= @job.created_at %>
+    <br>Last updated: <%= @job.updated_at.strftime("%B %d, %Y at %I:%M%P") %>
+    <br>Created by <%= @admin.first_name %> on <%= @job.created_at.strftime("%B %d, %Y at %I:%M%P") %>
 
     <br><%= form.submit "Save" %>
 
