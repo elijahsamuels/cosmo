@@ -1,21 +1,48 @@
-<h1>Jobs#edit</h1>
-<p>Find me in app/views/jobs/edit.html.erb</p>
-
-
-
 <h2>Job Info:</h2>
 
-<%= form_with model: @job do |form| %>
-  <p>Address 1: <%= form.text_field :address_1 %></p>
-  <p>Address 2: <%= form.text_field :address_2 %></p>
-  <p>City: <%= form.text_field :city %></p>
-  <p>State: <%= form.text_field :state %></p>
-  <p>Zip: <%= form.text_field :zip %></p>
 
-  <p>Admin: <%= form.text_field :admin_id %></p>
-  <p>Client: <%= form.text_field :client_id %></p>
-  <p>Status: <%= form.text_field :status %></p>
+<div>
+  <b>Admin Info:</b>
+  <br><%= @admin.first_name %>
+  <br><%= @admin.email %>
+  <br><%= @admin.phone %>
+</div>
+<br>
 
-  <%= form.submit "Save" %>
+<div>
+    <b>Client Info:</b>
+    <br>Client: <%= @client.first_name %>
+    <br>Email: <%=  @client.email %>
+    <br>Phone: <%= @client.phone %>
+    <br><%= link_to "Edit Client", edit_client_path(@client.id) %>
 
-<% end %>
+
+
+</div>
+<br>
+
+<div>
+  <%= form_with model: @job do |form| %>
+    <b>Job Info:</b>
+    <br>Address 1: <%= form.text_field :address_1 %>
+    <br>Address 2: <%= form.text_field :address_2 %>
+    <br>City: <%= form.text_field :city %>
+    <br>State: <%= form.text_field :state %>
+    <br>Zip: <%= form.text_field :zip %>
+    <br>Date/Time: <%= form.date_select :job_start_datetime %>
+    <br>Admin: <%= form.text_field :admin_id %>
+    <br>Client: <%= form.text_field :client_id %>
+    <br>Status: <%= form.text_field :status %>
+    <br>Description: <%= form.text_area :description, size: "60x10" %>
+    <br>
+    <br>Historical weather average on <%= @job.job_start_datetime %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
+    <br>Sunrise: Coming soon. Weather API
+    <br>Sunset: Coming soon. Weather API
+    <br>
+    <br>Last updated: <%= @job.updated_at %>
+    <br>Created by <%= @admin.first_name %> on <%= @job.created_at %>
+
+    <br><%= form.submit "Save" %>
+
+  <% end %>
+</div>

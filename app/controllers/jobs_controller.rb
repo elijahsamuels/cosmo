@@ -13,17 +13,25 @@ class JobsController < ApplicationController
   end
 
   def show
-    @job = Job.find(params[:id])
+    # @job = Job.find(params[:id])
   end
 
   def edit
     @job = Job.find(params[:id])
+    @client = Client.find(params[:id])
+    @admin = Admin.find(params[:id])
+
   end
   
   def update
     @job = Job.find(params[:id])
-    @job.update(job_params)
-    redirect_to job_path(@job)
+    if @job.update(job_params)
+      flash[:notice] = "Save confirmed."
+      redirect_to edit_job_path(@job)
+    else
+      flash[:error] = "Error!"
+      redirect_to edit_job_path(@job)
+    end
   end
 
   def destroy
@@ -38,5 +46,11 @@ class JobsController < ApplicationController
   def job_params
     params.require(:job).permit!
   end
+
+  def start_date
+    job_start_datetime
+  end
+
+
 
 end

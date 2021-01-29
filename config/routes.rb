@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root "sessions#main"
+
   resources :admins
   resources :users
   resources :clients

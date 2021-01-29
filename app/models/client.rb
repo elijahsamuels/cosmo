@@ -1,7 +1,6 @@
 class Client < ApplicationRecord
   belongs_to :admin
-  has_many :jobs
+  has_one :job
   
   validates :email, presence: true, uniqueness: true
-
 end
