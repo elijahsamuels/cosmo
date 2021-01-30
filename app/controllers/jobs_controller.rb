@@ -8,12 +8,18 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.find_or_create_by(job_params)
-    redirect_to job_path(@job)
+    # @job = Job.find_or_create_by(job_params)
+    @job = Job.new(job_params)
+    if @job.save
+      redirect_to job_path(@job)
+    else
+      "oh dear..."
+    end
+    # redirect_to job_path(@job)
   end
 
   def show
-    # @job = Job.find(params[:id])
+    @job = Job.find(params[:id])
   end
 
   def edit
@@ -30,6 +36,7 @@ class JobsController < ApplicationController
       redirect_to edit_job_path(@job)
     else
       flash[:error] = "Error!"
+      # flash[:error] = @job.errors.full_messages
       redirect_to edit_job_path(@job)
     end
   end
@@ -47,10 +54,8 @@ class JobsController < ApplicationController
     params.require(:job).permit!
   end
 
-  def start_date
-    job_start_datetime
-  end
-
-
+  # def start_date
+  #   job_start_datetime
+  # end
 
 end

@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Admin Name</th>
+      <th>Admin Name (edit)</th>
       <th>Email Admin</th>
       <th></th>
     </tr>
@@ -15,7 +15,7 @@
 
 <% @admins.each.with_index(1) do |admin, i| %>
 <tr>
-  <td><%= i %>. <%= link_to admin.first_name.concat(" ", admin.last_name), edit_client_path(admin.id) %></a></td>
+  <td><%= i %>. <%= link_to admin.first_name.concat(" ", admin.last_name), edit_admin_path(admin.id) %></a></td>
   <td> <%= mail_to admin.email, "#{admin.first_name}", cc: "info@cosmo.com", subject: "Email drafted from website." %> </td>
 <%# binding.pry %>
 <% end %>

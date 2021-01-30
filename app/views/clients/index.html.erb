@@ -1,6 +1,22 @@
 <h1>Clients#index</h1>
 <p>Find me in app/views/clients/index.html.erb</p>
 <br>
+<!--
+<div>
+    <b>Client Search:</b>
+
+<%= form_tag clients_path, method: :get do %>
+  <%= text_field_tag :query, params[:query], placeholder: 'Find a Client' %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% @clients.each do |client| %>
+  <%= render partial:"client", locals: {client: client} %>
+<% end %>
+
+</div>
+<br>
+-->
 
 <h3>All Clients</h3>
 <table>
@@ -18,9 +34,12 @@
 <% @clients.each.with_index(1) do |client, i| %>
 <tr>
   <td><%= i %>. <%= link_to client.first_name.concat(" ",client.last_name), edit_client_path(client.id) %></a></td>
-  <td> <%= link_to client.datetime_for_job_start, edit_job_path(client.id) %> </td>
+  <td> <%# link_to client.jobs.datetime_for_job_start, edit_job_path(client.id) %> </td> <!-- this is breaking -->
   <td> <%= link_to client.admin.first_name, admin_path(client.id) %> </td>
 <% end %>
 </tr>
   </tbody>
 </table>
+
+
+

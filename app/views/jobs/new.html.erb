@@ -1,2 +1,26 @@
 <h1>Jobs#new</h1>
 <p>Find me in app/views/jobs/new.html.erb</p>
+
+<br>
+
+<div>
+  <%= form_with model: @job do |form| %>
+    <b>Job Info:</b>
+    <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']])  %>
+    <br>
+    <br>Address 1: <%= form.text_field :address_1 %>
+    <br>Address 2: <%= form.text_field :address_2 %>
+    <br>City: <%= form.text_field :city %>
+    <br>State: <%= form.text_field :state %>
+    <br>Zip: <%= form.text_field :zip %>
+    <br>Description: <%= form.text_area :description, size: "60x10" %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br><%= form.submit "Save" %>
+
+  <% end %>
+</div>

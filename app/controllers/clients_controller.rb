@@ -5,7 +5,9 @@ class ClientsController < ApplicationController
 
   def index
     @clients = Client.all
-    
+    # @find_clients = Client.search(params[:query])
+    # render 'index'
+
   end
 
   def create

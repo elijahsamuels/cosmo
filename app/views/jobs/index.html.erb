@@ -5,7 +5,9 @@
 <table>
   <thead>
     <tr>
+      <th>Date</th>
       <th>Client</th>
+      <th>Status</th>
       <th>Admin</th>
       <th></th>
     </tr>
@@ -15,8 +17,10 @@
 
 <% @jobs.each.with_index(1) do |job, i| %>
 <tr>
-  <td><%= i %>. <%= link_to job.client.first_name, edit_job_path(job.id) %></a></td>
-  <td> <%= link_to job.admin.first_name, edit_admin_path(job.admin) %> </td>
+  <td><%= i %>. <%= job.datetime_for_job_start %></td>
+  <td><%= link_to job.client.first_name, edit_job_path(job.id) %></a></td>
+  <td><%= job.status.titleize %></td>
+  <td><%= link_to job.admin.first_name, edit_admin_path(job.admin) %></td>
 <%# binding.pry %>
 <% end %>
 </tr>
