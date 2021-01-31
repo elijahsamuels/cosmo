@@ -23,11 +23,8 @@
   <td><%= job.status.titleize %></td>
   <td><%= link_to job.admin.first_name, edit_admin_path(job.admin) %></td>
 
-  <td><%= link_to "Delete", job_path(job.id), data: { method: :delete } %></td>
+  <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
 
-
-
-<%# binding.pry %>
 <% end %>
 </tr>
   </tbody>

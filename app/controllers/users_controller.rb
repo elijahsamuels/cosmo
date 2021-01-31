@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.where(hidden: false)
+
   end
 
   def create
@@ -26,7 +27,19 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
 
+  def hidden
+    @user = User.find(params[:id])
+    @user.hidden = true
+    # flash[:notice] = "#{@user.first_name} was successfully hidden."
+    @user.save
+    redirect_to users_path    
+  end
+  
   def destroy # we don't ever want to delete a user. how to hide a user?   
+    @user = User.find(params[:id])
+    @user.hidden = true
+    flash[:notice] = "#{@user.first_name} was successfully hidden."
+    redirect_to user_path    
   end
 
   private

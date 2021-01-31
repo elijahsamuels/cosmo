@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_175521) do
+ActiveRecord::Schema.define(version: 2021_01_31_053819) do
 
   create_table "admins", force: :cascade do |t|
     t.string "first_name"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_175521) do
     t.string "city"
     t.integer "zip"
     t.string "state"
-    t.string "status"
+    t.string "status", default: "Inquiry"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_175521) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_id"
+    t.boolean "hidden", default: false
     t.index ["admin_id"], name: "index_users_on_admin_id"
   end
 

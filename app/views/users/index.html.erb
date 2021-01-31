@@ -1,2 +1,26 @@
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>
+
+<h3>All Users</h3>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>User</th>
+      <th>Delete</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% @users.each.with_index(1) do |user, i| %>
+<tr>
+  <td><%= i %>. <%= user.first_name %></td>
+
+  <td><%= link_to "Delete", hidden_path(user.id), data: { confirm: "Delete User?"} %></td>
+
+<% end %>
+</tr>
+  </tbody>
+</table>

@@ -29,6 +29,12 @@ class AdminsController < ApplicationController
   end
 
   def destroy # we don't ever want to delete a Admin. how to hide a admin?   
+
+    @admin = Admin.find(params[:id])
+    @admin.hidden = true
+    flash[:notice] = "#{@admin.first_name} was successfully hidden."
+    redirect_to admin_url    
+
   end
 
   private

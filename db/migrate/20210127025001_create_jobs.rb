@@ -8,7 +8,7 @@ class CreateJobs < ActiveRecord::Migration[6.1]
       t.string :city
       t.integer :zip
       t.string :state
-      t.string :status
+      t.string :status, :default => "Inquiry"
     
       t.timestamps
     end
