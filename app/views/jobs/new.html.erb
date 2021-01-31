@@ -8,13 +8,16 @@
     <b>Job Info:</b>
     <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']])  %>
     <br>
-    <br>Address 1: <%= form.text_field :address_1 %>
-    <br>Address 2: <%= form.text_field :address_2 %>
-    <br>City: <%= form.text_field :city %>
-    <br>State: <%= form.text_field :state %>
-    <br>Zip: <%= form.text_field :zip %>
-    <br>Description: <%= form.text_area :description, size: "60x10" %>
-    <br>
+    <br><%= form.date_field :job_start_datetime, min: Date.today %>
+    <br><%= form.text_field :address_1, placeholder:"Address 1" %>
+    <br><%= form.text_field :address_2, placeholder:"Address 2" %>
+    <br><%= form.text_field :city, placeholder:"City" %>
+    <br><%= form.text_field :state, placeholder:"State" %>
+    <br><%= form.text_field :zip, placeholder:"Zip" %>
+    <br><%= form.text_area :description, placeholder:"Job Description", size: "60x10" %>
+    <br><%= form.hidden_field :admin_id, value: rand(1..10) %>
+    <br><%= form.hidden_field :client_id, value: rand(1..10) %>
+
     <br>
     <br>
     <br>

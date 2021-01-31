@@ -2,7 +2,9 @@ class Client < ApplicationRecord
   belongs_to :admin
   has_many :jobs
   
-  validates :email, presence: true, uniqueness: true
+  # validates :email, :first_name, :last_name, :phone_number, presence: true
+  # validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  # validates :phone_number, length: {minimum: 10, maximum: 15 }
 
   # def datetime_for_job_start
   #   if self.job.job_start_datetime != nil

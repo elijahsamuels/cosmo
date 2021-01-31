@@ -9,6 +9,7 @@
       <th>Client</th>
       <th>Status</th>
       <th>Admin</th>
+      <th>Delete</th>
       <th></th>
     </tr>
   </thead>
@@ -21,6 +22,11 @@
   <td><%= link_to job.client.first_name, edit_job_path(job.id) %></a></td>
   <td><%= job.status.titleize %></td>
   <td><%= link_to job.admin.first_name, edit_admin_path(job.admin) %></td>
+
+  <td><%= link_to "Delete", job_path(job.id), data: { method: :delete } %></td>
+
+
+
 <%# binding.pry %>
 <% end %>
 </tr>

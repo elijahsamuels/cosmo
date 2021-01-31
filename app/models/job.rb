@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
-  belongs_to :admin
-  belongs_to :client
+  belongs_to :admin, optional: true
+  belongs_to :client, optional: true
   has_many :users
 
   def datetime_for_job_start

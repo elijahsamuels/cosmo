@@ -2,19 +2,20 @@
 
 
 <div>
+
   <b>Admin Info:</b>
-  <br><%= @admin.first_name %>
-  <br><%= @admin.email %>
-  <br><%= @admin.phone %>
+  <br><%= @job.admin.first_name %>
+  <br><%= @job.admin.email %>
+  <br><%= @job.admin.phone %>
 </div>
 <br>
 
 <div>
     <b>Client Info:</b>
-    <br>Client: <%= @client.first_name %>
-    <br>Email: <%=  @client.email %>
-    <br>Phone: <%= @client.phone %>
-    <br><%= link_to "Edit Client", edit_client_path(@client.id) %>
+    <br>Client: <%= @job.client.first_name %>
+    <br>Email: <%= @job.client.email %>
+    <br>Phone: <%= @job.client.phone %>
+    <br><%= link_to "Edit Client", edit_client_path(@job.client.id) %>
 </div>
 <br>
 
@@ -22,7 +23,9 @@
 <div>
   <%= form_with model: @job do |form| %>
     <b>Job Info:</b>
-    <br>Status: <%= form.text_field :status %>
+
+  <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']], @job.status)  %>
+
     <br>Date: <%= form.date_select :job_start_datetime, order: [:day, :month, :year] %>
     <br>
     <br>Address 1: <%= form.text_field :address_1 %>
@@ -32,12 +35,12 @@
     <br>Zip: <%= form.text_field :zip %>
     <br>Description: <%= form.text_area :description, size: "60x10" %>
     <br>
-    <br>Historical weather average on <%= @job.job_start_datetime %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
+    <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API
     <br>
     <br>Last updated: <%= @job.updated_at.strftime("%B %d, %Y at %I:%M%P") %>
-    <br>Created by <%= @admin.first_name %> on <%= @job.created_at.strftime("%B %d, %Y at %I:%M%P") %>
+    <br>Created by <%= @job.admin.first_name %> on <%= @job.created_at.strftime("%B %d, %Y at %I:%M%P") %>
 
     <br><%= form.submit "Save" %>
 
