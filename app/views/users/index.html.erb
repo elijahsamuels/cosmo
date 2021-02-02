@@ -1,14 +1,15 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
-
-<h3>All Users</h3>
+<h2>All Users</h2>
 <table>
   <thead>
     <tr>
       <th></th>
       <th>User</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>admin</th>
+      <th>client</th>
+      <th>contractor</th>
       <th>Delete</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -16,7 +17,13 @@
 
 <% @users.each.with_index(1) do |user, i| %>
 <tr>
-  <td><%= i %>. <%= user.first_name %></td>
+  <td><%= i %>. </td> 
+  <td><%= link_to user.first_name.concat(" ",user.last_name), user_path(user.id) %></a></td>
+  <td><%= call_to user.phone %></td> 
+  <td><%= mail_to user.email %></td> 
+  <td><%= user.admin? || ""   %></td> 
+  <td><%= user.client %></td> 
+  <td><%= user.contractor %></td> 
 
   <td><%= link_to "Delete", hidden_path(user.id), data: { confirm: "Delete User?"} %></td>
 

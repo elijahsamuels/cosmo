@@ -1,0 +1,12 @@
+<div>
+  <h2>Clients</h2>
+  <br>
+  <% c = User.find_by_id(params[:id]).clients %>
+  <% c.each.with_index(1) do |client, i| %>
+
+  <br><%= i %>. <%= link_to client.first_name.concat(" ",client.last_name), user_path(client.id) %> |
+  <%= call_to client.phone %> |
+  <%= mail_to client.email %>
+  <% end %>
+
+</div>

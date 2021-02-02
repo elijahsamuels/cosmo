@@ -1,6 +1,8 @@
 class JobsController < ApplicationController
   def new
     @job = Job.new
+    # @job.build_client
+
   end
 
   def index
@@ -9,15 +11,8 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
-    if @job.valid?
-      @job.save
-      # binding.pry
-      redirect_to job_path(@job)
-    else
-      # binding.pry
-      "oh dear..."
-    end
-    # redirect_to job_path(@job)
+    @job.save
+    redirect_to job_path(@job)
   end
 
   def show
@@ -32,7 +27,6 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     if @job.valid?
       @job.update(job_params)
-      # binding.pry
       flash[:notice] = "Save confirmed."
       redirect_to edit_job_path(@job)
     else
@@ -52,12 +46,24 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:address_1, :address_2, :city, :state, :zip, :description, :status, :admin_id, :client_id, :job_start_datetime) # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
+    params.require(:job).permit!#(:address_1, :address_2, :city, :state, :zip, :description, :status, :admin_id, :client_id, :client, :job_start_datetime) # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
   def date_current
     DateTime.current
   end
+
+  def list_users_for_job
+     # if user is present?
+      # list user atts
+  # elsif user == nil
+    # "no user selected"
+  end
+
+  # u = Job.all
+  # u = job.job_users
+  # u.find_by(params[:id]).user.first_name 
+
 
 
   # def start_date

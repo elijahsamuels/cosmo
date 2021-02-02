@@ -10,38 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_053819) do
+ActiveRecord::Schema.define(version: 2021_02_01_192827) do
 
-  create_table "admins", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.integer "phone", limit: 15
+  create_table "businesses", force: :cascade do |t|
+    t.string "name"
     t.string "address_1"
     t.string "address_2"
     t.string "city"
     t.integer "zip"
     t.string "state"
+    t.string "mailing_address_1"
+    t.string "mailing_address_2"
+    t.string "mailing_city"
+    t.integer "mailing_zip"
+    t.string "mailing_state"
+    t.string "url"
+    t.string "email"
+    t.string "phone", limit: 15
+    t.text "description"
+    t.string "ein"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.integer "phone", limit: 15
-    t.string "address_1"
-    t.string "address_2"
-    t.string "city"
-    t.integer "zip"
-    t.string "state"
+  create_table "job_users", id: false, force: :cascade do |t|
+    t.bigint "job_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "admin_id"
-    t.integer "job_id"
-    t.index ["admin_id"], name: "index_clients_on_admin_id"
-    t.index ["job_id"], name: "index_clients_on_job_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -53,30 +49,49 @@ ActiveRecord::Schema.define(version: 2021_01_31_053819) do
     t.integer "zip"
     t.string "state"
     t.string "status", default: "Inquiry"
+    t.text "description"
+    t.integer "total_amount"
+    t.integer "deposit"
+    t.integer "balance"
+    t.integer "tax_rate"
+    t.datetime "deposit_date"
+    t.datetime "paid_date"
+    t.datetime "due_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "admin_id"
-    t.integer "client_id"
-    t.text "description"
-    t.index ["admin_id"], name: "index_jobs_on_admin_id"
-    t.index ["client_id"], name: "index_jobs_on_client_id"
+  end
+
+  create_table "user_relationships", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.integer "phone", limit: 15
+    t.string "phone", limit: 15
     t.string "address_1"
     t.string "address_2"
     t.string "city"
     t.integer "zip"
     t.string "state"
+    t.string "ssn"
+    t.boolean "admin", default: false
+    t.boolean "client", default: false
+    t.boolean "contractor", default: false
+    t.integer "admin_id"
+    t.integer "client_id"
+    t.integer "contractor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "admin_id"
     t.boolean "hidden", default: false
     t.index ["admin_id"], name: "index_users_on_admin_id"
+    t.index ["client_id"], name: "index_users_on_client_id"
+    t.index ["contractor_id"], name: "index_users_on_contractor_id"
   end
 
+  add_foreign_key "users", "users", column: "admin_id"
+  add_foreign_key "users", "users", column: "client_id"
+  add_foreign_key "users", "users", column: "contractor_id"
 end

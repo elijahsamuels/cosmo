@@ -9,7 +9,15 @@ class CreateJobs < ActiveRecord::Migration[6.1]
       t.integer :zip
       t.string :state
       t.string :status, :default => "Inquiry"
-    
+      t.text :description
+      t.integer :total_amount
+      t.integer :deposit
+      t.integer :balance
+      t.integer :tax_rate
+      t.datetime :deposit_date
+      t.datetime :paid_date
+      t.datetime :due_date
+
       t.timestamps
     end
   end

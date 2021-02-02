@@ -1,2 +1,24 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div>
+  <h2>User Info:</h2>
+
+  <table>
+    <tbody>
+      <tr><td>Name: <%= @user.first_name %> <%= @user.last_name %></td></tr>
+      <tr><td>Phone: <%= call_to @user.phone %></td></tr>
+      <tr><td>Email: <%= mail_to @user.email %></td></tr>
+      <tr><td>Address 1: <%= @user.address_1 %></td></tr>
+      <tr><td>Address 2: <%= @user.address_2 %></td></tr>
+      <tr><td>City: <%= @user.city %></td></tr>
+      <tr><td>Zip: <%= @user.zip %></td></tr>
+      <tr><td>State: <%= @user.state %></td></tr>
+      <tr><td>SSN: <%= @user.ssn %></td></tr>
+      <tr><td>Admin: <%= @user.admin %></td></tr>
+      <tr><td>Contractor: <%= @user.contractor %></td></tr>
+      <tr><td>Client: <%= @user.client %></td></tr>
+      <td><%= link_to "Edit", edit_user_path %></td>
+    </tbody>
+  </table>
+</div>
+
+
+<%= render partial: 'show_clients' %>

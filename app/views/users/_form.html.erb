@@ -1,0 +1,22 @@
+<h2>User Info:</h2>
+
+<%= form_with model: @user do |form| %>
+
+  <p>First Name: <%= form.text_field :first_name %></p>
+  <p>Last Name: <%= form.text_field :last_name %></p>
+  <p>Phone: <%= form.text_field :phone %></p>
+  <p>Email: <%= form.text_field :email %></p>
+  <p>Address 1: <%= form.text_field :address_1 %></p>
+  <p>Address 2: <%= form.text_field :address_2 %></p>
+  <p>City: <%= form.text_field :city %></p>
+  <p>State: <%= form.text_field :state %></p>
+  <p>Zip: <%= form.text_field :zip %></p>
+  <p>SSN: <%= form.text_field :ssn %></p>
+  <p>Admin: <%= form.check_box :admin %></p>
+  <p>Client: <%= form.check_box :client %></p>
+  <p>Contractor: <%= form.check_box :contractor %></p>
+
+  <%= form.submit "Save" %>
+
+<% end %>
+
