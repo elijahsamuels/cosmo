@@ -18,6 +18,7 @@
 <% @users.each.with_index(1) do |user, i| %>
 <tr>
   <td><%= i %>. </td> 
+  <%# byebug %>
   <td><%= link_to user.first_name.concat(" ",user.last_name), user_path(user.id) %></a></td>
   <td><%= call_to user.phone %></td> 
   <td><%= mail_to user.email %></td> 

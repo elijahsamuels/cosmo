@@ -51,17 +51,20 @@ end
 end
 
 10.times do
-  first_name = Faker::Name.unique.first_name
-  last_name = Faker::Name.unique.last_name
-  email = Faker::Internet.email
-  address_1 = Faker::Address.street_address
-  address_2 = Faker::Address.secondary_address
-  city = Faker::Address.city
-  zip = Faker::Address.zip
-  state = Faker::Address.state
-  phone = Faker::PhoneNumber.cell_phone
-  ssn = Faker::IDNumber.valid
-
-  User.create(first_name: first_name, last_name: last_name, email: email, address_1: address_1, address_2: address_2, city: city, zip: zip, state: state, phone: phone, ssn: ssn)
+  user = User.new(
+    first_name: Faker::Name.unique.first_name,
+    last_name: Faker::Name.unique.last_name,
+    email: Faker::Internet.email,
+    password: "123456",
+    address_1: Faker::Address.street_address,
+    address_2: Faker::Address.secondary_address,
+    city: Faker::Address.city,
+    zip: Faker::Address.zip,
+    state: Faker::Address.state,
+    phone: Faker::PhoneNumber.cell_phone,
+    ssn: Faker::IDNumber.valid
+  )
+  user.save!
+  # User.create(first_name: first_name, last_name: last_name)
   # binding.pry
 end

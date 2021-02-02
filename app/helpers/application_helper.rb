@@ -1,12 +1,16 @@
 module ApplicationHelper
 
-  def logged_in?
-    !!current_user # returns true if the user is logged in
-  end
+  # user_signed_in? - from devise. returns true or false if user has been signed in and a session exist for that user.
 
-  def current_user # checks to see user_id is true before hitting DB.
-    @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
-  end
+  # def logged_in?
+  #   !!current_user # returns true if the user is logged in
+  # end
+    
+  # current_user - from devise. returns the Current user object, nil if there is no current_user
+  
+  # def current_user # checks to see user_id is true before hitting DB.
+  #   @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+  # end
 
   def call_to(phone_number)
     phone_number = number_to_phone(phone_number)
