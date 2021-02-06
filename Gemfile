@@ -27,10 +27,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'omniauth' 
 gem 'omniauth-google-oauth2'
-gem 'devise'
+gem 'omniauth-rails_csrf_protection' #new update of omniauth takes care of this... for the most part
+# gem 'devise'
 # gem 'omniauth-facebook'
 # gem 'omniauth-twitter'
-# gem 'omniauth-rails_csrf_protection' #new update of omniauth takes care of this... for the most part
 
 
 

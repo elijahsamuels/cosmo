@@ -3,9 +3,9 @@
 
   <table>
     <tbody>
-      <tr><td>Name: <%= @user.first_name %> <%= @user.last_name %></td></tr>
+      <tr><td>Name: <%= @user.first_name.titleize %> <%= @user.last_name.titleize %></td></tr>
       <tr><td>Phone: <%= call_to @user.phone %></td></tr>
-      <tr><td>Email: <%= mail_to @user.email %></td></tr>
+      <tr><td>Email: <%= mail_to @user.email.downcase %></td></tr>
       <tr><td>Address 1: <%= @user.address_1 %></td></tr>
       <tr><td>Address 2: <%= @user.address_2 %></td></tr>
       <tr><td>City: <%= @user.city %></td></tr>
@@ -19,6 +19,3 @@
     </tbody>
   </table>
 </div>
-
-
-<%= render partial: 'show_clients' %>

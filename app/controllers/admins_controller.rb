@@ -1,12 +1,18 @@
 class AdminsController < ApplicationController
+  
   def new
     @admin = Admin.new
   end
 
+  # filters the views of all the clients or just the admin's clients
   def index
-    @admins = Admin.all
-    # @jobs = Job.all
-    # @clients = Client.all
+    current_user
+    if params[:user_id].present?
+      @clients = User.find_by_id(current_user).clients
+      @jobs = User.find_by_id(current_user).job_users
+    elsif !params[:user_id].present?
+      @clients = User.all
+    end
   end
 
   def create

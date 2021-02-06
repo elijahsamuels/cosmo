@@ -1,7 +1,10 @@
-<h2>User Info:</h2>
+<h1>contractors#edit</h1>
+<p>Find me in app/views/contractors/edit.html.erb</p>
 
-<%= form_with model: @user do |form| %>
 
+<h2>Contractor Info:</h2>
+
+<%= form_with model: @contractor do |form| %>
   <p>First Name: <%= form.text_field :first_name %></p>
   <p>Last Name: <%= form.text_field :last_name %></p>
   <p>Phone: <%= form.text_field :phone %></p>
@@ -11,13 +14,7 @@
   <p>City: <%= form.text_field :city %></p>
   <p>State: <%= form.text_field :state %></p>
   <p>Zip: <%= form.text_field :zip %></p>
-  <p>SSN: <%= form.text_field :ssn %></p>
-  <p>Password: <%= form.text_field :password %></p>
-  <p>Admin: <%= form.check_box :admin %></p>
-  <p>Client: <%= form.check_box :client %></p>
-  <p>Contractor: <%= form.check_box :contractor %></p>
 
   <%= form.submit "Save" %>
 
 <% end %>
-

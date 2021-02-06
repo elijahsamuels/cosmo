@@ -1,12 +1,25 @@
 <div>
-  <h2>Clients</h2>
+
+<table class="table table-striped table-hover">
+  <tr>
+    <th>Client</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Other 1</th>
+    <th>Other 2</th>
+    <th>Other 3</th>
+    <th>Other 4</th>
+  </tr>
+
   <br>
   <% c = User.find_by_id(params[:id]).clients %>
   <% c.each.with_index(1) do |client, i| %>
+ <tr>
 
-  <br><%= i %>. <%= link_to client.first_name.concat(" ",client.last_name), user_path(client.id) %> |
-  <%= call_to client.phone %> |
-  <%= mail_to client.email %>
+  <td><%= i %>. <%= link_to client.first_name.concat(" ",client.last_name).titleize, user_path(client.id) %></td>
+  <td><%= call_to client.phone %></td>
+  <td><%= mail_to client.email %></td>
   <% end %>
 
+</table>
 </div>

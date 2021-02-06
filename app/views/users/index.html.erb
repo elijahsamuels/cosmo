@@ -9,7 +9,8 @@
       <th>admin</th>
       <th>client</th>
       <th>contractor</th>
-      <th>Delete</th>
+      <th>Delete(Hidden)</th>
+      <th>Delete(True Delete)</th>
     </tr>
   </thead>
 
@@ -18,15 +19,16 @@
 <% @users.each.with_index(1) do |user, i| %>
 <tr>
   <td><%= i %>. </td> 
-  <%# byebug %>
-  <td><%= link_to user.first_name.concat(" ",user.last_name), user_path(user.id) %></a></td>
+  <td><%= link_to user.first_name.concat(" ",user.last_name).titleize, user_path(user.id) %></a></td>
   <td><%= call_to user.phone %></td> 
-  <td><%= mail_to user.email %></td> 
-  <td><%= user.admin? || ""   %></td> 
+  <td><%= mail_to user.email.downcase %></td> 
+  <td><%= user.admin%></td>  ? || ""   
   <td><%= user.client %></td> 
   <td><%= user.contractor %></td> 
 
   <td><%= link_to "Delete", hidden_path(user.id), data: { confirm: "Delete User?"} %></td>
+  <td><%= link_to "Delete", user_path(user.id), data: { confirm: "Delete User?"}, method: :delete %></td>
+
 
 <% end %>
 </tr>

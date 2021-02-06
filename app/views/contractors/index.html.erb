@@ -1,0 +1,36 @@
+<h3>All Contractors</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Contractor Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Job Date</th>
+      <th>Job Link</th>
+      <th>Something</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% @contractors.each.with_index(1) do |contractor, i| %>
+<tr>
+  <td><%= i %>. <%= link_to contractor.first_name.concat(" ", contractor.last_name), edit_contractor_path(contractor.id) %></a></td>
+  <td> <%= call_to contractor.phone %> </td>
+  <td> <%= mail_to contractor.email %> </td>
+  <td> <%= link_to "Date" %> </td>
+  <td> <%= link_to "Job Link" %> </td>
+  <%# byebug %>
+  <td> <%= link_to contractor.job_users %> </td> <!-- this is breaking -->
+  <td> <%# link_to contractor.admin.first_name, admin_path(contractor.id) %> </td>
+<% end %>
+
+<% %>
+
+
+</tr>
+  </tbody>
+</table>
+
+
+

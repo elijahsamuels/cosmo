@@ -3,22 +3,30 @@
 
 <div>
 
-  <b>Admin Info:</b>
-  <br><%# @job.admin.first_name %>
-  <br><%# @job.admin.email %>
-  <br><%# @job.admin.phone %>
+  <b>Admin Info:</b> <!-- this will break is admin_id of Jobs is nil -->
+  <br><%= admin_of_job.first_name %><%= admin_of_job.last_name %>
+  <br><%= link_to admin_of_job.email %>
+  <br><%= call_to admin_of_job.phone %>
 </div>
 <br>
 
 <div>
     <b>Client Info:</b>
-    <br>Client: <%= @job.job_users[0].user.first_name %>
-    <br>Email: <%= @job.job_users[0].user.email %>
-    <br>Phone: <%= @job.job_users[0].user.phone %>
+    <br><%= @job.job_users[0].user.first_name %> <%= @job.job_users[0].user.last_name %>
+    <br><%= call_to @job.job_users[0].user.phone %>
+    <br><%= mail_to @job.job_users[0].user.email %>
     <br><%# link_to "Edit Client", edit_client_path(@job.client.id) %>
 </div>
 <br>
+https://www.google.com/maps/place/80231
+<div>
 
+  <b>Contactor Team:</b>
+  <td><% all_contractors(@job).each do |c| %></td>
+  <br><td><%= link_to c.first_name.concat(" ", c.last_name), edit_contractor_path(c.id) %></td>
+  <% end %>
+</div>
+<br>
 
 <div>
   <%= form_with model: @job do |form| %>

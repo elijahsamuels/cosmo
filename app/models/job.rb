@@ -6,6 +6,9 @@ class Job < ApplicationRecord
   has_many :job_users
   has_many :users, through: :job_users
 
+  # has_many :users
+  # has_many :job_users, through: :users
+
   # NEED TO MOVE THIS
   def datetime_for_job_start
     if self.job_start_datetime.present?
@@ -16,3 +19,5 @@ class Job < ApplicationRecord
   end
 
 end
+
+

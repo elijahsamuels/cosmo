@@ -1,6 +1,6 @@
 class JobUser < ApplicationRecord
 
   belongs_to :user
-  belongs_to :jobs
+  belongs_to :job
 
 end

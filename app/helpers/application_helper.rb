@@ -1,16 +1,28 @@
 module ApplicationHelper
 
-  # user_signed_in? - from devise. returns true or false if user has been signed in and a session exist for that user.
+  def admin_access
+    unless current_user.admin?
+      flash[:error] = "You don't have permissions for that section."
+      redirect_to root_path # halts request cycle
+    end
 
-  # def logged_in?
-  #   !!current_user # returns true if the user is logged in
-  # end
-    
-  # current_user - from devise. returns the Current user object, nil if there is no current_user
-  
-  # def current_user # checks to see user_id is true before hitting DB.
-  #   @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
-  # end
+  end
+
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in for that section."
+      redirect_to root_path # halts request cycle
+    end
+  end
+
+  def logged_in?
+    !!current_user # returns true if the user is logged in
+  end
+      
+  def current_user # checks to see user_id is true before hitting DB.
+    @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+  end
 
   def call_to(phone_number)
     phone_number = number_to_phone(phone_number)

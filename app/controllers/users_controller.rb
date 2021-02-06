@@ -1,16 +1,26 @@
 class UsersController < ApplicationController
+
+  before_action :require_login
+  before_action :admin_access
+
   def new
     @user = User.new
   end
 
+  def create 
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    else
+      @error = @user.errors.full_messages
+      render :signup
+    end 
+  end
+
   def index
     @users = User.where(hidden: false)
-    # @users = User.all 
-  end
-  
-  def create
-    @user = User.find_or_create_by(user_params)
-    redirect_to user_path(@user)
+    # @users = User.all
   end
   
   def show
@@ -30,9 +40,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.hidden = true
-    flash[:notice] = "#{@user.first_name} was successfully hidden."
-    redirect_to user_path    
+    @user.delete
+    flash[:notice] = "#{@user.first_name} is really destroyed!"
+    redirect_to users_path    
   end
   
   def hidden
@@ -47,12 +57,12 @@ class UsersController < ApplicationController
   def self.user_clients_list
     c = User.find_by_id(params[:id]).clients
     c.each.collect do |a| a.first_name end
-      end
+  end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name.downcase, :last_name.downcase, :phone, :email.downcase, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor)
+    params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor)
   end
 
 

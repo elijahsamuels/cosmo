@@ -1,21 +1,28 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 
-  belongs_to :business, optional: true
+    belongs_to :business, optional: true
+
+    has_many :job_users
+    has_many :jobs, through: :job_users
+
+    # has_many :jobs
+    # has_many :job_users, through: :jobs
   
-  has_many :job_users
-  has_many :jobs, through: :job_users
+    has_many :admins, class_name: 'UserRelationship', foreign_key: :admin_id #needs to be 1st?
+    # has_many :clients, class_name: 'UserRelationship', foreign_key: :admin_id
+    has_many :clients, through: :admins
+    has_many :contractors, through: :admins
+    
+        # has_many :clients, class_name: 'UserRelationship', foreign_key: :client_id #needs to be 2nd?
+        # has_many :admins, through: :clients
 
-  has_many :clients, class_name: 'UserRelationship', foreign_key: :client_id
-  has_many :admins, through: :clients
-
-  has_many :admins, class_name: 'UserRelationship', foreign_key: :admin_id
-  has_many :clients, through: :admins
 
 
+    # has_many :contractors, class_name: 'UserRelationship', foreign_key: :contractor_id
+    # has_many :admins, through: :contractors
+
+    has_secure_password
+    validates :email, uniqueness: true, presence: true
 
   # has_many :contractors, class_name: "UserRelationship", foreign_key: "admin_id"
   

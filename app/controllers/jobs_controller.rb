@@ -1,8 +1,11 @@
 class JobsController < ApplicationController
+
+  before_action :require_login
+  before_action :admin_access
+
   def new
     @job = Job.new
     # @job.build_client
-
   end
 
   def index
@@ -60,14 +63,5 @@ class JobsController < ApplicationController
     # "no user selected"
   end
 
-  # u = Job.all
-  # u = job.job_users
-  # u.find_by(params[:id]).user.first_name 
-
-
-
-  # def start_date
-  #   job_start_datetime
-  # end
 
 end

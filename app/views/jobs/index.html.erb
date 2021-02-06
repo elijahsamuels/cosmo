@@ -1,13 +1,14 @@
+
 <h2>All Jobs</h2>
 <table>
   <thead>
     <tr>
       <th>Date</th>
-      <th>Client</th>
+      <th>Location</th>
       <th>Status</th>
-      <th>Admin</th>
+      <th>Client</th>
+      <th>Team Size</th>
       <th>Delete</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -16,12 +17,24 @@
 <% @jobs.each.with_index(1) do |job, i| %>
 <tr>
   <td><%= i %>. <%= job.datetime_for_job_start %></td>
-  <td><%= link_to job.job_users[0].user.first_name, edit_job_path(job.id) %></td>
-
-  
-  <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
+  <td><%= link_to job.city, "https://www.google.com/maps/place/#{job.zip}" %>, <%= job.state %></td>
   <td><%= job.status.titleize %></td>
-  <td><% u = job.job_users %><%= mail_to u.find_by(params[:id]).user.email, u.find_by(params[:id]).user.first_name %></td>
+  <td><%# link_to job.job_users.client, edit_job_path(job.id) %></td>
+  <%# binding.pry%>
+
+  <td><%= client_of_job.client_id %></td>
+
+  <%# list the users associtated with the job. %>
+  <%# job.job_users gives us the array of associations  %>
+  <%#  take the job_users id and have this be the Find_by id for the User name %>
+  <%# Job.find(1).job_users.map(&:user) %>
+
+  <%# Job.find(1).job_users.map(&:user).each { |a| a.admin_id = 2 }  %>
+  <%#   %>
+
+
+
+  <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
 
   <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
 
@@ -32,3 +45,4 @@
 
 
 <%# @job.job_users[0].user %>
+  <td><%# link_to job.job_users[0].user.first_name, edit_job_path(job.id) %></td>
