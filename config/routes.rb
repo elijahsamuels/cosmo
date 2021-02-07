@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root "sessions#main"
 
   get '/users/:id/hidden', to: 'users#hidden', as: 'hidden'
+  # post '/users/:id/clients/:id/new', to: 'clients#edit'
 
   resources :businesses
   resources :users do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
   resources :contractors, through: :users
   resources :admins, through: :users
   resources :jobs
+
 
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]
 

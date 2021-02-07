@@ -7,20 +7,33 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create 
+  def create
     @user = User.new(user_params)
-    if @user.save
-      session[:user_id] = @user.id
-      redirect_to user_path(@user)
+    if @current_user.admin?
+      if @user.save
+        # session[:user_id] = @user.id
+        binding.pry
+        redirect_to user_path
+      else
+        @error = @user.errors.full_messages
+        binding.pry
+        render new_user_path
+      end 
     else
-      @error = @user.errors.full_messages
-      render :signup
-    end 
+      if @user.save
+        session[:user_id] = @user.id
+        binding.pry
+        redirect_to user_path(@user)
+      else
+        @error = @user.errors.full_messages
+        binding.pry
+        render new_user_path
+      end 
+    end
   end
 
   def index
     @users = User.where(hidden: false)
-    # @users = User.all
   end
   
   def show
@@ -62,7 +75,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor)
+    params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor, :admin_id, :client_id, :contractor_id,)
   end
 
 

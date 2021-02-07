@@ -3,10 +3,17 @@ class ClientsController < ApplicationController
   before_action :require_login
   before_action :admin_access
 
+  # new_user_client_path
   def new
     @client = User.new
   end
-   
+  
+  def create
+    @client = User.find_or_create_by(id: @client)
+    binding.pry
+    redirect_to client_path(@client)
+  end
+
   def index
     if params[:user_id].present?
       @clients = User.find_by_id(current_user).clients
@@ -18,27 +25,12 @@ class ClientsController < ApplicationController
     end
   end
 
-  
-  def create
-    @client = User.find_or_create_by(client_params)
-    redirect_to client_path(@client)
-  end
-
-  # @user = User.new(user_params)
-  # if @user.save
-  #   session[:user_id] = @user.id
-  #   redirect_to user_path(@user)
-  # else
-  #   @error = @user.errors.full_messages
-  #   render :signup
-  # end 
-
   def show
-    @client = User.find(params[:id])
+    @client = User.find_by_id(params[:id])
   end
 
   def edit
-    @client = User.find(params[:id])
+    @client = User.find_by_id(params[:id])
     render "edit"
   end
   

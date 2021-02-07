@@ -1,2 +1,33 @@
 <h1>Clients#new</h1>
 <p>Find me in app/views/clients/new.html.erb</p>
+
+<h2>Client Info:</h2>
+
+
+<%# form_with model: @client do |form| %>
+<%= form_for @client, url: "/users/:user_id/clients", method: :post do |form| %>
+	<p>First Name: <%= form.text_field :first_name %></p>
+	<p>Last Name: <%= form.text_field :last_name %></p>
+	<p>Phone: <%= form.text_field :phone %></p>
+	<p>Email: <%= form.text_field :email %></p>
+	<p>Address 1: <%= form.text_field :address_1 %></p>
+	<p>Address 2: <%= form.text_field :address_2 %></p>
+	<p>City: <%= form.text_field :city %></p>
+	<p>State: <%= form.text_field :state %></p>
+	<p>Zip: <%= form.text_field :zip %></p>
+
+
+	<%= form.hidden_field :admin_id, :value => current_user.id %>
+	<%# form.hidden_field :client, :value => true %>
+
+<%# assign the admin_id of current_user if current_user.admin? %>
+<%# else %>
+<%# assign a random number between the min and max of admin.count %>
+<%# end %>
+
+	<%= form.submit "Save" %>
+
+<%# binding.pry %>
+<% end %>
+
+	<%# hidden_field :job, value: current_user %>
