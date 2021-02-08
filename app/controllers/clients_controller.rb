@@ -19,7 +19,6 @@ class ClientsController < ApplicationController
       @clients = User.find_by_id(current_user).clients
       @jobs = User.find_by_id(current_user).job_users
       # redirect_to user_clients_path(current_user)
-
     elsif !params[:user_id].present?
       @clients = User.all
     end

@@ -38,4 +38,17 @@ module ApplicationHelper
     end
   end
 
+    # QUESTION - How can I iterate through "status" so it's not making 6 different calls?
+  def admin_stats
+    @total_number_of_jobs = Job.where(admin_id: current_user.id).count
+    @total_number_of_inquiries = Job.where(status: "Inquiry").and(Job.where(admin_id: current_user.id)).count
+    @total_number_of_tentative = Job.where(status: "Tentative").and(Job.where(admin_id: current_user.id)).count
+    @total_number_of_completed = Job.where(status: "Completed").and(Job.where(admin_id: current_user.id)).count
+    @total_number_of_confirmed = Job.where(status: "Confirmed").and(Job.where(admin_id: current_user.id)).count
+    @total_number_of_postponed = Job.where(status: "Postponed").and(Job.where(admin_id: current_user.id)).count
+    @total_number_of_cancelled = Job.where(status: "Cancelled").and(Job.where(admin_id: current_user.id)).count
+  end
+
+
+
 end

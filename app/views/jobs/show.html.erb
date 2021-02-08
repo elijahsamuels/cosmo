@@ -1,8 +1,6 @@
 <h1>Jobs#show</h1>
 <p>Find me in app/views/jobs/show.html.erb</p>
-
 <br>
-
 <div>
 
     <b>Job Info:</b>
@@ -16,9 +14,14 @@
     <br>Zip: <%= @job.zip %>
     <br>Description: <%= @job.description %>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
 </div>
+
+
+<h1><%# @user.first_name %></h1>
+
+<p><%# @user.email %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_job_path(@job) %></li>
+  <li><%= link_to "Destroy", job_path(@job), method: :delete, data: { confirm: "Are you sure?" } %></li>
+</ul>

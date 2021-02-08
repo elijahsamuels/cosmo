@@ -1,5 +1,10 @@
+<%# show the jobs based on the current_user.id %>
+<h2>All Jobs for <%= current_user.first_name %></h2>
 
-<h2>All Jobs</h2>
+<% if current_user.admin?%>
+<%= render partial: '/admins/admin_stats' %>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -16,8 +21,8 @@
 
 <% @jobs.each.with_index(1) do |job, i| %>
 <tr>
-  <td><%= i %>. <%= job.datetime_for_job_start %></td>
-  <td><%= link_to job.city, "https://www.google.com/maps/place/#{job.zip}" %>, <%= job.state %></td>
+  <td><%= i %>. <% job.datetime_for_job_start %></td>
+  <td><%= link_to job.city, "https://www.google.com/maps/place/#{job.zip}", target: :_blank %>, <%= job.state %></td>
   <td><%= job.status.titleize %></td>
   <td><%# link_to job.job_users.client, edit_job_path(job.id) %></td>
   <%# binding.pry%>

@@ -2,29 +2,34 @@
 
 
 <div>
-
   <b>Admin Info:</b> <!-- this will break is admin_id of Jobs is nil -->
-  <br><%= admin_of_job.first_name %><%= admin_of_job.last_name %>
-  <br><%= link_to admin_of_job.email %>
-  <br><%= call_to admin_of_job.phone %>
+  <br><%= admin_of_job.first_name.to_s %> <%= admin_of_job.last_name.to_s %>
+  <br><%= link_to admin_of_job.email.to_s %>
+  <br><%= call_to admin_of_job.phone.to_s %>
 </div>
 <br>
 
 <div>
     <b>Client Info:</b>
-    <br><%= @job.job_users[0].user.first_name %> <%= @job.job_users[0].user.last_name %>
-    <br><%= call_to @job.job_users[0].user.phone %>
-    <br><%= mail_to @job.job_users[0].user.email %>
+    <%# binding.pry %>
+    <br> <%= @client.first_name.to_s %> <%= @client.last_name.to_s %>    
+    <br> <%= call_to @client.phone.to_s %>    
+    <br> <%= mail_to @client.email.to_s %>    
+    <br>
+    <br>
+    <br>
+    <br><%# @job.job_users[0].user.first_name.to_s %> <%# @job.job_users[0].user.last_name.to_s %>
+    <br><%# call_to @job.job_users[0].user.phone.to_s %>
+    <br><%# mail_to @job.job_users[0].user.email.to_s %>
     <br><%# link_to "Edit Client", edit_client_path(@job.client.id) %>
 </div>
 <br>
-https://www.google.com/maps/place/80231
 <div>
 
   <b>Contactor Team:</b>
-  <td><% all_contractors(@job).each do |c| %></td>
-  <br><td><%= link_to c.first_name.concat(" ", c.last_name), edit_contractor_path(c.id) %></td>
-  <% end %>
+  <td><%# all_contractors(@job).each do |c| %></td>
+  <br><td><%# link_to c.first_name.to_s.concat(" ", c.last_name.to_s), edit_contractor_path(c.id) %></td>
+  <%# end %>
 </div>
 <br>
 
@@ -42,6 +47,10 @@ https://www.google.com/maps/place/80231
     <br>Zip: <%= form.text_field :zip %>
     <br>Description: <%= form.text_area :description, size: "40x20" %>
     <br>
+    <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
+
+
+
     <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API

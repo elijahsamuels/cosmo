@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :businesses
   resources :users do
-    resources :clients, :admins, :contractors
+    resources :clients, :admins, :contractors, :jobs
   end
 
   resources :clients, through: :users
@@ -18,10 +18,12 @@ Rails.application.routes.draw do
 
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]
 
-  get '/login', to: 'sessions#new'
   post '/session', to: 'sessions#create', as: 'session'
   delete '/session', to: 'sessions#destroy', as: 'logout'
-
+  get '/signup', to: "users#new"
+  post '/signup', to: "users#create"
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
