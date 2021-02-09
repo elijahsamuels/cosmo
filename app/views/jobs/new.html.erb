@@ -1,34 +1,46 @@
-<h1>Jobs#new</h1>
-<p>Find me in app/views/jobs/new.html.erb</p>
+<h1>New Inquiry & Client</h1>
 
 <br>
-
 <div>
-  <%= form_with model: @job do |form| %>
-    <b>Job Info:</b>
-    <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']])  %>
-    <br>
-    <br><%= form.date_field :job_start_datetime, min: Date.today %>
-    <br><%= form.text_field :address_1, placeholder:"Address 1" %>
-    <br><%= form.text_field :address_2, placeholder:"Address 2" %>
-    <br><%= form.text_field :city, placeholder:"City" %>
-    <br><%= form.text_field :state, placeholder:"State" %>
-    <br><%= form.text_field :zip, placeholder:"Zip" %>
-    <br><%= form.text_area :description, placeholder:"Please tell us a bit about the job.", size: "60x10" %>
-    <br><%# form.hidden_field :admin_id, value: rand(1..10) %>
-    <br><%# form.hidden_field :client_id, value: rand(1..10) %>
-    <br>
-      <div>
-      <%= form.hidden_field :admin_id, :value => current_user.id || rand[1..4] %>
-      <%= form.hidden_field :client_id, :value => current_user.id %>
-      <%= form.hidden_field :id, :value => @job.id %>
-      </div>
-      
-    <br><%# form.text_field :client %>
-    <br>
+user form
+this user needs to be associtated with this job
+
+<%= form_for @job do |c| %>
+
+ <br><%= c.date_field :job_start_datetime, min: Date.today %>
+    <br><%= c.text_field :address_1, placeholder: "Address 1" %>
+    <br><%= c.text_field :address_2, placeholder: "Address 2" %>
+    <br><%= c.text_field :city, placeholder: "City" %>
+    <br><%= c.text_field :state, placeholder: "State" %>
+    <br><%= c.text_field :zip, placeholder: "Zip" %>
+    <br><%= c.text_area :description, placeholder: "Please tell us a bit about the job.", size: "60x10" %>
+    <br><%# c.hidden_field :admin_id, value: rand(1..10) %>
+    <br><%# c.hidden_field :client_id, value: rand(1..10) %>
     <br>
 
-    <br><%= form.submit "Save" %>
+    <%= c.hidden_field :admin_id, :value => params[:user_id] || rand[1..4] %>
+    <%= c.hidden_field :client_id, :value => params[:user_id] %> <%# how to set or select a client for this job? %>
 
-  <% end %>
+  <%= c.fields_for :user_attributes do |j| %>
+
+    <% if current_user && current_user.admin?%>
+      <br><%= j.hidden_field :user_id, :value => current_user.id %>
+    <% end %>
+    <br><%= j.label :first_name %><%= j.text_field :first_name %>
+    <br><%= j.label :last_name %><%= j.text_field :last_name %>
+    <br><%= j.label :email %><%= j.text_field :email %>
+
+
+<% end %>
+     
+      <%# j.hidden_field :id, :value => @job.id %>
+
+    <%# j.hidden_field :admin_id, :value => current_user.id %>
+    <%# form.hidden_field :client_id, :value => client_id %>
+    
+
+    <br><%= c.submit  %>
+<% end %>
+
+
 </div>

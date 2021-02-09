@@ -4,26 +4,37 @@ class JobsController < ApplicationController
   # before_action :admin_access
 
   def new
-    @job = Job.new
+    @user = User.new
+    @job = @user.jobs.new
+    # @client = User.new
+    # @job = @client.jobs.build #hows this work?
   end
 
   # create a new job with the user_id attribute so that you can access that job via user/id/jobs/id
   def create
-    @job = Job.new(job_params)
-    # job_id = Job.find(params[:id])
+    @job = Job.create(job_params)
+    if @job.save
+      redirect_to user_job_path(params[:user_id], @job)
+    else
+      render :new #how to render form instead of just new
+    end
+    # @job = Job.new(job_params)
+    # @client = User.new
+    
+    # @job = Job.create(job_params, client_id: @client.id) # this should work for just making a job. no associations
     # @job = @user.jobs.create(job_params)
     # binding.pry
-    @job.save
-    redirect_to job_path(@job)
+
+    # @job.save
+    # redirect_to job_path(@job)
+
     # redirect_to user_job_path(params[current_user.id], @job) #/users/:user_id/jobs/:id(.:format)	
   end
 
-  # def index
-  #   @jobs = Job.all
-  # end
+
+
 
   def index
-
     if params[:user_id].present?
       @jobs = Job.where(admin_id: current_user.id)
     elsif !params[:user_id].present?
@@ -80,8 +91,14 @@ class JobsController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email.downcase, job_attributes: [:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id])
+    # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
+  end
+
   def job_params
-    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id) # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
+    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id, user_attributes: [:first_name, :last_name, :email.downcase, :user_id]) 
+    # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
   def date_current
@@ -94,6 +111,8 @@ class JobsController < ApplicationController
   # elsif user == nil
     # "no user selected"
   end
+
+
 
 
 end

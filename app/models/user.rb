@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_many :job_users
   has_many :jobs, through: :job_users
+  accepts_nested_attributes_for :jobs
+  # validates_associated :jobs
 
   has_many :admins, class_name: 'UserRelationship', foreign_key: :admin_id #needs to be 1st!
   has_many :clients, through: :admins #order matters!. Rails does the relationship automatically! 
@@ -12,7 +14,7 @@ class User < ApplicationRecord
   has_secure_password
   
   validates :email, uniqueness: true, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
-  validates :first_name, :last_name, :phone, presence: true
+  validates :first_name, :last_name, presence: true
 
   
   # has_many :clients, class_name: 'UserRelationship', foreign_key: :admin_id

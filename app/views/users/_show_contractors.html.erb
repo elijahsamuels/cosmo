@@ -2,7 +2,7 @@
   <h2>Contractors</h2>
   <br>
   <% c = User.find_by_id(params[:id]).contractors %>
-  <%= c.collect.each.with_index(1) do |a| a.first_name end %>
+  <%= c.collect.each.with_index(1) { |a| a.first_name } %>
 </div>
 
 

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :clients, through: :users
   resources :contractors, through: :users
   resources :admins, through: :users
-  resources :jobs
+  resources :jobs#, only: [:show, :edit]
 
 
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]

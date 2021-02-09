@@ -13,9 +13,12 @@
   <p>Zip: <%= form.text_field :zip %></p>
   <p>SSN: <%= form.text_field :ssn %></p>
   <p>Password: <%= form.text_field :password, value: "123456" %></p>
-  <p>Admin: <%= form.check_box :admin %></p>
-  <p>Client: <%= form.check_box :client %></p>
-  <p>Contractor: <%= form.check_box :contractor %></p>
+
+  <% if current_user.admin? %>
+    <p>Admin: <%= form.check_box :admin %></p>
+    <p>Client: <%= form.check_box :client %></p>
+    <p>Contractor: <%= form.check_box :contractor %></p>
+  <% end %>
 
   <%= form.submit "Save" %>
 

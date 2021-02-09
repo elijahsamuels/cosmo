@@ -19,6 +19,18 @@ class Job < ApplicationRecord
     end
   end
 
+  def user_attributes=(params)
+    user = User.find_by_id(params[:user_id])
+    if user.admin?
+      client = User.create(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: SecureRandom.hex(10))
+      self.users << client
+    else
+      self.users << user
+    end
+  end
+  
+  
 end
 
+# raise client.inspect
 

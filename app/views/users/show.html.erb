@@ -19,3 +19,32 @@
     </tbody>
   </table>
 </div>
+
+<br>
+<% if @user.client? %>
+List of your jobs
+  <% jobs = Job.where(client_id: @user.id) %>
+  <%# binding.pry %>
+  <% jobs.map.each.with_index(1) do |job, i|%>
+    <br><%= i %>. <%= link_to job.datetime_for_job_start, edit_job_path(job.id) %> <%= job.city.concat(", ", job.state) %>
+      <% if jobs.count == 0  %>
+        <%= "No upcoming jobs." %>
+      <% end %>
+  <% end %>
+<% end %>
+
+<br>
+<br>
+<% if @user.admin? %>
+List of your jobs as an admin
+  <% jobs = Job.where(admin_id: @user.id) %>
+  <% jobs.map.each.with_index(1) do |job, i|%>
+    <br><%= i %>. <%= link_to job.datetime_for_job_start, edit_job_path %> <%= job.city.concat(", ", job.state) %>
+      <% if jobs.count == 0  %>
+        <%= "No upcoming jobs." %>
+      <% end %>
+    <% end %>
+    <%# binding.pry %>
+  <% end %>
+
+

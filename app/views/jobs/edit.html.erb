@@ -12,7 +12,7 @@
 <div>
     <b>Client Info:</b>
     <%# binding.pry %>
-    <br> <%= @client.first_name.to_s %> <%= @client.last_name.to_s %>    
+    <br> <%= link_to @client.first_name.concat(" ", @client.last_name), edit_client_path(@client.id) %>   
     <br> <%= call_to @client.phone.to_s %>    
     <br> <%= mail_to @client.email.to_s %>    
     <br>

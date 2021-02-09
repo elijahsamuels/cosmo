@@ -9,18 +9,20 @@ class ClientsController < ApplicationController
   end
   
   def create
-    @client = User.find_or_create_by(id: @client)
-    binding.pry
-    redirect_to client_path(@client)
+    @client = User.new(params)
+    # @client = User.find_or_create_by(id: @client)
+    @client.save
+    # binding.pry
+    redirect_to user_clients_path(@client, @client.id)
   end
-
+  
   def index
     if params[:user_id].present?
       @clients = User.find_by_id(current_user).clients
       @jobs = User.find_by_id(current_user).job_users
       # redirect_to user_clients_path(current_user)
     elsif !params[:user_id].present?
-      @clients = User.all
+      @clients = User.where(client: true)
     end
   end
 
