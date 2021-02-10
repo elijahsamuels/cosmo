@@ -17,10 +17,13 @@ Migrations are stored as files in the db/migrate directory, one for each migrati
 
 # Form Helpers
 - comes from ActionView::Helpers::FormHelper
+- these are helper methods (form_for, form_with, form_tag, etc...)
 
-## form_for
+`https://guides.rubyonrails.org/form_helpers.html`
 
+## form_for & form_tag (replaced with form_with)
 - soft deprecated since rails 5.1
+
 
 ## form_with
 

@@ -10,7 +10,7 @@ Hello SHOW
 	<br>	<%= p.label :amount, "Suggested Deposit (20%): " %>
 	<br>	<%= p.text_field :amount, placeholder: "#{number_to_currency(@job.total_amount * 0.2)}" %>
 <br>
-    <%= p.hidden_field :user_id, :value => current_user.id %>
+    <%= p.hidden_field :client_id, :value => current_user.id %>
     <%= p.hidden_field :job_id, :value => @job.id %>
 <% end %>
 

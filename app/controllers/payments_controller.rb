@@ -11,17 +11,13 @@ class PaymentsController < ApplicationController
 	def new
 		@payment = Payment.new		#QUESTION: why doesn't @payment have an ID?
 		@job = Job.find(params[:job_id])
-		@payment.job_id = @job.id			#QUESTION: how to refactor these 3 lines? Also, why expose the user.id in a view if you don't have to?
+		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines? Also, why expose the user.id in a view if you don't have to?
 		@payment.admin_id = @job.admin_id
 		@payment.client_id = current_user.id
-		# byebug
 	end
-	
+
 	def create
-		@payment = Payment.new(amount:params[])
-		@job = Job.find_by_id(params[:id])
-		@payment = @job.payment.build
-		
+		@payment = Payment.new(payment_params)
 		byebug
 		if @payment.save
 			redirect_to user_job_path
@@ -55,20 +51,19 @@ class PaymentsController < ApplicationController
 			flash[:notice] = "Payment confirmed."
 			redirect_to payment_path(@payment)
 		else
-			byebug
 			flash[:error] = "Yikes! Problem with payment!"
 			# flash[:error] = @job.errors.full_messages
 			redirect_to payment_path(@payment)
 		end
 	end
-
+	
 	# def destroy # we don't ever want to delete a payment. We can always reverse/refund later   
 	# end
 	
 	private
-
+	
 	def payment_params
-        params.require(:payment).permit! #(:payment_amount, :user_id, :job_id)
+        params.require(:payment).permit(:amount, :client_id, :job_id, job_attributes: [:user_id, :job_id, :client_id])
     end
 
 end

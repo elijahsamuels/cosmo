@@ -1,8 +1,9 @@
 class Payment < ApplicationRecord
 
-	belongs_to :users
-	belongs_to :jobs
-	# belongs_to :businesses
+	belongs_to :users, optional: true
+	belongs_to :jobs, optional: true
+	belongs_to :business, optional: true
 	accepts_nested_attributes_for :jobs
+
 
 end
