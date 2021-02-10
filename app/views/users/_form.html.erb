@@ -1,3 +1,5 @@
+
+
 <h2>User Info:</h2>
 
 <%= form_with model: @user do |form| %>
@@ -14,7 +16,8 @@
   <p>SSN: <%= form.text_field :ssn %></p>
   <p>Password: <%= form.text_field :password, value: "123456" %></p>
 
-  <% if current_user.admin? %>
+  <% if current_user && current_user.admin? %>
+  User type:
     <p>Admin: <%= form.check_box :admin %></p>
     <p>Client: <%= form.check_box :client %></p>
     <p>Contractor: <%= form.check_box :contractor %></p>

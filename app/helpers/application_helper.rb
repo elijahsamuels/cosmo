@@ -5,9 +5,7 @@ module ApplicationHelper
       flash[:error] = "You don't have permissions for that section."
       redirect_to root_path # halts request cycle
     end
-
   end
-
 
   def require_login
     unless logged_in?

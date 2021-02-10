@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :clients, through: :admins #order matters!. Rails does the relationship automatically! 
   has_many :contractors, through: :admins #order matters! Rails does the relationship automatically! 
 
+  has_many :payments
+  
   has_secure_password
   
   validates :email, uniqueness: true, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }

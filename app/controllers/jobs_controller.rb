@@ -55,7 +55,7 @@ class JobsController < ApplicationController
       # @clients = User.find_by_id(current_user).clients
 
   def show
-    @job = Job.find(params[:id])
+    @job = Job.find_by(params[:id])
     @client = User.find_by_id(@job.client_id)
     if current_user.id == @job.admin_id || @job.client_id
       redirect_to edit_job_path(@job) #edit_user_job_path

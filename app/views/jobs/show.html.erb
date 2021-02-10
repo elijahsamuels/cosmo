@@ -13,6 +13,8 @@
     <br>State: <%= @job.state %>
     <br>Zip: <%= @job.zip %>
     <br>Description: <%= @job.description %>
+    <br>Total Amount: <%= number_to_currency(@job.total_amount) %>
+    <br>Make a Payment <%= link_to "payments job_id", new_job_payment_path(@job) %>
     <br>
 </div>
 

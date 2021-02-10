@@ -5,15 +5,25 @@ Rails.application.routes.draw do
   get '/users/:id/hidden', to: 'users#hidden', as: 'hidden'
   # post '/users/:id/clients/:id/new', to: 'clients#edit'
 
-  resources :businesses
-  resources :users do
-    resources :clients, :admins, :contractors, :jobs
-  end
+  # resources :businesses do
+  #   resources :payments, only: [:index, :show, :new, :create ]
+  #   end
+  
 
+  resources :users do
+    resources :clients
+    resources :admins
+    resources :contractors
+    resources :jobs
+    #resources :payments, only: [:index, :show, :new, :create ]
+    end
+  
   resources :clients, through: :users
   resources :contractors, through: :users
   resources :admins, through: :users
-  resources :jobs#, only: [:show, :edit]
+  resources :jobs do #, only: [:show, :edit] 
+    resources :payments #, only: [:index, :show, :new, :create, :edit]
+    end
 
 
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]

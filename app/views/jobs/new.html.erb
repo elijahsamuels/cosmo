@@ -23,9 +23,12 @@ this user needs to be associtated with this job
 
   <%= c.fields_for :user_attributes do |j| %>
 
-    <% if current_user && current_user.admin?%>
-      <br><%= j.hidden_field :user_id, :value => current_user.id %>
-    <% end %>
+    <%# if current_user && current_user.admin?%>
+      <br><%#= j.hidden_field :user_id, :value => current_user.id %>
+    <%# end %>
+    
+    
+    <br><%= j.hidden_field :user_id, :value => current_user.id %>
     <br><%= j.label :first_name %><%= j.text_field :first_name %>
     <br><%= j.label :last_name %><%= j.text_field :last_name %>
     <br><%= j.label :email %><%= j.text_field :email %>

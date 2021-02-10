@@ -5,7 +5,8 @@ class Job < ApplicationRecord
 
   has_many :job_users
   has_many :users, through: :job_users
-
+  has_many :payments
+  
   validates :status, :datetime_for_job_start, :address_1, :city, :state, :zip, presence: true
   # has_many :users
   # has_many :job_users, through: :users

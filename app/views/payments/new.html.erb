@@ -1,0 +1,34 @@
+<%# byebug %>
+
+<% @job %>
+<% @payment %>
+
+
+<%# <%= form_for(@payment) do |form| %> %>
+<%# <%= form_with url: "/jobs/#{@job.id}/payments/", method: :put do |form| %> %>
+<%= form_with url: "/jobs/#{@job.id}/payments/", method: :put do |form| %>
+	<br><%= form.label :amount_due, "Total balance: " %><%= number_to_currency(@job.total_amount) %>
+
+	<br><%= form.label :payment_amount, "Suggested Deposit (20%): " %>
+	<br><%= form.text_field @payment.amount, placeholder: "#{number_to_currency(@job.total_amount * 0.2)}" %></p>
+
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+  <%= form.hidden_field :job_id, :value => @job.id %>
+
+	<br><%= form.submit "Submit Payment" %>
+
+<% end %>
+
+<br>
+<br>
+<br>
+
+<!-- 
+admin sets the total_amount on the job, but the user can edit the paid_amount as a SUM of payment_amounts. This is the SUM of all payment_amounts based on the job_id from the payments table
+
+user submits a payment_amount for the job. This is what they can edit.
+
+when job.paid_amount == total_amount
+
+job.paid_amount == Payments.where(based on the sum of the job_id   )
+-->

@@ -48,9 +48,10 @@
     <br>Description: <%= form.text_area :description, size: "40x20" %>
     <br>
     <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
+    <br>Total Amount: <%= number_to_currency(@job.total_amount) %> <%= link_to "Make a Payment", new_job_payment_path(@job) %>
 
 
-
+    <br>
     <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API

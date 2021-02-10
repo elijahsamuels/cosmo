@@ -1,0 +1,20 @@
+Hello SHOW
+
+<br>
+
+<%= form_for(@job) do |form| %>
+
+	<%= form.label :amount_due, "Amount due: " %><%= number_to_currency(@job.total_amount) %>
+<br>
+	<%= fields_for(@payment) do |p| %>
+	<br>	<%= p.label :amount, "Suggested Deposit (20%): " %>
+	<br>	<%= p.text_field :amount, placeholder: "#{number_to_currency(@job.total_amount * 0.2)}" %>
+<br>
+    <%= p.hidden_field :user_id, :value => current_user.id %>
+    <%= p.hidden_field :job_id, :value => @job.id %>
+<% end %>
+
+	<%= form.submit "Submit Payment" %>
+
+<%# byebug %>
+<% end %>

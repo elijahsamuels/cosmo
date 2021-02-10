@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_06_232153) do
+ActiveRecord::Schema.define(version: 2021_02_09_200436) do
 
   create_table "businesses", force: :cascade do |t|
     t.string "name"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2021_02_06_232153) do
     t.string "status", default: "Inquiry"
     t.text "description"
     t.integer "total_amount"
-    t.integer "deposit"
+    t.integer "amount_paid"
     t.integer "balance"
     t.integer "tax_rate"
     t.datetime "deposit_date"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 2021_02_06_232153) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_id"
     t.integer "client_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "business_id"
+    t.integer "job_id"
+    t.integer "admin_id"
+    t.integer "client_id"
+    t.integer "contractor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_payments_on_admin_id"
+    t.index ["business_id"], name: "index_payments_on_business_id"
+    t.index ["client_id"], name: "index_payments_on_client_id"
+    t.index ["contractor_id"], name: "index_payments_on_contractor_id"
+    t.index ["job_id"], name: "index_payments_on_job_id"
   end
 
   create_table "user_relationships", force: :cascade do |t|
@@ -97,6 +113,11 @@ ActiveRecord::Schema.define(version: 2021_02_06_232153) do
     t.index ["contractor_id"], name: "index_users_on_contractor_id"
   end
 
+  add_foreign_key "payments", "business"
+  add_foreign_key "payments", "jobs"
+  add_foreign_key "payments", "users", column: "admin_id"
+  add_foreign_key "payments", "users", column: "client_id"
+  add_foreign_key "payments", "users", column: "contractor_id"
   add_foreign_key "users", "users", column: "admin_id"
   add_foreign_key "users", "users", column: "client_id"
   add_foreign_key "users", "users", column: "contractor_id"
