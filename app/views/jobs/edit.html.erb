@@ -56,9 +56,24 @@
 <%# add a value to payments for TYPE (refund or %>
 
 
-    <br>Payment History: <% @each_payment.map.each do |p| %>
-      <br><%= number_to_currency(p.amount) %> <%= p.created_at.strftime("%a, %b %d, %Y at %l:%M%P") %> <%= p.payment_type%>
-    <% end %>
+  <h4>Payment History:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <% @each_payment.map.each do |p| %>
+      <tbody>
+        <td><%= p.payment_type.titleize %></td>
+        <td><%= number_to_currency(p.amount) %></td>
+        <td><%= p.created_at.strftime("%a, %b %d, %Y at %l:%M%P") %></td>
+        <% end %>
+      </tbody>
+    </table>
 
     <br>
 
