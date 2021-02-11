@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_02_09_200436) do
 
-  create_table "businesses", force: :cascade do |t|
+  create_table "business", force: :cascade do |t|
     t.string "name"
     t.string "address_1"
     t.string "address_2"

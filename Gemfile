@@ -31,6 +31,7 @@ gem 'omniauth-rails_csrf_protection' #new update of omniauth takes care of this.
 # gem 'devise'
 # gem 'omniauth-facebook'
 # gem 'omniauth-twitter'
+gem "table-for"
 
 
 

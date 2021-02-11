@@ -11,13 +11,9 @@
 
 <div>
     <b>Client Info:</b>
-    <%# binding.pry %>
     <br> <%= link_to @client.first_name.concat(" ", @client.last_name), edit_client_path(@client.id) %>   
     <br> <%= call_to @client.phone.to_s %>    
     <br> <%= mail_to @client.email.to_s %>    
-    <br>
-    <br>
-    <br>
     <br><%# @job.job_users[0].user.first_name.to_s %> <%# @job.job_users[0].user.last_name.to_s %>
     <br><%# call_to @job.job_users[0].user.phone.to_s %>
     <br><%# mail_to @job.job_users[0].user.email.to_s %>
@@ -48,18 +44,28 @@
     <br>Description: <%= form.text_area :description, size: "40x20" %>
     <br>
     <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
-    <br>Total Amount: <%= number_to_currency(@job.total_amount) %> <%= link_to "Make a Payment", new_job_payment_path(@job) %>
+    <br>
+    <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
+    <br>Total Paid: <%= number_to_currency(@total_paid) %>
+    <br>Remaining Balance: <%= number_to_currency(@job.total_amount - @total_paid) %>
+    <br><%= link_to "Make a Payment", new_job_payment_path(@job) %>
+    <% if current_user.admin?%>
+    <br><%= link_to "Issue a Refund", edit_job_payment_path(@job) %>
 
+    <% end %>
+    <br>Payment History: <% @each_payment.map.each do |p| %>
+      <br><%= number_to_currency(p.amount) %> <%= p.created_at.strftime("%a, %b %d, %Y at %l:%M%P") %>
+    <% end %>
 
     <br>
+
     <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API
     <br>
-    <br>Last updated: <%= @job.updated_at.strftime("%B %d, %Y at %I:%M%P") %>
+    <br>Last updated: <%= @job.updated_at.strftime("%a, %b %d, %Y at %l:%M%P") %>
 
     <br><%= form.submit "Save" %>
-<%# byebug %>
 
   <% end %>
 </div>

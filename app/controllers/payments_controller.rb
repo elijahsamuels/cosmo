@@ -9,7 +9,7 @@ class PaymentsController < ApplicationController
 	end
 
 	def new
-		@payment = Payment.new		#QUESTION: why doesn't @payment have an ID?
+		@payment = Payment.new
 		@job = Job.find(params[:job_id])
 		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines? Also, why expose the user.id in a view if you don't have to?
 		@payment.admin_id = @job.admin_id
@@ -18,11 +18,10 @@ class PaymentsController < ApplicationController
 
 	def create
 		@payment = Payment.new(payment_params)
-		byebug
 		if @payment.save
-			redirect_to user_job_path
+			redirect_to edit_job_path(@payment.job_id)
+			# byebug
 		else
-			byebug
 			
 		end
 	# redirect_to user_clients_path(@payment, @payment.id)

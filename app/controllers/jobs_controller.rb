@@ -67,6 +67,8 @@ class JobsController < ApplicationController
   def edit
     @job = Job.find(params[:id])
     @client = User.find_by_id(@job.client_id)
+    total_paid
+    each_payment
   end
   
   def update
@@ -111,8 +113,41 @@ class JobsController < ApplicationController
   # elsif user == nil
     # "no user selected"
   end
+  
+  def each_payment
+  #   byebug
+    
+  @each_payment = @job.payments.where(job_id: @job.id)
+    
+    # amt = j.map.each { |a| a.amount }
+  #   # dates = j.map.each { |d| d.created_at }
+  #   # @each_payment_and_date = amt.zip(dates).to_h
+    
+  end
+    # @each_payment = Hash.new(ep.amount: ep.created_at)
+    
+    
+    # @each_payment_date = j.map.each { |d| d.create_at }
+    
+    # hash = Hash[@job.payments.where(job_id: @job.id).map.each { |a| a.amount } { |amount| [amount, @job.payments.where(job_id: @job.id).map.each { |a| a.created_at }]} ]
+
+
+  def total_paid
+    tp = @job.payments.where(job_id: @job.id)
+    @total_paid = tp.map.each { |a| a.amount }.sum
+  end
+
+  
+  # remaining_balance = remaining_balance.each.with_index(1) { |p| p.amount }
+    # @job.payments.each.with_index(1) { |p| p.amount }
+        # @job = Job.find(params[:id])
+    # @client = User.find_by_id(@job.client_id)
 
 
 
+  # if payments.present? 
+  #   payments do |p|
+  #   p.paid_amount, p.created_at
+  # end
 
 end
