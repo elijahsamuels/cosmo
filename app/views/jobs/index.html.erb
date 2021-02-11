@@ -8,6 +8,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Date</th>
       <th>Client</th>
       <th>Location</th>
@@ -24,13 +25,13 @@
 <% @jobs.each.with_index(1) do |job, i| %>
 <tr>
   <% client = User.find_by_id(job.client_id) %>
+  
   <td><%= i %>. <% job.datetime_for_job_start %></td>
   <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
   <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
   <td><%= job.status.titleize %></td>
   <td><%= job.job_users.map(&:user).each {|c| c.client}.count %> members</td>
-
-  <td>$<%= job.total_amount || "0"%></td>
+  <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
   <td><%= link_to "Edit", edit_job_path(job.id) %>
 
   <%# list the users associtated with the job. %>
