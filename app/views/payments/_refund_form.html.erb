@@ -1,0 +1,14 @@
+<%= form_for @payment, url: "/jobs/#{@job.id}/payments/" do |form| %>
+	<%= form.hidden_field :client_id, :value => current_user.id %>
+	<%= form.hidden_field :job_id, :value => @job.id %>
+	<%= form.hidden_field :payment_type, :value => "refund" %>
+    
+	<br>Total Paid: <%= @total_paid %> <%# QUESTION: how to get this to show the amount? its not passing thru the paymsn controler%>
+
+	<br><%= form.label :amount, "Refund Amount" %>
+	<br><%= form.number_field :amount, max: @job.total_amount %> <%# QUESTION: how pass this as a negative number %>
+
+	<%= form.submit "Submit Refund" %>
+<% end %>
+<br>
+should limit the refund amount to not be greater than the paid amount

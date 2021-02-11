@@ -31,22 +31,9 @@ class JobsController < ApplicationController
     # redirect_to user_job_path(params[current_user.id], @job) #/users/:user_id/jobs/:id(.:format)	
   end
 
-#####  # this works before the status testing
-  # def index
-  #   if params[:user_id].present?
-  #     @jobs = Job.where(admin_id: current_user.id)
-  #   elsif !params[:user_id].present?
-  #     @jobs = Job.all
-  #   end
-  # end
-
-
-
   def index
     if params[:user_id].present?
       @jobs = Job.where(admin_id: current_user.id)
-
-      # if params[:status].present?
       if params[:status].present?   
         if params[:status] == "Inquiry"
           @jobs = @jobs.where(status: "Inquiry")
@@ -61,23 +48,14 @@ class JobsController < ApplicationController
         elsif params[:status] == "Cancelled"
           @jobs = @jobs.where(status: "Cancelled")
         end
-      end
-
+      end  
+    elsif !params[:user_id].present?
+    @jobs = Job.all
+  end
+end
         #QUESTION: how to refactor to use params[status: :status]???
         # @jobs = @jobs.find_by(params[status: :status])
         # @jobs = @jobs.find_by(status: params[:status])
-               
-    elsif !params[:user_id].present?
-      @jobs = Job.all
-    end
-  end
-
-
-
-
-
-
-
 
 
       # this will list all the clients for the user based on the admin_id
@@ -152,21 +130,16 @@ class JobsController < ApplicationController
     # "no user selected"
   end
   
-  def each_payment
-  #   byebug
-    
+  def each_payment 
   @each_payment = @job.payments.where(job_id: @job.id)
-    
-    # amt = j.map.each { |a| a.amount }
+
+  # amt = j.map.each { |a| a.amount }
   #   # dates = j.map.each { |d| d.created_at }
   #   # @each_payment_and_date = amt.zip(dates).to_h
     
   end
-    # @each_payment = Hash.new(ep.amount: ep.created_at)
-    
-    
+    # @each_payment = Hash.new(ep.amount: ep.created_at)  
     # @each_payment_date = j.map.each { |d| d.create_at }
-    
     # hash = Hash[@job.payments.where(job_id: @job.id).map.each { |a| a.amount } { |amount| [amount, @job.payments.where(job_id: @job.id).map.each { |a| a.created_at }]} ]
 
 
@@ -174,14 +147,11 @@ class JobsController < ApplicationController
     tp = @job.payments.where(job_id: @job.id)
     @total_paid = tp.map.each { |a| a.amount }.sum
   end
-
   
   # remaining_balance = remaining_balance.each.with_index(1) { |p| p.amount }
     # @job.payments.each.with_index(1) { |p| p.amount }
         # @job = Job.find(params[:id])
     # @client = User.find_by_id(@job.client_id)
-
-
 
   # if payments.present? 
   #   payments do |p|

@@ -9,23 +9,20 @@ class PaymentsController < ApplicationController
 	end
 
 	def new
+		@total_paid
 		@payment = Payment.new
 		@job = Job.find(params[:job_id])
-		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines? Also, why expose the user.id in a view if you don't have to?
+		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines?
 		@payment.admin_id = @job.admin_id
 		@payment.client_id = current_user.id
-		byebug
 	end
 
 	def create
 		@payment = Payment.new(payment_params)
 		if @payment.save
-			redirect_to edit_job_path(@payment.job_id)
 			# byebug
-		else
-			
+			redirect_to edit_job_path(@payment.job_id)
 		end
-	# redirect_to user_clients_path(@payment, @payment.id)
 	end	
 	
 	def index
@@ -63,7 +60,7 @@ class PaymentsController < ApplicationController
 	private
 	
 	def payment_params
-        params.require(:payment).permit(:amount, :client_id, :job_id, job_attributes: [:user_id, :job_id, :client_id])
+        params.require(:payment).permit(:amount, :client_id, :job_id, :payment_type, job_attributes: [:user_id, :job_id, :client_id])
     end
 
 end

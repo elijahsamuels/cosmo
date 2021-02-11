@@ -48,13 +48,12 @@
     <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
     <br>Total Paid: <%= number_to_currency(@total_paid) %>
     <br>Remaining Balance: <%= number_to_currency(@job.total_amount - @total_paid) %>
-    <br><%= link_to "Make a Payment", new_job_payment_path(@job, payment_type: "paid") %>
+    <br><%= link_to "Make a Payment", new_job_payment_path(@job) %>
+    <br><%#= link_to "Make a Payment", new_job_payment_path(@job), name="payment_type" value="paid" %>
+
     <% if current_user.admin?%>
-    <br><%= link_to "Issue a Refund", new_job_payment_path(@job, payment_type: "refund" ) %>
+    <br><%= link_to "Issue a Refund", new_job_payment_path(@job) %>
     <% end %>
-
-<%# add a value to payments for TYPE (refund or %>
-
 
   <h4>Payment History:</h3>
     <table>
@@ -68,7 +67,7 @@
 
       <% @each_payment.map.each do |p| %>
       <tbody>
-        <td><%= p.payment_type.titleize %></td>
+        <td><%= p.payment_type %></td>
         <td><%= number_to_currency(p.amount) %></td>
         <td><%= p.created_at.strftime("%a, %b %d, %Y at %l:%M%P") %></td>
         <% end %>

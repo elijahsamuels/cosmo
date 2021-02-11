@@ -1,0 +1,16 @@
+
+<%= form_for @payment, url: "/jobs/#{@job.id}/payments/" do |form| %>
+	<%= form.hidden_field :client_id, :value => current_user.id %>
+	<%= form.hidden_field :job_id, :value => @job.id %>
+	<%= form.hidden_field :payment_type, :value => "paid" %>
+
+	<br><%= form.label :amount_due, "Total balance: " + number_to_currency(@job.total_amount) %>
+
+	<br><%= form.label :amount, "Suggested Deposit (20%): " %>
+	<br><%= form.number_field :amount, placeholder: number_to_currency(@job.total_amount * 0.2) %>
+
+	<%= form.submit "Submit Payment" %>
+
+<% end %>
+
+

@@ -107,3 +107,11 @@ And the HTML:
   <option value="4">Dance</option>
   <option value="5">Disco</option>
 ```
+
+
+
+
+# link_to
+
+- comes from ActionView::Helpers::FormHelper
+
