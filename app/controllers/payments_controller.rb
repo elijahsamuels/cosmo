@@ -14,6 +14,7 @@ class PaymentsController < ApplicationController
 		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines? Also, why expose the user.id in a view if you don't have to?
 		@payment.admin_id = @job.admin_id
 		@payment.client_id = current_user.id
+		byebug
 	end
 
 	def create

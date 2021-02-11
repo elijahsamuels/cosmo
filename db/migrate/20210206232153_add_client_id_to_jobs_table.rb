@@ -3,6 +3,5 @@ class AddClientIdToJobsTable < ActiveRecord::Migration[6.1]
     change_table(:jobs) do |t|
       t.integer :client_id
     end
-  
   end
 end
