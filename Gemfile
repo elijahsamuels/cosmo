@@ -31,11 +31,6 @@ gem 'omniauth-rails_csrf_protection' #new update of omniauth takes care of this.
 # gem 'devise'
 # gem 'omniauth-facebook'
 # gem 'omniauth-twitter'
-gem "table-for"
-
-
-
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

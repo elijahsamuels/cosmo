@@ -1,11 +1,5 @@
 module ApplicationHelper
 
-  def admin_access
-    unless current_user.admin?
-      flash[:error] = "You don't have permissions for that section."
-      redirect_to root_path # halts request cycle
-    end
-  end
 
   def require_login
     unless logged_in?
@@ -20,6 +14,21 @@ module ApplicationHelper
       
   def current_user # checks to see user_id is true before hitting DB.
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+  end
+
+  def admin_access
+    unless current_user.admin?
+      flash[:error] = "You don't have permissions for that section."
+      redirect_to root_path # halts request cycle
+    end
+  end
+
+    #QUESTION: this isn't working. the logic works but only directly in the view. not being called right?
+  def current_admin 
+    if params[:id].to_i == current_user.id
+      # flash[:error] = "You don't have permissions for that section."
+      # redirect_to root_path # halts request cycle
+    end
   end
 
   def call_to(phone_number)

@@ -41,8 +41,6 @@
   <%# Job.find(1).job_users.map(&:user).each { |a| a.admin_id = 2 }  %>
   <%#   %>
 
-
-
   <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
 
   <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
@@ -53,7 +51,6 @@
 </tr>
   </tbody>
 </table>
-
 
 <%# @job.job_users[0].user %>
   <td><%# link_to job.job_users[0].user.first_name, edit_job_path(job.id) %></td>

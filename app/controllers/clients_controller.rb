@@ -12,7 +12,6 @@ class ClientsController < ApplicationController
     @client = User.new(params)
     # @client = User.find_or_create_by(id: @client)
     @client.save
-    # binding.pry
     redirect_to user_clients_path(@client, @client.id)
   end
   
@@ -36,7 +35,6 @@ class ClientsController < ApplicationController
   end
   
   def update
-    # datetime_for_job_start
     @client = User.find(params[:id])
     @client.update(client_params)
     redirect_to edit_client_path(@client)
