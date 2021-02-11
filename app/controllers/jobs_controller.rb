@@ -31,16 +31,54 @@ class JobsController < ApplicationController
     # redirect_to user_job_path(params[current_user.id], @job) #/users/:user_id/jobs/:id(.:format)	
   end
 
+#####  # this works before the status testing
+  # def index
+  #   if params[:user_id].present?
+  #     @jobs = Job.where(admin_id: current_user.id)
+  #   elsif !params[:user_id].present?
+  #     @jobs = Job.all
+  #   end
+  # end
 
 
 
   def index
     if params[:user_id].present?
       @jobs = Job.where(admin_id: current_user.id)
+
+      # if params[:status].present?
+      if params[:status].present?   
+        if params[:status] == "Inquiry"
+          @jobs = @jobs.where(status: "Inquiry")
+        elsif params[:status] == "Tentative"
+          @jobs = @jobs.where(status: "Tentative")
+        elsif params[:status] == "Confirmed"
+          @jobs = @jobs.where(status: "Confirmed")
+        elsif params[:status] == "Completed"
+          @jobs = @jobs.where(status: "Completed")
+        elsif params[:status] == "Postponed"
+          @jobs = @jobs.where(status: "Postponed")
+        elsif params[:status] == "Cancelled"
+          @jobs = @jobs.where(status: "Cancelled")
+        end
+      end
+
+        #QUESTION: how to refactor to use params[status: :status]???
+        # @jobs = @jobs.find_by(params[status: :status])
+        # @jobs = @jobs.find_by(status: params[:status])
+               
     elsif !params[:user_id].present?
       @jobs = Job.all
     end
   end
+
+
+
+
+
+
+
+
 
       # this will list all the clients for the user based on the admin_id
       # @jobs = Job.find(current_user.id).job_users.map(&:user).each { |a| a.admin_id = current_user.id }

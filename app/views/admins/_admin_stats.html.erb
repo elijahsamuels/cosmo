@@ -1,4 +1,5 @@
-<% admin_stats %>
+        <%#QUESTION: how to make this NOT visible on /jobs. only want it visible on users/:id/jobs %> 
+		<% admin_stats %>
 
 <h3>Basic Stats</h4>
 <table>
@@ -6,44 +7,39 @@
     <tr>
       <th>Job Summaries</th>
       <th>Numbers</th>
-      <th>Financial Summaries</th>
-      <th></th>
     </tr>
   </thead>
-
+  
   <tbody>
 	<tr>
-		<td>Total jobs: </td>
+		<td><%= link_to "Total jobs: ", user_jobs_path(current_user) %></td>
 		<td><%= @total_number_of_jobs || "an error for your" %>	</td>
 	</tr>
 	<tr>
-		<td>Inquires: </td>
+		<td><%= link_to "Inquires:", user_jobs_path(current_user, status: "Inquiry") %> </td>
 		<td><%= @total_number_of_inquiries || "We have an error for your" %> </td>
 	</tr>
 	<tr>
-		<td>Tentative: </td>
+		<td><%= link_to "Tentative: ", user_jobs_path(current_user, status: "Tentative") %></td>
 		<td><%= @total_number_of_tentative || "We have an error for your" %> </td>
 	</tr>
 	<tr>
-		<td>Completed: </td>
+		<td><%= link_to "Completed: ", user_jobs_path(current_user, status: "Completed") %></td>
 		<td><%= @total_number_of_completed || "We have an error for your" %> </td>
 	</tr>
 	<tr>
-		<td>Confirmed: </td>
+		<td><%= link_to "Confirmed: ", user_jobs_path(current_user, status: "Confirmed") %></td>
 		<td><%= @total_number_of_confirmed || "We have an error for your" %> </td>
 	</tr>
 	<tr>
-		<td>Postponed: </td>
+		<td><%= link_to "Postponed: ", user_jobs_path(current_user, status: "Postponed") %></td>
 		<td><%= @total_number_of_postponed || "We have an error for your" %> </td>
 	</tr>
 	</tr>
 	<tr>
-		<td>Cancelled: </td>
+		<td><%= link_to "Cancelled: ", user_jobs_path(current_user, status: "Cancelled") %></td>
 		<td><%= @total_number_of_cancelled || "We have an error for your" %> </td>
 	</tr>
 
   </tbody>
 </table>
-
-Total upcoming income:
-<%= number_to_currency(@jobs.map { |a| a.total_amount }.sum) %>
