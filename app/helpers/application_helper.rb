@@ -26,10 +26,10 @@ module ApplicationHelper
     #QUESTION: this isn't working. the logic works but only directly in the view. not being called right?
   def current_admin 
     if params[:id].to_i == current_user.id
-      # flash[:error] = "You don't have permissions for that section."
-      # redirect_to root_path # halts request cycle
+      ""
     end
   end
+  
 
   def call_to(phone_number)
     phone_number = number_to_phone(phone_number)

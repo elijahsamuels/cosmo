@@ -1,7 +1,5 @@
-
 <div>
   <h2>User Info:</h2>
-
   <table>
     <tbody>
       <tr><td>Name: <%= @user.first_name.titleize %> <%= @user.last_name.titleize %></td></tr>
@@ -16,8 +14,9 @@
       <tr><td>Admin: <%= @user.admin %></td></tr>
       <tr><td>Contractor: <%= @user.contractor %></td></tr>
       <tr><td>Client: <%= @user.client %></td></tr>
-
-      <td><%= link_to "Edit", edit_user_path %></td>
+      <% if current_admin %>
+        <td><%= link_to "Edit", edit_user_path %></td>
+      <% end %>
     </tbody>
   </table>
 </div>
@@ -26,7 +25,6 @@
 <% if @user.client? %>
 List of your jobs
   <% jobs = Job.where(client_id: @user.id) %>
-  <%# binding.pry %>
   <% jobs.map.each.with_index(1) do |job, i|%>
     <br><%= i %>. <%= link_to job.datetime_for_job_start, edit_job_path(job.id) %> <%= job.city.concat(", ", job.state) %>
       <% if jobs.count == 0  %>
@@ -46,7 +44,6 @@ List of your jobs as an admin
         <%= "No upcoming jobs." %>
       <% end %>
     <% end %>
-    <%# binding.pry %>
   <% end %>
 
 
