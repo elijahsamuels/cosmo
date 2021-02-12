@@ -1,7 +1,8 @@
 class PaymentsController < ApplicationController
 	
 	before_action :require_login
-	before_action :admin_access
+	before_action :current_user
+	before_action :admin_access, except: [:new, :create]
 	
 	def show
 		@job = Job.find_by_id(params[:id])
@@ -9,16 +10,14 @@ class PaymentsController < ApplicationController
 	end
 
 	def new
-		@total_paid
-		@payment = Payment.new
 		@job = Job.find(params[:job_id])
-		@payment.job_id = @job.id	#QUESTION: how to refactor these 3 lines?
-		@payment.admin_id = @job.admin_id
-		@payment.client_id = current_user.id
+		@payment = Payment.new
 	end
-
+	
 	def create
 		@payment = Payment.new(payment_params)
+			#ANSWERED multiple by -1 for the refund amount
+			#might have to try this se		
 		if @payment.save
 			# byebug
 			redirect_to edit_job_path(@payment.job_id)
@@ -62,6 +61,8 @@ class PaymentsController < ApplicationController
 	def payment_params
         params.require(:payment).permit(:amount, :client_id, :job_id, :payment_type, job_attributes: [:user_id, :job_id, :client_id])
     end
+
+
 
 end
 

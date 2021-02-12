@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :require_login, except: [:new, :create]
   # before_action :current_admin
-  # before_action :admin_access, except: [:new, :create],
+  before_action :admin_access, except: [:new, :create]
 
   def new
     @user = User.new

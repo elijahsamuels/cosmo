@@ -32,13 +32,3 @@ module JobsHelper
 	end
 
 end
-
-
-
-
-def user_location(user)
-    return "#{user.city}, #{user.state}" if user.city &&
-user.state
-    return "#{user.city}" if user.city
-    "Unlisted"
-   end

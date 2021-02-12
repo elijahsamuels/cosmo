@@ -1,13 +1,11 @@
 class JobsController < ApplicationController
 
-  # before_action :require_login, except: [:new, :create, :show]
+  before_action :require_login, except: [:new, :create, :show]
   # before_action :admin_access
 
   def new
     @user = User.new
     @job = @user.jobs.new
-    # @client = User.new
-    # @job = @client.jobs.build #hows this work?
   end
 
   # create a new job with the user_id attribute so that you can access that job via user/id/jobs/id
@@ -53,7 +51,15 @@ class JobsController < ApplicationController
     @jobs = Job.all
   end
 end
-        #QUESTION: how to refactor to use params[status: :status]???
+
+
+# MAKE THIS WORK IN PLACE OF THE ABOVE INDEX METHOD
+def status(s)
+  jobs = Job.where(admin_id: current_user.id)
+  @jobs = jobs.where(status:s)
+end 
+
+        #answered: how to refactor to use params[status: :status]???
         # @jobs = @jobs.find_by(params[status: :status])
         # @jobs = @jobs.find_by(status: params[:status])
 
@@ -110,7 +116,7 @@ end
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email.downcase, job_attributes: [:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id])
+    params.require(:user).permit(:first_name, :last_name, :email.downcase, :phone, :address_1, :address_2, :city, :state, :zip, job_attributes: [:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id])
     # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
@@ -143,10 +149,11 @@ end
     # hash = Hash[@job.payments.where(job_id: @job.id).map.each { |a| a.amount } { |amount| [amount, @job.payments.where(job_id: @job.id).map.each { |a| a.created_at }]} ]
 
 
-  def total_paid
-    tp = @job.payments.where(job_id: @job.id)
-    @total_paid = tp.map.each { |a| a.amount }.sum
-  end
+  # def total_paid
+  #   byebug
+  #   tp = @job.payments.where(job_id: @job.id)
+  #   @total_paid = tp.map.each { |a| a.amount }.sum
+  # end
   
   # remaining_balance = remaining_balance.each.with_index(1) { |p| p.amount }
     # @job.payments.each.with_index(1) { |p| p.amount }
@@ -159,3 +166,4 @@ end
   # end
 
 end
+

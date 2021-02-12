@@ -23,7 +23,17 @@ class Job < ApplicationRecord
   def user_attributes=(params)
     user = User.find_by_id(params[:user_id])
     if user.admin?
-      client = User.create(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password: SecureRandom.hex(10))
+      client = User.create(first_name: params[:first_name],
+         last_name: params[:last_name],
+          email: params[:email],
+          phone: params[:phone],
+          address_1: params[:address_1],
+          address_2: params[:address_2],
+          city: params[:city],
+          state: params[:state],
+          zip: params[:zip],
+          client: true,
+         password: SecureRandom.hex(10))
       self.users << client
     else
       self.users << user

@@ -12,27 +12,34 @@
     <br><%= c.text_field :state, placeholder: "State" %>
     <br><%= c.text_field :zip, placeholder: "Zip" %>
     <br><%= c.text_area :description, placeholder: "Please tell us a bit about the job.", size: "60x10" %>
-    <br><%# c.hidden_field :admin_id, value: rand(1..10) %>
-    <br><%# c.hidden_field :client_id, value: rand(1..10) %>
-    <br>
 
     <%= c.hidden_field :admin_id, :value => params[:user_id] || rand[1..4] %>
     <%= c.hidden_field :client_id, :value => params[:user_id] %> <%# how to set or select a client for this job? %>
+     
+    <%= c.fields_for :user_attributes do |j| %>
+      <%= j.hidden_field :user_id, :value => current_user.id %>
+      <br><%= j.label :first_name %> <%= j.text_field :first_name %>
+      <br><%= j.label :last_name %> <%= j.text_field :last_name %>
+      <br><%= j.label :email %> <%= j.text_field :email %>
+      <br><%= j.label :phonoe %> <%= j.text_field :phonoe %>
+      <br><%= j.label :address_1 %> <%= j.text_field :address_1 %>
+      <br><%= j.label :adddress_2 %> <%= j.text_field :adddress_2 %>
+      <br><%= j.label :city %> <%= j.text_field :city %>
+      <br><%= j.label :state %> <%= j.text_field :state %>
+      <br><%= j.label :zip %> <%= j.text_field :zip %>
+      <br><%= j.label :password %> <%= j.text_field :password, value: "123456" %>
 
-  <%= c.fields_for :user_attributes do |j| %>
+    <% end %>
 
+    <br><%= c.submit  %>
+<% end %>
+
+</div>
     <%# if current_user && current_user.admin?%>
       <br><%#= j.hidden_field :user_id, :value => current_user.id %>
     <%# end %>
-    
-    
-    <br><%= j.hidden_field :user_id, :value => current_user.id %>
-    <br><%= j.label :first_name %><%= j.text_field :first_name %>
-    <br><%= j.label :last_name %><%= j.text_field :last_name %>
-    <br><%= j.label :email %><%= j.text_field :email %>
 
 
-<% end %>
      
       <%# j.hidden_field :id, :value => @job.id %>
 
@@ -40,8 +47,4 @@
     <%# form.hidden_field :client_id, :value => client_id %>
     
 
-    <br><%= c.submit  %>
-<% end %>
 
-
-</div>

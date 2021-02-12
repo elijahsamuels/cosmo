@@ -11,9 +11,11 @@
       <tr><td>Zip: <%= @user.zip %></td></tr>
       <tr><td>State: <%= @user.state %></td></tr>
       <tr><td>SSN: <%= @user.ssn %></td></tr>
-      <tr><td>Admin: <%= @user.admin %></td></tr>
-      <tr><td>Contractor: <%= @user.contractor %></td></tr>
-      <tr><td>Client: <%= @user.client %></td></tr>
+      <% if current_user.admin?%>
+        <tr><td>Admin: <%= @user.admin %></td></tr>
+        <tr><td>Contractor: <%= @user.contractor %></td></tr>
+        <tr><td>Client: <%= @user.client %></td></tr>
+      <% end %>
       <% if current_admin %>
         <td><%= link_to "Edit", edit_user_path %></td>
       <% end %>

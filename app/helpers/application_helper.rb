@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def total_paid
+    tp = @job.payments.where(job_id: @job.id)
+    @total_paid = tp.map.each { |a| a.amount }.sum
+  end
 
   def require_login
     unless logged_in?
@@ -23,11 +27,8 @@ module ApplicationHelper
     end
   end
 
-    #QUESTION: this isn't working. the logic works but only directly in the view. not being called right?
   def current_admin 
-    if params[:id].to_i == current_user.id
-      ""
-    end
+    params[:id].to_i == current_user.id
   end
   
 

@@ -7,3 +7,9 @@ class Payment < ApplicationRecord
 
 
 end
+
+# user has many payments
+# job has many payemnts 
+
+# payment belongs_to users
+# payment belongs_to jobs

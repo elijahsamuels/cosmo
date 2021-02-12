@@ -7,7 +7,7 @@
       <th>Email</th>
       <th>Job Date</th>
       <th>Job Link</th>
-      <th>Something</th>
+
     </tr>
   </thead>
 
@@ -18,12 +18,13 @@
   <td><%= i %>. <%= link_to client.first_name.concat(" ", client.last_name), edit_client_path(client.id) %></a></td>
   <td> <%= call_to client.phone %> </td>
   <td> <%= mail_to client.email %> </td>
-  <td> <%= link_to "Date" %> </td>
-  <td> <%= link_to "Job Link" %> </td>
+  <td> <%= "placeholder"  %> </td>
+  <td> <%= link_to "Jobs", user_path(client.id) %> </td>
   <%# byebug %>
-  <td> <%= link_to "client job" %> </td> <!-- this is breaking -->
+
   <td> <%# link_to client.admin.first_name, admin_path(client.id) %> </td>
 <% end %>
+<%# byebug %>
 
 <% %>
 
