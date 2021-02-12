@@ -3,11 +3,12 @@
 	<%= form.hidden_field :job_id, :value => @job.id %>
 	<%= form.hidden_field :payment_type, :value => "refund" %>
     
-	<br>Total Paid: <%= number_to_currency(total_paid) %> <%# answered - see jobs controller: how to get this to show the amount? its not passing thru the paymsn controler%>
+	<br>Total Paid: <%= number_to_currency(total_paid) %>
 
 	<br><%= form.label :amount, "Refund Amount" %>
-	<br><%= form.number_field :amount, max: @job.total_amount %> 
+	<br><%= form.number_field :amount, min: 0, max: total_paid %> 
 
+<%# byebug %>
 	<%= form.submit "Submit Refund" %>
 <% end %>
 <br>

@@ -9,25 +9,28 @@ Rails.application.routes.draw do
   #   resources :payments, only: [:index, :show, :new, :create ]
   #   end
   
-
+  # USERS
   resources :users do
     resources :clients
     resources :admins
     resources :contractors
     resources :jobs
+    resources :invoices, except: [:destroy]
     #resources :payments, only: [:index, :show, :new, :create ]
     end
   
   resources :clients, through: :users
   resources :contractors, through: :users
   resources :admins, through: :users
+  
   resources :jobs do #, only: [:show, :edit] 
     resources :payments #, only: [:index, :show, :new, :create, :edit]
+    resources :invoices, except: [:destroy]
     end
 
 
+  # Sessions, Login, Signup, Logout
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]
-
   post '/session', to: 'sessions#create', as: 'session'
   delete '/session', to: 'sessions#destroy', as: 'logout'
   get '/signup', to: "users#new"
@@ -36,6 +39,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  match "*any", via: :all, to: "errors#not_found"
+
 end
 
 

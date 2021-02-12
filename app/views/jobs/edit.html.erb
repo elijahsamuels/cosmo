@@ -49,10 +49,9 @@
     <br>Total Paid: <%= number_to_currency(@total_paid) %>
     <br>Remaining Balance: <%= number_to_currency(@job.total_amount - @total_paid) %>
     <br><%= link_to "Make a Payment", new_job_payment_path(@job) %>
-    <br><%#= link_to "Make a Payment", new_job_payment_path(@job), name="payment_type" value="paid" %>
 
     <% if current_user.admin?%>
-    <br><%= link_to "Issue a Refund", new_job_payment_path(@job) %>
+      <%= link_to "Issue a Refund", new_job_payment_path(@job) %>
     <% end %>
 
   <h4>Payment History:</h3>

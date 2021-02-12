@@ -18,6 +18,7 @@
       <th>Status</th>
       <th>Team Size</th>
       <th>Price</th>
+      <th>Invoices</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -35,7 +36,9 @@
   <td><%= job.status.titleize %></td>
   <td><%= job.invoices.map(&:user).each {|c| c.client}.count %> members</td>
   <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
-  <td><%= link_to "Edit", edit_job_path(job.id) %>
+
+
+  <td><%= link_to "Submit Invoice", job_path(job.id) %>
 
   <%# list the users associtated with the job. %>
   <%# job.invoices gives us the array of associations  %>
@@ -47,6 +50,7 @@
 
   <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
 
+  <td><%= link_to "Edit", edit_job_path(job.id) %>
   <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
 
 <% end %>
