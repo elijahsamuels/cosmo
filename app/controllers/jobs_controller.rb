@@ -65,14 +65,14 @@ end
 
 
       # this will list all the clients for the user based on the admin_id
-      # @jobs = Job.find(current_user.id).job_users.map(&:user).each { |a| a.admin_id = current_user.id }
+      # @jobs = Job.find(current_user.id).invoices.map(&:user).each { |a| a.admin_id = current_user.id }
       
       # this will list all the clients for the user based on the client_id
-      # @jobs = Job.find(current_user.id).job_users.map(&:user).each { |c| c.client_id = current_user.id }
+      # @jobs = Job.find(current_user.id).invoices.map(&:user).each { |c| c.client_id = current_user.id }
 
-      # @jobs = Job.find(current_user.id).job_users.map(&:user).each { |a| a.admin_id = 2 }
+      # @jobs = Job.find(current_user.id).invoices.map(&:user).each { |a| a.admin_id = 2 }
 
-      # @jobs = User.find_by_id(current_user).job_users
+      # @jobs = User.find_by_id(current_user).invoices
       # binding.pry
       # @clients = User.find_by_id(current_user).clients
 

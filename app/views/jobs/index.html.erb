@@ -33,16 +33,16 @@
   <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
   <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
   <td><%= job.status.titleize %></td>
-  <td><%= job.job_users.map(&:user).each {|c| c.client}.count %> members</td>
+  <td><%= job.invoices.map(&:user).each {|c| c.client}.count %> members</td>
   <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
   <td><%= link_to "Edit", edit_job_path(job.id) %>
 
   <%# list the users associtated with the job. %>
-  <%# job.job_users gives us the array of associations  %>
-  <%#  take the job_users id and have this be the Find_by id for the User name %>
-  <%# Job.find(1).job_users.map(&:user) %>
+  <%# job.invoices gives us the array of associations  %>
+  <%#  take the invoices id and have this be the Find_by id for the User name %>
+  <%# Job.find(1).invoices.map(&:user) %>
 
-  <%# Job.find(1).job_users.map(&:user).each { |a| a.admin_id = 2 }  %>
+  <%# Job.find(1).invoices.map(&:user).each { |a| a.admin_id = 2 }  %>
   <%#   %>
 
   <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
@@ -54,5 +54,5 @@
   </tbody>
 </table>
 
-<%# @job.job_users[0].user %>
-  <td><%# link_to job.job_users[0].user.first_name, edit_job_path(job.id) %></td>
+<%# @job.invoices[0].user %>
+  <td><%# link_to job.invoices[0].user.first_name, edit_job_path(job.id) %></td>

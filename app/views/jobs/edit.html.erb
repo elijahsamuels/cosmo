@@ -14,9 +14,9 @@
     <br> <%= link_to @client.first_name.concat(" ", @client.last_name), edit_client_path(@client.id) %>   
     <br> <%= call_to @client.phone.to_s %>    
     <br> <%= mail_to @client.email.to_s %>    
-    <br><%# @job.job_users[0].user.first_name.to_s %> <%# @job.job_users[0].user.last_name.to_s %>
-    <br><%# call_to @job.job_users[0].user.phone.to_s %>
-    <br><%# mail_to @job.job_users[0].user.email.to_s %>
+    <br><%# @job.invoices[0].user.first_name.to_s %> <%# @job.invoices[0].user.last_name.to_s %>
+    <br><%# call_to @job.invoices[0].user.phone.to_s %>
+    <br><%# mail_to @job.invoices[0].user.email.to_s %>
     <br><%# link_to "Edit Client", edit_client_path(@job.client.id) %>
 </div>
 <br>

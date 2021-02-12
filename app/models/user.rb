@@ -2,8 +2,8 @@ class User < ApplicationRecord
 
   belongs_to :business, optional: true
 
-  has_many :job_users
-  has_many :jobs, through: :job_users
+  has_many :invoices
+  has_many :jobs, through: :invoices
   accepts_nested_attributes_for :jobs
   # validates_associated :jobs
 

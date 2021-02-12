@@ -20,7 +20,7 @@
       <td> <%= mail_to client.email %> </td>
       <td> <%= link_to "Date" %> </td>
       <td> <%= link_to "Job Link" %> </td>
-      <td> <%= link_to client.job_users.collect.each do |b| %> </td> <!-- this is breaking -->
+      <td> <%= link_to client.invoices.collect.each do |b| %> </td> <!-- this is breaking -->
       <%= b.user_id %>
       <% end %>
 

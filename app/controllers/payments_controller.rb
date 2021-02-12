@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
 	def index
 		if params[:user_id].present?
 			@payments = Payment.find_by_id(current_user).clients
-		#   @jobs = Payment.find_by_id(current_user).job_users
+		#   @jobs = Payment.find_by_id(current_user).invoices
 		elsif !params[:user_id].present?
 			@payments = Payment.where(client: true)
 		end

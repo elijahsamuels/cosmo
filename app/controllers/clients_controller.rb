@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
   def index
     if params[:user_id].present?
       @clients = User.find_by_id(current_user).clients
-      @jobs = User.find_by_id(current_user).job_users
+      @jobs = User.find_by_id(current_user).invoices
       # redirect_to user_clients_path(current_user)
     elsif !params[:user_id].present?
       @clients = User.where(client: true)

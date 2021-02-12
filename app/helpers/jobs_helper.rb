@@ -2,12 +2,12 @@ module JobsHelper
 
 
 	def all_contractors(job)
-		if job.job_users.present?
-			job.job_users.collect {|u| u.user}
+		if job.invoices.present?
+			job.invoices.collect {|u| u.user}
 		else 
 			"please select your team"
 		end
-		# job.job_users.map {|u| u.user}
+		# job.invoices.map {|u| u.user}
 	end
 
 	def client_of_job

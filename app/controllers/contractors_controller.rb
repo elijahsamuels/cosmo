@@ -10,7 +10,7 @@ class ContractorsController < ApplicationController
 	def index
 		if params[:user_id].present?
 		@contractors = User.find_by_id(current_user).contractors
-		@jobs = User.find_by_id(current_user).job_users
+		@jobs = User.find_by_id(current_user).invoices
 		elsif !params[:user_id].present?
 		@contractors = User.all
 		end
