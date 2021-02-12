@@ -121,7 +121,7 @@ end
   end
 
   def job_params
-    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id, user_attributes: [:first_name, :last_name, :email.downcase, :user_id]) 
+    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id, :total_amount, user_attributes: [:first_name, :last_name, :email.downcase, :user_id]) 
     # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 

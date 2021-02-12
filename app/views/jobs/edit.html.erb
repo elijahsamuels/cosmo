@@ -45,7 +45,13 @@
     <br>
     <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
     <br>
-    <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
+
+    <% if current_user.admin?%>
+      <br>Total Quoted: <%= form.number_field :total_amount, placeholder: number_to_currency(@job.total_amount) %> 
+      <% else %>
+      <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
+    <% end %>
+    
     <br>Total Paid: <%= number_to_currency(@total_paid) %>
     <br>Remaining Balance: <%= number_to_currency(@job.total_amount - @total_paid) %>
     <br><%= link_to "Make a Payment", new_job_payment_path(@job) %>

@@ -14,16 +14,13 @@ class PaymentsController < ApplicationController
 		@payment = Payment.new
 	end
 	
-	# payment_params[:amount] << payment_params[:amount].to_i*-1
-	#ANSWERED multiple by -1 for the refund amount. 
 	def create
 		if payment_params[:payment_type] == "refund"
-			refund_payment = Payment.new(payment_params)
-			refund_payment.amount = refund_payment.amount*-1
-			refund_payment.save
-			byebug
-			redirect_to edit_job_path(refund_payment.job_id)
-		else
+			@payment = Payment.new(payment_params)
+			@payment.amount = @payment.amount*-1
+			@payment.save
+			redirect_to edit_job_path(@payment.job_id)
+		else #this handles payments (not refunds)
 			@payment = Payment.new(payment_params)
 			@payment.save
 			redirect_to edit_job_path(@payment.job_id)
