@@ -43,7 +43,6 @@ class PaymentsController < ApplicationController
 	end
 	
 	def update
-		byebug
 		@payment = Payment.find_by_id(params[:id])
 		if @payment.valid?
 			@payment.update(params)

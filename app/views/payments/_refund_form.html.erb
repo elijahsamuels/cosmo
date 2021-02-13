@@ -8,7 +8,6 @@
 	<br><%= form.label :amount, "Refund Amount" %>
 	<br><%= form.number_field :amount, min: 0, max: total_paid %> 
 
-<%# byebug %>
 	<%= form.submit "Submit Refund" %>
 <% end %>
 <br>

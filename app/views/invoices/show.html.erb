@@ -2,12 +2,17 @@ show the individual invoice for a job based on the current_user
 include job details
 <br>
 <br>
-<%# byebug %>
-<br>Invoice Amount: <%= number_to_currency(@invoice.invoice_amount)%>
-<br>Date Invoice will be sent in: <%= @invoice.date_invoice_sent.strftime("%a, %b %d, %Y at %l:%M%P") %>
+<% form_for @invoice do |form| %>
 <br>User ID: <%= @invoice.user_id %>
 <br>Job ID: <%= @invoice.job_id %>
 
+<br>Invoice Amount: <%= number_to_currency(@invoice.invoice_amount)%>
+<br>Date Invoice will be sent in: <%= @invoice.date_invoice_sent.strftime("%a, %b %d, %Y at %l:%M%P") %>
+
+<% byebug %>
+
+
+<% end %>
 
 	<%#= form.hidden_field :job_id, :value => @job.id %>
 	<%#= form.hidden_field :user_id, :value => current_user.id %>
@@ -17,3 +22,4 @@ include job details
 
 	<%#= form.submit "Submit Payment" %>
 
+ 

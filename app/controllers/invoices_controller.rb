@@ -6,37 +6,41 @@ class InvoicesController < ApplicationController
 	
 	def new
 		@invoice = Invoice.new
+
 		# @job = Job.find(params[:job_id])
 	end
 
 	def show
+		byebug
+		 @invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
+		 
+		#  @invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
+		#  @invoice = Invoice.find_or_create_by(job_id: params[:id]).find_or_create_by(user_id: params[:user_id]).reduce
+	end
+		
+		# invoice = Invoice.where(job_id: params[:id])
+		# @invoice = invoice.where(user_id: params[:user_id])
+
+		# user_id = params[:user_id].to_i
+		# job_id = params[:id].to_i
+		# @invoice = Invoice.where(params[user_id: user_id,  job_id: job_id])
 		# byebug
-		@invoice = Invoice.find_by(params[user_id: :user_id, job_id: :job_id])
 		# @invoice = Invoice.users.where(params[:user_id])
 
-		# @job = Job.find_by_id(params[:id])
-		# @invoice = @job.invoices.build
-	end
+		# jobs = Job.where(admin_id: current_user.id)
+		# @jobs = jobs.where(status:s)
 	
 	def create
 		byebug
 		@invoice = Invoice.new(invoice_params)
 		@invoice.save
 		redirect_to edit_job_path(@invoice.job_id)
-		# if invoice_params[:invoice_type] == "refund"
-		# 	@invoice = Invoice.new(invoice_params)
-		# 	@invoice.amount = @invoice.amount*-1
-		# else #this handles invoices (not refunds)
-		# 	@invoice = Invoice.new(invoice_params)
-		# 	@invoice.save
-		# 	redirect_to edit_job_path(@invoice.job_id)
-		# end
 	end	
 	
 	def index
-
-		# byebug
-		@invoices = Invoice.where(user_id:[current_user]) #this might not work?
+		@invoices = Invoice.where(user_id: params[:user_id]) 
+		
+		#this might not work?
 		#user(admin or contractor) should be able to see a list of their invoices
 		#ideally, if the invoice has been sent, the user should NOT be able to send another invoice. ie. they can only get paid once per job
 	end

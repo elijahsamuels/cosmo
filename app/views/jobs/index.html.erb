@@ -1,12 +1,11 @@
-<%# show the jobs based on the current_user.id %>
 <h2>All Jobs for <%= current_user.first_name %></h2>
 
 <% if current_user.admin?%>
-
-<%= render partial: '/admins/admin_stats' %>
-<br>Total upcoming income:
-<%= number_to_currency(@jobs.map { |a| a.total_amount }.sum) %>
+  <%= render partial: '/admins/admin_stats' %>
+  <br>Total upcoming income:
+  <%= number_to_currency(@jobs.map { |a| a.total_amount }.sum) %>
 <% end %>
+
 <br>
 <br>
 <table>
@@ -38,7 +37,7 @@
   <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
 
 
-  <td><%= link_to "Submit Invoice", job_path(job.id) %>
+  <td><%= link_to "Submit Payment", new_job_payment_path(job.id) %>
 
   <%# list the users associtated with the job. %>
   <%# job.invoices gives us the array of associations  %>
