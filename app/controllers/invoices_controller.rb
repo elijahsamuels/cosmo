@@ -6,13 +6,11 @@ class InvoicesController < ApplicationController
 	
 	def new
 		# @job = Job.find(params[:job_id])
-		@invoice = Invoice.new
+		@invoice = Invoice.new(invoice_params)
 	end
 	
 	def show
-		
 		@invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
-		# byebug
 	end
 	
 	def create
@@ -23,26 +21,29 @@ class InvoicesController < ApplicationController
 	
 	def index
 		@invoices = Invoice.where(user_id: params[:user_id])
+		@contractor = User.find_by_id(params[:user_id])
+		# @invoices = Invoice.where(user_id: params[:user_id])
 	end
 	
 	def edit
-		# @invoice = Invoice.find_by_id(params[:id])
-		if Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).present?
-			@invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
-		else
-			redirect_to user_invoices_path
-		end
+		@invoice = Invoice.find_by_id(params[:id])
 	end
+		# @invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
+		# if Invoice.where(id: params[:id]).where(user_id: params[:user_id]).present?
+		# 	@invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
+		# 	# byebug
+		# else
+		# 	redirect_to user_invoices_path
+		# end
 	
 	def update
-		@invoice = Invoice.where(job_id: invoice_params[:id]).where(user_id: invoice_params[:user_id])
-		# if @invoice.valid?
-		@invoice.update(invoice_params)
+		# @invoice = Invoice.where(job_id: params[:job_id]).where(user_id: params[:user_id])
+		@invoice = Invoice.find_by_id(invoice_params[:id])
 		byebug
-			redirect_to user_invoices_path(@current_user)
+		@invoice.update(invoice_params)
+		redirect_to user_invoices_path(@current_user)
 
 		# else
-		# 	byebug
 		# 	render user_invoice_path(@invoice.user_id)
 		# end
 	end
@@ -50,8 +51,14 @@ class InvoicesController < ApplicationController
 	private
 	
 	def invoice_params
-		params.require(:invoice).permit(:job_id, :user_id, :date_invoice_sent, :invoice_amount, :id)
+		params.require(:invoice).permit(:job_id, :user_id, :date_invoice_sent, :invoice_amount, :id, :paid)
 	end
+
+	def invoice_by_jobid_and_userid
+		Invoice.where(job_id: invoice_params[:id]).where(user_id: invoice_params[:user_id])
+	end
+
+
 end
 
 	# need to see all the jobs based on the user id

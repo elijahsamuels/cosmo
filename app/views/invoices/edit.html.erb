@@ -6,27 +6,12 @@
 	<%= form.label :invoice_amount, "Invoice Amount " %>
 	<%= form.number_field :invoice_amount, value: @invoice.invoice_amount, placeholder: "#{number_to_currency(@invoice.invoice_amount)} (USD)" %></p>
 
-    <%= form.hidden_field :user_id, :value => @invoice.user_id %>
     <%= form.hidden_field :job_id, :value => @invoice.job_id %>
+    <%= form.hidden_field :user_id, :value => @invoice.user_id %>
+    <%= form.hidden_field :paid, :value => true %>
+    <%= form.hidden_field :id, :value => @invoice.id %>
+    <%= form.hidden_field :date_invoice_sent, :value => Time.now %>
 
 	<%= form.submit "Submit Invoice" %>
 
 <% end %>
-
-<!-- 
-admin sets the total_amount on the job, but the user can edit the paid_amount as a SUM of payment_amounts. This is the SUM of all payment_amounts based on the job_id from the payments table
-
-user submits a payment_amount for the job. This is what they can edit.
-
-when job.paid_amount == total_amount
-
-job.paid_amount == Payments.where(based on the sum of the job_id)
-
-job_id
-user_id
-created_at
-updated_at
-date_invoice_sent
-invoice_amount
-
--->

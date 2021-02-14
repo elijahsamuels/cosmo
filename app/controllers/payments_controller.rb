@@ -36,7 +36,6 @@ class PaymentsController < ApplicationController
 		end
 	end
 
-
 	def edit
 		@job = Job.find_by_id(params[:id])
 		@payment = Payment.new(job_id: @job.id, client_id: current_user)
@@ -63,9 +62,6 @@ class PaymentsController < ApplicationController
 	def payment_params
         params.require(:payment).permit(:amount, :client_id, :job_id, :payment_type, job_attributes: [:user_id, :job_id, :client_id])
     end
-
-		
-
 
 end
 

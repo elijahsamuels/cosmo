@@ -10,25 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_024529) do
+ActiveRecord::Schema.define(version: 2021_02_14_031824) do
 
   create_table "business", force: :cascade do |t|
     t.string "name", default: ""
-    t.string "address_1"
-    t.string "address_2"
-    t.string "city"
+    t.string "address_1", default: ""
+    t.string "address_2", default: ""
+    t.string "city", default: ""
     t.integer "zip"
-    t.string "state"
-    t.string "mailing_address_1"
-    t.string "mailing_address_2"
-    t.string "mailing_city"
+    t.string "state", default: ""
+    t.string "mailing_address_1", default: ""
+    t.string "mailing_address_2", default: ""
+    t.string "mailing_city", default: ""
     t.integer "mailing_zip"
-    t.string "mailing_state"
-    t.string "url"
-    t.string "email"
-    t.string "phone", limit: 15
-    t.text "description"
-    t.string "ein"
+    t.string "mailing_state", default: ""
+    t.string "url", default: ""
+    t.string "email", default: ""
+    t.string "phone", limit: 15, default: ""
+    t.text "description", default: ""
+    t.string "ein", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,13 +46,13 @@ ActiveRecord::Schema.define(version: 2021_02_14_024529) do
   create_table "jobs", force: :cascade do |t|
     t.datetime "job_start_datetime"
     t.datetime "job_end_datetime"
-    t.string "address_1"
-    t.string "address_2"
-    t.string "city"
+    t.string "address_1", default: ""
+    t.string "address_2", default: ""
+    t.string "city", default: ""
     t.integer "zip"
-    t.string "state"
+    t.string "state", default: ""
     t.string "status", default: "Inquiry"
-    t.text "description"
+    t.text "description", default: ""
     t.integer "total_amount"
     t.integer "amount_paid"
     t.integer "balance"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_024529) do
     t.integer "contractor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "payment_type"
+    t.string "payment_type", default: ""
     t.index ["admin_id"], name: "index_payments_on_admin_id"
     t.index ["business_id"], name: "index_payments_on_business_id"
     t.index ["client_id"], name: "index_payments_on_client_id"
@@ -92,17 +92,17 @@ ActiveRecord::Schema.define(version: 2021_02_14_024529) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "email"
+    t.string "first_name", default: ""
+    t.string "email", default: ""
     t.string "password_digest"
-    t.string "last_name"
-    t.string "phone", limit: 15
-    t.string "address_1"
-    t.string "address_2"
-    t.string "city"
+    t.string "last_name", default: ""
+    t.string "phone", limit: 15, default: ""
+    t.string "address_1", default: ""
+    t.string "address_2", default: ""
+    t.string "city", default: ""
     t.integer "zip"
-    t.string "state"
-    t.string "ssn"
+    t.string "state", default: ""
+    t.string "ssn", default: ""
     t.boolean "admin", default: false
     t.boolean "client", default: false
     t.boolean "contractor", default: false

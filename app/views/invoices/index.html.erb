@@ -1,4 +1,4 @@
-<h3>All Invoices for <%= current_user.first_name %></h3> 
+<h3>All Invoices for <%= @contractor.first_name %></h3> 
 <!-- FIX: shows current user, not user name for these invoices -->
 
 <table>
@@ -13,7 +13,6 @@
       <th>Amount</th>
       <th>Invoice Status</th>
       <th>Generate Invoice</th>
-      <th>????</th>
     </tr>
   </thead>
   <tbody>
@@ -29,21 +28,18 @@
 			<td><%= job.city.concat(", ", job.state) %></td>
 			<td><%= job.datetime_for_job_start %></td>
 			<td><%= mail_to admin.email, admin.first_name.concat(" ", admin.last_name)%>
-			<% if job.status == "Completed" %>
-				<td><%= link_to "Generate Invoice", edit_user_invoice_path(id: invoice.job_id) %></td> 
-			<% else %>
-				<td><%= job.status.titleize %></td> 		
-			<% end %>
+			<td><%= job.status.titleize %></td> 		
 			<td><%= number_to_currency(invoice.invoice_amount) %></td>
-			<% if invoice.paid.present? %>
-				<td> Paid</td>
-			<% else %>
-				<td> Waiting</td>
-			<% end %>
+				<% if invoice.paid == true %>
+					<td> Paid</td>
+				<% else %>
+					<% if job.status == "Completed" %>
+						<td><%= link_to "Submit", edit_user_invoice_path(id: invoice) %></td> 
+					<% else %>
+						<td> Waiting</td>
+					<% end %>
+				<% end %>
 			<td><%= invoice.date_invoice_sent.strftime("%B %d, %Y") %></td>
-
-
-
 			<%#= hidden_field_tag :user_id, :value => invoice.user_id %>
 			<%#= hidden_field_tag :job_id, :value => invoice.job_id %>
 			<td><%#= link_to job.status.titleize, user_invoice_path(id: invoice.job_id) %></td> 
