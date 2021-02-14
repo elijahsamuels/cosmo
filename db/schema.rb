@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_234338) do
+ActiveRecord::Schema.define(version: 2021_02_14_024529) do
 
   create_table "business", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: ""
     t.string "address_1"
     t.string "address_2"
     t.string "city"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_02_13_234338) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "date_invoice_sent"
     t.integer "invoice_amount"
+    t.boolean "paid", default: false
   end
 
   create_table "jobs", force: :cascade do |t|

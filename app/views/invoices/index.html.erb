@@ -35,7 +35,7 @@
 				<td><%= job.status.titleize %></td> 		
 			<% end %>
 			<td><%= number_to_currency(invoice.invoice_amount) %></td>
-			<% if invoice.date_invoice_sent.present? %>
+			<% if invoice.paid.present? %>
 				<td> Paid</td>
 			<% else %>
 				<td> Waiting</td>
