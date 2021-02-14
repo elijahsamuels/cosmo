@@ -1,8 +1,8 @@
 class FillForNull < ActiveRecord::Migration[6.1]
   def change
-    change_column_null :business, :zip, default: false
-    change_column_null :business, :zip, null: false
-    change_column_null :business, :mailing_zip, null: false
+    change_column_null :businesses, :zip, default: false
+    change_column_null :businesses, :zip, null: false
+    change_column_null :businesses, :mailing_zip, null: false
     
     change_column_null :invoices, :job_id, null: false
     change_column_null :invoices, :user_id, null: false
@@ -21,13 +21,6 @@ class FillForNull < ActiveRecord::Migration[6.1]
     change_column_null :jobs, :due_date, null: false
     change_column_null :jobs, :admin_id, null: false
     change_column_null :jobs, :client_id, null: false
-
-    change_column_null :payments, :amount, null: false
-    change_column_null :payments, :business_id, null: false
-    change_column_null :payments, :job_id, null: false
-    change_column_null :payments, :admin_id, null: false
-    change_column_null :payments, :client_id, null: false
-    change_column_null :payments, :contractor_id, null: false
 
     change_column_null :users, :zip, null: false
     change_column_null :users, :admin_id, null: false

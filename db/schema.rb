@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2021_02_14_184348) do
 
-  create_table "business", force: :cascade do |t|
+  create_table "businesses", force: :cascade do |t|
     t.string "name", default: ""
     t.string "address_1", default: ""
     t.string "address_2", default: ""
     t.string "city", default: ""
-    t.integer "zip"
+    t.integer "zip", default: 0
     t.string "state", default: ""
     t.string "mailing_address_1", default: ""
     t.string "mailing_address_2", default: ""
     t.string "mailing_city", default: ""
-    t.integer "mailing_zip"
+    t.integer "mailing_zip", default: 0
     t.string "mailing_state", default: ""
     t.string "url", default: ""
     t.string "email", default: ""
@@ -38,28 +38,28 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "date_invoice_sent"
-    t.integer "invoice_amount"
+    t.datetime "date_invoice_sent", default: "2001-01-01 01:00:00"
+    t.integer "invoice_amount", default: 0
     t.boolean "paid", default: false
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.datetime "job_start_datetime"
-    t.datetime "job_end_datetime"
+    t.datetime "job_start_datetime", default: "2001-01-01 01:00:00"
+    t.datetime "job_end_datetime", default: "2001-01-01 01:00:00"
     t.string "address_1", default: ""
     t.string "address_2", default: ""
     t.string "city", default: ""
-    t.integer "zip"
+    t.integer "zip", default: 0
     t.string "state", default: ""
     t.string "status", default: "Inquiry"
     t.text "description", default: ""
-    t.integer "total_amount"
-    t.integer "amount_paid"
-    t.integer "balance"
-    t.integer "tax_rate"
-    t.datetime "deposit_date"
-    t.datetime "paid_date"
-    t.datetime "due_date"
+    t.integer "total_amount", default: 0
+    t.integer "amount_paid", default: 0
+    t.integer "balance", default: 0
+    t.integer "tax_rate", default: 0
+    t.datetime "deposit_date", default: "2001-01-01 01:00:00"
+    t.datetime "paid_date", default: "2001-01-01 01:00:00"
+    t.datetime "due_date", default: "2001-01-01 01:00:00"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_id"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer "amount"
+    t.integer "amount", default: 0
     t.integer "business_id"
     t.integer "job_id"
     t.integer "admin_id"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
     t.integer "contractor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "payment_type", default: ""
+    t.string "payment_type"
     t.index ["admin_id"], name: "index_payments_on_admin_id"
     t.index ["business_id"], name: "index_payments_on_business_id"
     t.index ["client_id"], name: "index_payments_on_client_id"
@@ -84,11 +84,11 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
   end
 
   create_table "user_relationships", force: :cascade do |t|
-    t.bigint "client_id"
-    t.bigint "admin_id"
+    t.integer "client_id"
+    t.integer "admin_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "contractor_id"
+    t.integer "contractor_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
     t.string "address_1", default: ""
     t.string "address_2", default: ""
     t.string "city", default: ""
-    t.integer "zip"
+    t.integer "zip", default: 0
     t.string "state", default: ""
-    t.string "ssn", default: ""
+    t.string "ssn", default: "0"
     t.boolean "admin", default: false
     t.boolean "client", default: false
     t.boolean "contractor", default: false
@@ -117,11 +117,6 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
     t.index ["contractor_id"], name: "index_users_on_contractor_id"
   end
 
-  add_foreign_key "payments", "business"
-  add_foreign_key "payments", "jobs"
-  add_foreign_key "payments", "users", column: "admin_id"
-  add_foreign_key "payments", "users", column: "client_id"
-  add_foreign_key "payments", "users", column: "contractor_id"
   add_foreign_key "users", "users", column: "admin_id"
   add_foreign_key "users", "users", column: "client_id"
   add_foreign_key "users", "users", column: "contractor_id"

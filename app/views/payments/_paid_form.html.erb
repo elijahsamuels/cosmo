@@ -5,12 +5,10 @@
 	<%= form.hidden_field :payment_type, :value => "paid" %>
 
 	<br><%= form.label :amount_due, "Total balance: " + number_to_currency(@job.total_amount) %>
-
-	<br><%= form.label :amount, "Suggested Deposit (20%): " %>
-	<br><%= form.number_field :amount, placeholder: number_to_currency(@job.total_amount * 0.2) %>
+	<br><%= form.label :amount, "Suggested Deposit (20%):" %>
+	<br><%= form.number_field :amount, placeholder: number_to_currency(@job.total_amount * 0.2), :value => @job.total_amount * 0.2 %>
 
 	<%= form.submit "Submit Payment" %>
-
 <% end %>
 
 

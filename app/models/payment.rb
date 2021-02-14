@@ -5,11 +5,6 @@ class Payment < ApplicationRecord
 	belongs_to :business, optional: true
 	accepts_nested_attributes_for :jobs
 
+	validates :amount, presence: true
 
 end
-
-# user has many payments
-# job has many payemnts 
-
-# payment belongs_to users
-# payment belongs_to jobs

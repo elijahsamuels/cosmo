@@ -18,12 +18,22 @@ class PaymentsController < ApplicationController
 		if payment_params[:payment_type] == "refund"
 			@payment = Payment.new(payment_params)
 			@payment.amount = @payment.amount*-1
-			@payment.save
-			redirect_to edit_job_path(@payment.job_id)
+			if @payment.save
+				flash[:notice] = "Transaction confirmed."
+				redirect_to edit_job_path(@payment.job_id)
+			else
+				flash[:notice] = @payment.errors.full_messages
+				render new_job_payment_path(@job)
+			end
 		else #this handles payments (not refunds)
 			@payment = Payment.new(payment_params)
-			@payment.save
-			redirect_to edit_job_path(@payment.job_id)
+			if @payment.save
+				flash[:notice] = "Transaction confirmed."
+				redirect_to edit_job_path(@payment.job_id)
+			else
+				flash[:notice] = @payment.errors.full_messages
+				render new_job_payment_path(@job)
+			end
 		end
 	end	
 	
@@ -42,6 +52,7 @@ class PaymentsController < ApplicationController
 	end
 	
 	def update
+		byebug
 		@payment = Payment.find_by_id(params[:id])
 		if @payment.valid?
 			@payment.update(params)

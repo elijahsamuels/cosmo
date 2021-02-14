@@ -1,51 +1,43 @@
 class AddDefaultsEmptyString < ActiveRecord::Migration[6.1]
   def change
-    change_column_default :business, :address_1, ""
-    change_column_default :business, :address_2, ""
-    change_column_default :business, :city, ""
-    change_column_default :business, :zip, ""
-    change_column_default :business, :state, ""
-    change_column_default :business, :mailing_address_1, ""
-    change_column_default :business, :mailing_address_2, ""
-    change_column_default :business, :mailing_city, ""
-    change_column_default :business, :mailing_zip, ""
-    change_column_default :business, :mailing_state, ""
-    change_column_default :business, :url, ""
-    change_column_default :business, :email, ""
-    change_column_default :business, :phone, ""
-    change_column_default :business, :description, ""
-    change_column_default :business, :ein, ""
-    
-    change_column_default :invoices, :job_id, ""
-    change_column_default :invoices, :user_id, ""
-    change_column_default :invoices, :date_invoice_sent, ""
-    change_column_default :invoices, :invoice_amount, ""
+      
+    change_column_default :businesses, :name, ""
+    change_column_default :businesses, :address_1, ""
+    change_column_default :businesses, :address_2, ""
+    change_column_default :businesses, :city, ""
+    change_column_default :businesses, :zip, 0
+    change_column_default :businesses, :state, ""
+    change_column_default :businesses, :mailing_address_1, ""
+    change_column_default :businesses, :mailing_address_2, ""
+    change_column_default :businesses, :mailing_city, ""
+    change_column_default :businesses, :mailing_zip, 0
+    change_column_default :businesses, :mailing_state, ""
+    change_column_default :businesses, :url, ""
+    change_column_default :businesses, :email, ""
+    change_column_default :businesses, :phone, ""
+    change_column_default :businesses, :description, ""
+    change_column_default :businesses, :ein, ""
+        
+    change_column_default :invoices, :date_invoice_sent, DateTime.new(2001,1,1,1,0,0)
+    change_column_default :invoices, :invoice_amount, 0
 
-    change_column_default :jobs, :job_start_datetime, ""
-    change_column_default :jobs, :job_end_datetime, ""
+    change_column_default :jobs, :job_start_datetime, DateTime.new(2001,1,1,1,0,0)
+    change_column_default :jobs, :job_end_datetime, DateTime.new(2001,1,1,1,0,0)
     change_column_default :jobs, :address_1, ""
     change_column_default :jobs, :address_2, ""
     change_column_default :jobs, :city, ""
-    change_column_default :jobs, :zip, ""
+    change_column_default :jobs, :zip, 0
     change_column_default :jobs, :state, ""
     change_column_default :jobs, :description, ""
-    change_column_default :jobs, :total_amount, ""
-    change_column_default :jobs, :amount_paid, ""
-    change_column_default :jobs, :balance, ""
-    change_column_default :jobs, :tax_rate, ""
-    change_column_default :jobs, :deposit_date, ""
-    change_column_default :jobs, :paid_date, ""
-    change_column_default :jobs, :due_date, ""
-    change_column_default :jobs, :admin_id, ""
-    change_column_default :jobs, :client_id, ""
+    change_column_default :jobs, :total_amount, 0
+    change_column_default :jobs, :amount_paid, 0
+    change_column_default :jobs, :balance, 0
+    change_column_default :jobs, :tax_rate, 0
+    change_column_default :jobs, :deposit_date, DateTime.new(2001,1,1,1,0,0)
+    change_column_default :jobs, :paid_date, DateTime.new(2001,1,1,1,0,0)
+    change_column_default :jobs, :due_date, DateTime.new(2001,1,1,1,0,0)
 
-    change_column_default :payments, :amount, ""
-    change_column_default :payments, :business_id, ""
-    change_column_default :payments, :job_id, ""
-    change_column_default :payments, :admin_id, ""
-    change_column_default :payments, :client_id, ""
-    change_column_default :payments, :contractor_id, ""
-    change_column_default :payments, :payment_type, ""
+    change_column_default :payments, :amount, 0
 
     change_column_default :users, :first_name, ""
     change_column_default :users, :last_name, ""
@@ -54,11 +46,8 @@ class AddDefaultsEmptyString < ActiveRecord::Migration[6.1]
     change_column_default :users, :address_1, ""
     change_column_default :users, :address_2, ""
     change_column_default :users, :city, ""
-    change_column_default :users, :zip, ""
+    change_column_default :users, :zip, 0
     change_column_default :users, :state, ""
-    change_column_default :users, :ssn, ""
-    change_column_default :users, :admin_id, ""
-    change_column_default :users, :client_id, ""
-    change_column_default :users, :contractor_id, ""  
+    change_column_default :users, :ssn, 0
   end
 end
