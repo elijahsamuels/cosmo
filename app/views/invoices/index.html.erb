@@ -1,25 +1,53 @@
-<h3>All Invoices for <%= current_user.first_name %></h3>
+<h3>All Invoices for <%= current_user.first_name %></h3> 
+<!-- FIX: shows current user, not user name for these invoices -->
+
 <table>
   <thead>
     <tr>
-      <th>Date</th>
+      <th>Job ID</th>
+      <th>Invoice ID</th>
+      <th>Job Location</th>
+      <th>Date of Job</th>
+      <th>Admin</th>
+      <th>Job Status</th>
       <th>Amount</th>
-      <th></th>
+      <th>Invoice Status</th>
+      <th>Generate Invoice</th>
+      <th>????</th>
     </tr>
   </thead>
   <tbody>
-<% byebug %>
 
 	<% @invoices.each.with_index(1) do |invoice, i| %>
+	  <% job = Job.find_by_id(invoice.job_id) %>
+	  <% admin = job.users.where(admin: true).first %>
+	  <% client = job.users.where(client: true).first %>
 		<tr>
-			<td><%= i %>. <%= invoice.date_invoice_sent.strftime("%B %d, %Y") %></td>
+<%# byebug %>
+			<td><%= i %>. <%= invoice.job_id %></td>
+			<td><%= invoice.id%></td> 
+			<td><%= job.city.concat(", ", job.state) %></td>
+			<td><%= job.datetime_for_job_start %></td>
+			<td><%= mail_to admin.email, admin.first_name.concat(" ", admin.last_name)%>
+			<% if job.status == "Completed" %>
+				<td><%= link_to "Generate Invoice", edit_user_invoice_path(id: invoice.job_id) %></td> 
+			<% else %>
+				<td><%= job.status.titleize %></td> 		
+			<% end %>
 			<td><%= number_to_currency(invoice.invoice_amount) %></td>
-			<td><%= invoice.job_id %></td>
+			<% if invoice.date_invoice_sent.present? %>
+				<td> Paid</td>
+			<% else %>
+				<td> Waiting</td>
+			<% end %>
+			<td><%= invoice.date_invoice_sent.strftime("%B %d, %Y") %></td>
+
+
 
 			<%#= hidden_field_tag :user_id, :value => invoice.user_id %>
 			<%#= hidden_field_tag :job_id, :value => invoice.job_id %>
+			<td><%#= link_to job.status.titleize, user_invoice_path(id: invoice.job_id) %></td> 
 
-			<td><%= link_to "Generate Invoice", user_invoice_path(id: invoice.job_id) %></td> 
 		</tr>
 	<% end %>
 
@@ -30,17 +58,19 @@
 
 <!--    
 show all the invoices for the the current_user
--->	
 should create a new invoice
 will probably need to add columns to the table for DESCRIPTION, REQUESTED PAY AMOUNT
 
 
 user views their index list of invoices
 user selects which invoice they want to submit. 
-redirect to INVOCIES/EDIT. this makes Invoice.new 
+redirect to INVOICES/EDIT. this makes Invoice.new 
+
 <br>create a new invoice_id from a link based on the job_id
 <br>invoice.new makes 
 <br>update that invoice_id - user submits and invoice is marked as paid
 <br>show that invoice_id
 
 
+
+-->	

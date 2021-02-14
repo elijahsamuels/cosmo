@@ -26,36 +26,20 @@
   <tbody>
 
 <% @jobs.each.with_index(1) do |job, i| %>
-<tr>
-  <% client = User.find_by_id(job.client_id) %>
-  
-  <td><%= i %>. <%= job.datetime_for_job_start %></td>
-  <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
-  <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
-  <td><%= job.status.titleize %></td>
-  <td><%= job.invoices.map(&:user).each {|c| c.client}.count %> members</td>
-  <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
 
+  <tr>
+    <% client = User.find_by_id(job.client_id) %> <%# QUESTION: is this ok here? how would I move it to the controller since the local varialbe 'job' is inside the line?%>
+    <td><%= i %>. <%= job.datetime_for_job_start %></td>
+    <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
+    <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
+    <td><%= job.status.titleize %></td>
+    <td><%#= job.invoices.map(&:user).each {|c| c.client}.count || "0" %> members</td><%#breaks if nil%>
+    <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
+    <td><%= link_to "Submit Payment", new_job_payment_path(job.id) %></a></td>
+    <td><%= link_to "Edit", edit_job_path(job.id) %>
+    <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
+  </tr>
 
-  <td><%= link_to "Submit Payment", new_job_payment_path(job.id) %>
-
-  <%# list the users associtated with the job. %>
-  <%# job.invoices gives us the array of associations  %>
-  <%#  take the invoices id and have this be the Find_by id for the User name %>
-  <%# Job.find(1).invoices.map(&:user) %>
-
-  <%# Job.find(1).invoices.map(&:user).each { |a| a.admin_id = 2 }  %>
-  <%#   %>
-
-  <%# link_to job.client.first_name, edit_job_path(job.id) %></a></td>
-
-  <td><%= link_to "Edit", edit_job_path(job.id) %>
-  <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
-
-<% end %>
-</tr>
+    <% end %>
   </tbody>
 </table>
-
-<%# @job.invoices[0].user %>
-  <td><%# link_to job.invoices[0].user.first_name, edit_job_path(job.id) %></td>

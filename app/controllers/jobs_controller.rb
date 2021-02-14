@@ -150,6 +150,7 @@ end
 
 
   # def total_paid
+  #   byebug
   #   tp = @job.payments.where(job_id: @job.id)
   #   @total_paid = tp.map.each { |a| a.amount }.sum
   # end

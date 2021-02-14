@@ -2,27 +2,3 @@
 <%#= byebug %>
 
 
-
-
-
-    job_id
-    user_id
-    created_at
-    updated_at
-    date_invoice_sent
-    invoice_amount
-
-
-
-<%= form_for @invoice, url: "/users/#{@user.id}/invoices/" do |form| %>
-	<%= form.hidden_field :client_id, :value => current_user.id %>
-	<%= form.hidden_field :job_id, :value => @job.id %>
-	<%= form.hidden_field :payment_type, :value => "paid" %>
-
-	<br><%= form.label :invoice_amount, "Invoice Amount: " + number_to_currency(@invoice.invoice_amount) %>
-
-	<%= form.submit "Submit Invoice" %>
-
-<% end %>
-
-
