@@ -39,8 +39,7 @@ class InvoicesController < ApplicationController
 	def update
 		# @invoice = Invoice.where(job_id: params[:job_id]).where(user_id: params[:user_id])
 		@invoice = Invoice.find_by_id(invoice_params[:id])
-		byebug
-		@invoice.update(invoice_params)
+				@invoice.update(invoice_params)
 		redirect_to user_invoices_path(@current_user)
 
 		# else

@@ -1,8 +1,8 @@
-<h2>Job Info:</h2>
-
+<h2>Job Details for <%= @client.first_name.concat(" ", @client.last_name) %> on <%= @job.job_start_datetime.strftime("%a, %b %d, %Y") %>
+</h2>
 
 <div>
-  <b>Admin Info:</b> <!-- this will break is admin_id of Jobs is nil -->
+  <h4>Admin Info:</h4> <!-- this will break is admin_id of Jobs is nil -->
   <br><%= admin_of_job.first_name.to_s %> <%= admin_of_job.last_name.to_s %>
   <br><%= link_to admin_of_job.email.to_s %>
   <br><%= call_to admin_of_job.phone.to_s %>
@@ -10,7 +10,7 @@
 <br>
 
 <div>
-    <b>Client Info:</b>
+    <h4>Client Info:</h4>
     <br> <%= link_to @client.first_name.concat(" ", @client.last_name), edit_client_path(@client.id) %>   
     <br> <%= call_to @client.phone.to_s %>    
     <br> <%= mail_to @client.email.to_s %>    
@@ -20,18 +20,21 @@
     <br><%# link_to "Edit Client", edit_client_path(@job.client.id) %>
 </div>
 <br>
-<div>
 
-  <b>Contactor Team:</b>
+<div>
+  <h4>Contactor Team:</h4>
   <td><%# all_contractors(@job).each do |c| %></td>
   <br><td><%# link_to c.first_name.to_s.concat(" ", c.last_name.to_s), edit_contractor_path(c.id) %></td>
   <%# end %>
+  <%= button_to "add a new contractor for this job" %>
+  <br>this should send to a page to create OR add an existing contractor
+  <br>should associate this job_id AND admin_id with that contractor  
 </div>
 <br>
 
 <div>
   <%= form_with model: @job do |form| %>
-    <b>Job Info:</b>
+    <h4>Job Info:</h4>
 
   <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']], @job.status)  %>
     <br>Date: <%= form.date_select :job_start_datetime, order: [:day, :month, :year] %>
@@ -46,6 +49,15 @@
     <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
     <br>
 
+    <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
+    <br>Sunrise: Coming soon. Weather API
+    <br>Sunset: Coming soon. Weather API
+    <br>
+    <br>Last updated: <%= @job.updated_at.strftime("%a, %b %d, %Y at %l:%M%P") %>
+</div>
+
+<div>
+    <h4>Finances:</h4>
     <% if current_user.admin?%>
       <br>Total Quoted: <%= form.number_field :total_amount, placeholder: number_to_currency(@job.total_amount) %> 
       <% else %>
@@ -59,8 +71,8 @@
     <% if current_user.admin?%>
       <%= link_to "Issue a Refund", new_job_payment_path(@job) %>
     <% end %>
-
-  <h4>Payment History:</h3>
+<br>
+  <h4>Payment History:</h4>
     <table>
       <thead>
         <tr>
@@ -70,7 +82,7 @@
         </tr>
       </thead>
 
-      <% @each_payment.map.each do |p| %>
+    <% @each_payment.map.each do |p| %>
       <tbody>
         <td><%= p.payment_type %></td>
         <td><%= number_to_currency(p.amount) %></td>
@@ -78,16 +90,7 @@
         <% end %>
       </tbody>
     </table>
-
     <br>
-
-    <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
-    <br>Sunrise: Coming soon. Weather API
-    <br>Sunset: Coming soon. Weather API
-    <br>
-    <br>Last updated: <%= @job.updated_at.strftime("%a, %b %d, %Y at %l:%M%P") %>
-
     <br><%= form.submit "Save" %>
-
   <% end %>
 </div>

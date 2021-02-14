@@ -116,7 +116,26 @@ end
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email.downcase, :phone, :address_1, :address_2, :city, :state, :zip, job_attributes: [:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id])
+    params.require(:user).permit(:first_name,
+      :last_name,
+      :email.downcase,
+      :phone,
+      :address_1,
+      :address_2,
+      :city,
+      :state,
+      :zip,
+      job_attributes: [:job_start_datetime,
+      :address_1,
+      :address_2,
+      :city,
+      :state,
+      :zip,
+      :description,
+      :status,
+      :client_id,
+      :id,
+      :admin_id])
     # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
