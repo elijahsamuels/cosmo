@@ -5,10 +5,12 @@ class UsersController < ApplicationController
   before_action :admin_access, except: [:new, :create]
 
   def new
+    byebug
     @user = User.new
   end
 
   def create
+    byebug
     @user = User.new(user_params)
     # # if @current_user.admin?
     #   if @user.save
@@ -27,13 +29,10 @@ class UsersController < ApplicationController
         redirect_to user_path(@user)
       else
         flash[:notice] = @user.errors.full_messages
-        # binding.pry
         render new_user_path
       end 
-    # end
   end
   
-
   def index
     @users = User.where(hidden: false)
   end

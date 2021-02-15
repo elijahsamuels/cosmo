@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_184348) do
+ActiveRecord::Schema.define(version: 2021_02_14_231852) do
 
   create_table "businesses", force: :cascade do |t|
     t.string "name", default: ""
@@ -38,13 +38,13 @@ ActiveRecord::Schema.define(version: 2021_02_14_184348) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "date_invoice_sent", default: "2001-01-01 01:00:00"
+    t.datetime "date_invoice_sent", default: "2021-02-14 23:20:32"
     t.integer "invoice_amount", default: 0
     t.boolean "paid", default: false
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.datetime "job_start_datetime", default: "2001-01-01 01:00:00"
+    t.datetime "job_start_datetime", default: "2021-02-14 23:20:32"
     t.datetime "job_end_datetime", default: "2001-01-01 01:00:00"
     t.string "address_1", default: ""
     t.string "address_2", default: ""

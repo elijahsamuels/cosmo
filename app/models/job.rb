@@ -22,9 +22,10 @@ class Job < ApplicationRecord
 
   def user_attributes=(params)
     user = User.find_by_id(params[:user_id])
+    byebug
     if user.admin?
       client = User.create(first_name: params[:first_name],
-         last_name: params[:last_name],
+          last_name: params[:last_name],
           email: params[:email],
           phone: params[:phone],
           address_1: params[:address_1],
@@ -33,15 +34,11 @@ class Job < ApplicationRecord
           state: params[:state],
           zip: params[:zip],
           client: true,
-         password: SecureRandom.hex(10))
+          password: SecureRandom.hex(10))
       self.users << client
     else
       self.users << user
     end
   end
   
-  
 end
-
-# raise client.inspect
-

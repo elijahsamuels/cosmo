@@ -6,7 +6,7 @@
 
 	<br><%= form.label :amount_due, "Total balance: " + number_to_currency(@job.total_amount) %>
 	<br><%= form.label :amount, "Suggested Deposit (20%):" %>
-	<br><%= form.number_field :amount, placeholder: number_to_currency(@job.total_amount * 0.2), :value => @job.total_amount * 0.2 %>
+	<br><%= form.number_field :amount, placeholder: number_to_currency(@job.total_amount * 0.2), :value => (@job.total_amount * 0.2).round(0) %>
 
 	<%= form.submit "Submit Payment" %>
 <% end %>

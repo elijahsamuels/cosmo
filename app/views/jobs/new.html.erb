@@ -1,50 +1,23 @@
-<h1>New Inquiry & Client</h1>
-
-<br>
 <div>
-
-<%= form_for @job do |c| %>
-
- <br><%= c.date_field :job_start_datetime, min: Date.today %>
-    <br><%= c.text_field :address_1, placeholder: "Address 1" %>
-    <br><%= c.text_field :address_2, placeholder: "Address 2" %>
-    <br><%= c.text_field :city, placeholder: "City" %>
-    <br><%= c.text_field :state, placeholder: "State" %>
-    <br><%= c.text_field :zip, placeholder: "Zip" %>
-    <br><%= c.text_area :description, placeholder: "Please tell us a bit about the job.", size: "60x10" %>
-
-    <%= c.hidden_field :admin_id, :value => params[:user_id] || rand[1..4] %>
-    <%= c.hidden_field :client_id, :value => params[:user_id] %> <%# how to set or select a client for this job? %>
-     
-    <%= c.fields_for :user_attributes do |j| %>
-      <%= j.hidden_field :user_id, :value => current_user.id %>
-      <br><%= j.label :first_name %> <%= j.text_field :first_name %>
-      <br><%= j.label :last_name %> <%= j.text_field :last_name %>
-      <br><%= j.label :email %> <%= j.text_field :email %>
-      <br><%= j.label :phone %> <%= j.text_field :phone %>
-      <br><%= j.label :address_1 %> <%= j.text_field :address_1 %>
-      <br><%= j.label :adddress_2 %> <%= j.text_field :adddress_2 %>
-      <br><%= j.label :city %> <%= j.text_field :city %>
-      <br><%= j.label :state %> <%= j.text_field :state %>
-      <br><%= j.label :zip %> <%= j.text_field :zip %>
-      <br><%= j.label :password %> <%= j.text_field :password, value: "123456" %>
-
+  <% if current_user.client? %>
+    <h1>New Job Inquiry for <%= current_user.first_name %> </h1>
+    <%= form_for @job do |j| %>
+      <%= render partial: "job_form", locals: {j: j}%>
+      <br><%= j.submit  %>
     <% end %>
 
-    <br><%= c.submit  %>
+  <% else %>
+  
+    <h1>New Inquiry & Client</h1>
+    <%= form_for @job do |j| %>
+    <h3>Job Details:</h3>
+      <%= render partial: "job_form", locals: {j: j}%>
+      <%= j.fields_for :user_attributes do |c| %>
+        <h3>Client Details:</h3>
+        <%= render partial: "/clients/client_form", locals: {c: c} %>
+      <% end %>
+      <br><%= j.submit  %>
+    <% end %>
 <% end %>
 
 </div>
-    <%# if current_user && current_user.admin?%>
-      <br><%#= j.hidden_field :user_id, :value => current_user.id %>
-    <%# end %>
-
-
-     
-      <%# j.hidden_field :id, :value => @job.id %>
-
-    <%# j.hidden_field :admin_id, :value => current_user.id %>
-    <%# form.hidden_field :client_id, :value => client_id %>
-    
-
-

@@ -1,0 +1,16 @@
+<br>
+<%= j.date_field :job_start_datetime, min: Date.today %>
+<br><%= j.text_field :address_1, placeholder: "Address 1" %>
+<br><%= j.text_field :address_2, placeholder: "Address 2" %>
+<br><%= j.text_field :city, placeholder: "City" %>
+<br><%= j.text_field :state, placeholder: "State" %>
+<br><%= j.text_field :zip, placeholder: "Zip" %>
+<br><%= j.text_area :description, placeholder: "Please tell us a bit about the job.", size: "60x10" %>
+<% if current_user.admin? %>
+	<%= j.hidden_field :admin_id, :value => current_user.id %>
+<% else %>
+	<%= j.hidden_field :admin_id, :value => rand(1..4) %>
+<% end %>
+<%#= j.hidden_field :client_id, :value => 31 %>
+<%#= j.hidden_field :client_id, :value => 32 %>
+

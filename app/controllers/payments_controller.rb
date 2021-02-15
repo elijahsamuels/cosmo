@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
 	before_action :admin_access, except: [:new, :create]
 	
 	def show
-		@job = Job.find_by_id(params[:id])
+		find_job_by_id
 		@payment = @job.payments.build
 	end
 
@@ -18,22 +18,10 @@ class PaymentsController < ApplicationController
 		if payment_params[:payment_type] == "refund"
 			@payment = Payment.new(payment_params)
 			@payment.amount = @payment.amount*-1
-			if @payment.save
-				flash[:notice] = "Transaction confirmed."
-				redirect_to edit_job_path(@payment.job_id)
-			else
-				flash[:notice] = @payment.errors.full_messages
-				render new_job_payment_path(@job)
-			end
+			process_payment
 		else #this handles payments (not refunds)
 			@payment = Payment.new(payment_params)
-			if @payment.save
-				flash[:notice] = "Transaction confirmed."
-				redirect_to edit_job_path(@payment.job_id)
-			else
-				flash[:notice] = @payment.errors.full_messages
-				render new_job_payment_path(@job)
-			end
+			process_payment
 		end
 	end	
 	
@@ -47,7 +35,7 @@ class PaymentsController < ApplicationController
 	end
 
 	def edit
-		@job = Job.find_by_id(params[:id])
+		find_job_by_id
 		@payment = Payment.new(job_id: @job.id, client_id: current_user)
 	end
 	
@@ -73,6 +61,20 @@ class PaymentsController < ApplicationController
 	def payment_params
         params.require(:payment).permit(:amount, :client_id, :job_id, :payment_type, job_attributes: [:user_id, :job_id, :client_id])
     end
+
+	def process_payment
+		if @payment.save
+			flash[:notice] = "Transaction confirmed."
+			redirect_to edit_job_path(@payment.job_id)
+		else
+			flash[:notice] = @payment.errors.full_messages
+			render new_job_payment_path(@job)
+		end
+	end
+
+	def find_job_by_id
+		@job = Job.find_by_id(params[:id])
+	end
 
 end
 

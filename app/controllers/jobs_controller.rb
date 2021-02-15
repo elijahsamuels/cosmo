@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
 
-  before_action :require_login, except: [:new, :create, :show]
+  # before_action :require_login, except: [:new, :create, :show]
   # before_action :admin_access
 
   def new
@@ -11,22 +11,16 @@ class JobsController < ApplicationController
   # create a new job with the user_id attribute so that you can access that job via user/id/jobs/id
   def create
     @job = Job.create(job_params)
+    params[:job][:user_attributes][:user_id] = @job.users.reduce.id
+    @job.client_id = @job.users.reduce.id
+    # the user_id or users.id is created here.
     if @job.save
-      redirect_to user_job_path(params[:user_id], @job)
+      redirect_to edit_job_path(@job)
+      # redirect_to edit_job_path(params[:job_id], @job)
     else
+      flash[:notice] = @job.errors.full_messages
       render :new #how to render form instead of just new
     end
-    # @job = Job.new(job_params)
-    # @client = User.new
-    
-    # @job = Job.create(job_params, client_id: @client.id) # this should work for just making a job. no associations
-    # @job = @user.jobs.create(job_params)
-    # binding.pry
-
-    # @job.save
-    # redirect_to job_path(@job)
-
-    # redirect_to user_job_path(params[current_user.id], @job) #/users/:user_id/jobs/:id(.:format)	
   end
 
   def index
@@ -52,17 +46,15 @@ class JobsController < ApplicationController
   end
 end
 
-
 # MAKE THIS WORK IN PLACE OF THE ABOVE INDEX METHOD
 def status(s)
   jobs = Job.where(admin_id: current_user.id)
   @jobs = jobs.where(status:s)
 end 
 
-        #answered: how to refactor to use params[status: :status]???
-        # @jobs = @jobs.find_by(params[status: :status])
-        # @jobs = @jobs.find_by(status: params[:status])
-
+      #answered: how to refactor to use params[status: :status]???
+      # @jobs = @jobs.find_by(params[status: :status])
+      # @jobs = @jobs.find_by(status: params[:status])
 
       # this will list all the clients for the user based on the admin_id
       # @jobs = Job.find(current_user.id).invoices.map(&:user).each { |a| a.admin_id = current_user.id }
@@ -116,31 +108,12 @@ end
   private
 
   def user_params
-    params.require(:user).permit(:first_name,
-      :last_name,
-      :email.downcase,
-      :phone,
-      :address_1,
-      :address_2,
-      :city,
-      :state,
-      :zip,
-      job_attributes: [:job_start_datetime,
-      :address_1,
-      :address_2,
-      :city,
-      :state,
-      :zip,
-      :description,
-      :status,
-      :client_id,
-      :id,
-      :admin_id])
+    params.require(:user).permit(:first_name, :last_name, :email.downcase, :phone, :address_1, :address_2, :city, :state, :zip, job_attributes: [:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id])
     # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
   def job_params
-    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id, :total_amount, user_attributes: [:first_name, :last_name, :email.downcase, :user_id]) 
+    params.require(:job).permit(:job_start_datetime, :address_1, :address_2, :city, :state, :zip, :description, :status, :client_id, :id, :admin_id, :total_amount, user_attributes: [:first_name, :last_name, :email.downcase, :phone, :address_1, :address_2, :city, :state, :zip, :user_id, :password]) 
     # admin_attributes: [:first_name]) #, client_attributes: [:first_name.downcase, :last_name.downcase, :email.downcase]
   end
 
@@ -156,13 +129,14 @@ end
   end
   
   def each_payment 
-  @each_payment = @job.payments.where(job_id: @job.id)
-
+    @each_payment = @job.payments.where(job_id: @job.id)
+  end
+  
+end
   # amt = j.map.each { |a| a.amount }
   #   # dates = j.map.each { |d| d.created_at }
   #   # @each_payment_and_date = amt.zip(dates).to_h
     
-  end
     # @each_payment = Hash.new(ep.amount: ep.created_at)  
     # @each_payment_date = j.map.each { |d| d.create_at }
     # hash = Hash[@job.payments.where(job_id: @job.id).map.each { |a| a.amount } { |amount| [amount, @job.payments.where(job_id: @job.id).map.each { |a| a.created_at }]} ]
@@ -183,6 +157,3 @@ end
   #   payments do |p|
   #   p.paid_amount, p.created_at
   # end
-
-end
-
