@@ -31,11 +31,11 @@ class JobsController < ApplicationController
   def index
     if params[:user_id].present?
       if User.find_by_id(params[:user_id]).admin?
-        @jobs = Job.where(admin_id: current_user.id)
+        @jobs = Job.where(admin_id: current_user.id).sort_by_date(params)
         admin_status_sort
       else
         User.find_by_id(params[:user_id]).client?
-        @jobs = Job.where(client_id: current_user.id)
+        @jobs = Job.where(client_id: current_user.id).sort_by_date(params)
       end
     else
       @jobs = Job.sort_by_date(params)
