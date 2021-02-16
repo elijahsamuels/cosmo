@@ -38,7 +38,7 @@ class JobsController < ApplicationController
         @jobs = Job.where(client_id: current_user.id)
       end
     else
-      @jobs = Job.all
+      @jobs = Job.sort_by_date(params)
     end
   end
   

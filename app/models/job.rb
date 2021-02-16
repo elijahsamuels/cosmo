@@ -40,4 +40,13 @@ class Job < ApplicationRecord
     end
   end
   
+	def self.sort_by_date(params) # scope
+		@jobs = Job.order("job_start_datetime")   
+	end
+
+
+
 end
+
+
+# add a scope method to sort the order of invoices by job date

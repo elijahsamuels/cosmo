@@ -20,9 +20,8 @@ class InvoicesController < ApplicationController
 	end	
 	
 	def index
-		@invoices = Invoice.where(user_id: params[:user_id])
+		@invoices = Invoice.sort_by_job(params)
 		@contractor = User.find_by_id(params[:user_id])
-		# @invoices = Invoice.where(user_id: params[:user_id])
 	end
 	
 	def edit
