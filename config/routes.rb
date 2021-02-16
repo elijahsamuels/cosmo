@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root "sessions#main"
+  get '/search', to: 'users#search', :as => 'search'
 
   get '/users/:id/hidden', to: 'users#hidden', as: 'hidden'
   # post '/users/:id/clients/:id/new', to: 'clients#edit'

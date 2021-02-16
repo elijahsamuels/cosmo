@@ -60,7 +60,7 @@
     <h4>Finances:</h4>
     <% if current_user.admin?%>
       <br>Total Quoted: <%= form.number_field :total_amount, placeholder: number_to_currency(@job.total_amount) %> 
-      <% else %>
+    <% else %>
       <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
     <% end %>
     

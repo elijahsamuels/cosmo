@@ -62,17 +62,21 @@ class UsersController < ApplicationController
     redirect_to users_path    
   end
 
-  # def self.user_clients_list
-  #   c = User.find_by_id(params[:id]).clients
-  #   c.each.collect do |a| a.first_name end
-  # end    
+  def search
+    if params[:search].blank?
+      redirect_to(root_path, alert: "Empty field!")  
+    else
+      @parameter = params[:search].downcase  
+      @users = User.all.where("lower(first_name) LIKE :search", search: @parameter)
+      render "index"
+    end
+  end
 
   private
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor, :admin_id, :client_id, :contractor_id,)
   end    
-
 
   def find_user_by_id
     @user = User.find_by(id: params[:id])

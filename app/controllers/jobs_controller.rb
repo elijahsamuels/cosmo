@@ -168,7 +168,7 @@ end
 
 
 
-  # MAKE THIS WORK IN PLACE OFTHEE INDEX METHOD
+  # MAKE THIS WORK IN PLACE OF THE INDEX METHOD
 def status(s)
   jobs = Job.where(admin_id: current_user.id)
   @jobs = jobs.where(status:s)
