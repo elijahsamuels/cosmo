@@ -3,7 +3,6 @@ class ClientsController < ApplicationController
   before_action :require_login
   before_action :admin_access
 
-  # new_user_client_path
   def new
     @client = User.new
   end
@@ -19,23 +18,22 @@ class ClientsController < ApplicationController
     if params[:user_id].present?
       @clients = User.find_by_id(current_user).clients
       @jobs = User.find_by_id(current_user).invoices
-      # redirect_to user_clients_path(current_user)
-    elsif !params[:user_id].present?
+    else
       @clients = User.where(client: true)
     end
   end
 
   def show
-    @client = User.find_by_id(params[:id])
+    find_client_by_id
   end
 
   def edit
-    @client = User.find_by_id(params[:id])
+    find_client_by_id
     render "edit"
   end
   
   def update
-    @client = User.find(params[:id])
+    @client = User.find_by(id: params[:id])
     @client.update(client_params)
     redirect_to edit_client_path(@client)
   end
@@ -45,9 +43,12 @@ class ClientsController < ApplicationController
   
   private
 
-
   def client_params
     params.require(:client).permit! #(:first_name.downcase, :last_name.downcase, :email.downcase,
+  end
+
+  def find_client_by_id
+    @client = User.find_by_id(params[:id])
   end
 
 end

@@ -18,19 +18,38 @@ module ApplicationHelper
       
   def current_user # checks to see user_id is true before hitting DB.
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+    
   end
-
+  
   def admin_access
     unless current_user.admin?
       flash[:error] = "You don't have permissions for that section."
       redirect_to root_path # halts request cycle
     end
   end
-
+  
   def current_admin 
     params[:id].to_i == current_user.id
   end
   
+  def not_found
+    flash[:error] = "Let's calm down" 
+    redirect_to root_path
+  end
+  
+
+  # def current_client 
+  #   if current_user.client && !current_user.admin && !current_user.contractor
+      
+  # end
+
+  #   params[:id].to_i == current_user.id
+
+  #   if params.has_value?("jobs")
+  #   end
+
+  
+
 
   def call_to(phone_number)
     phone_number = number_to_phone(phone_number)

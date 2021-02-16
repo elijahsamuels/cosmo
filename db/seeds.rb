@@ -62,5 +62,4 @@ end
   )
   user.save!
   # User.create(first_name: first_name, last_name: last_name)
-  # binding.pry
 end

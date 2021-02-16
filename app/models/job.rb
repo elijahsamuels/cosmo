@@ -22,7 +22,6 @@ class Job < ApplicationRecord
 
   def user_attributes=(params)
     user = User.find_by_id(params[:user_id])
-    byebug
     if user.admin?
       client = User.create(first_name: params[:first_name],
           last_name: params[:last_name],

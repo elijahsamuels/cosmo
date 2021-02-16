@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :jobs
     resources :invoices, except: [:destroy]
     #resources :payments, only: [:index, :show, :new, :create ]
-    end
+  end
   
   resources :clients, through: :users
   resources :contractors, through: :users
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :jobs do #, only: [:show, :edit] 
     resources :payments #, only: [:index, :show, :new, :create, :edit]
     resources :invoices, except: [:destroy]
-    end
+  end
 
 
   # Sessions, Login, Signup, Logout
@@ -38,9 +38,9 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '*path', via: :all, to: 'application#not_found'
+  post '*path', via: :all, to: 'application#not_found'
 
-  match "*any", via: :all, to: "errors#not_found"
 
 end
 

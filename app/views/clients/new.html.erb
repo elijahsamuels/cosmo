@@ -1,8 +1,4 @@
-<h1>Clients#new</h1>
-<p>Find me in app/views/clients/new.html.erb</p>
-
 <h2>Client Info:</h2>
-
 
 <%# form_with model: @client do |form| %>
 <%= form_for @client, url: user_clients_path, method: :post do |form| %>
@@ -28,7 +24,6 @@
 
 	<%= form.submit "Save" %>
 
-<%# binding.pry %>
 <% end %>
 
 	<%# hidden_field :job, value: current_user %>

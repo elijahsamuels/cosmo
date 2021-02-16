@@ -1,6 +1,5 @@
 module JobsHelper
 
-
 	def all_contractors(job)
 		if job.invoices.present?
 			job.invoices.collect {|u| u.user}
@@ -14,7 +13,7 @@ module JobsHelper
 		if @job.nil?
 			"please select an admin"
 		else
-			job = Job.find(params[:id])
+			job = Job.find_by(id: params[:id])
 			job.client_id.present? 
 			id = job.client_id
 			User.find_by_id(id)
@@ -22,7 +21,7 @@ module JobsHelper
 	end
 
 	def admin_of_job # this will break is admin_id of Jobs is nil
-		job = Job.find(params[:id])
+		job = Job.find_by(id: params[:id])
 		if job.admin_id.present? 
 			id = job.admin_id
 			User.find_by_id(id)

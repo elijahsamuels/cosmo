@@ -3,8 +3,6 @@
 #   has_many :jobs
 
 #   accepts_nested_attributes_for :jobs, allow_destroy: true#, reject_if: proc { |att| att['name'].blank? }
-
-
   
 #   # validates :email, :first_name, :last_name, :phone_number, presence: true
 #   # validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }

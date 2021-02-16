@@ -5,8 +5,8 @@ class InvoicesController < ApplicationController
 	# before_action :admin_access, except: [:new, :create]
 	
 	def new
-		# @job = Job.find(params[:job_id])
-		@invoice = Invoice.new(invoice_params)
+		# @job = Job.find_by(id: params[:job_id])
+		new_invoice_with_params
 	end
 	
 	def show
@@ -14,7 +14,7 @@ class InvoicesController < ApplicationController
 	end
 	
 	def create
-		@invoice = Invoice.new(invoice_params)
+		new_invoice_with_params
 		@invoice.save
 		redirect_to edit_job_path(@invoice.job_id)
 	end	
@@ -31,20 +31,14 @@ class InvoicesController < ApplicationController
 		# @invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
 		# if Invoice.where(id: params[:id]).where(user_id: params[:user_id]).present?
 		# 	@invoice = Invoice.where(job_id: params[:id]).where(user_id: params[:user_id]).reduce
-		# 	# byebug
 		# else
 		# 	redirect_to user_invoices_path
 		# end
 	
 	def update
-		# @invoice = Invoice.where(job_id: params[:job_id]).where(user_id: params[:user_id])
 		@invoice = Invoice.find_by_id(invoice_params[:id])
-				@invoice.update(invoice_params)
+			@invoice.update(invoice_params)
 		redirect_to user_invoices_path(@current_user)
-
-		# else
-		# 	render user_invoice_path(@invoice.user_id)
-		# end
 	end
 		
 	private
@@ -57,6 +51,9 @@ class InvoicesController < ApplicationController
 		Invoice.where(job_id: invoice_params[:id]).where(user_id: invoice_params[:user_id])
 	end
 
+	def new_invoice_with_params
+		@invoice = Invoice.new(invoice_params)
+	end
 
 end
 

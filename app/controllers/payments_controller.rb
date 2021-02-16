@@ -10,17 +10,17 @@ class PaymentsController < ApplicationController
 	end
 
 	def new
-		@job = Job.find(params[:job_id])
+		@job = Job.find_by(id: params[:job_id])
 		@payment = Payment.new
 	end
 	
 	def create
 		if payment_params[:payment_type] == "refund"
-			@payment = Payment.new(payment_params)
+			new_payment_with_payment_params
 			@payment.amount = @payment.amount*-1
 			process_payment
 		else #this handles payments (not refunds)
-			@payment = Payment.new(payment_params)
+			new_payment_with_payment_params
 			process_payment
 		end
 	end	
@@ -28,8 +28,7 @@ class PaymentsController < ApplicationController
 	def index
 		if params[:user_id].present?
 			@payments = Payment.find_by_id(current_user).clients
-		#   @jobs = Payment.find_by_id(current_user).invoices
-		elsif !params[:user_id].present?
+		else
 			@payments = Payment.where(client: true)
 		end
 	end
@@ -40,16 +39,14 @@ class PaymentsController < ApplicationController
 	end
 	
 	def update
-		byebug
 		@payment = Payment.find_by_id(params[:id])
 		if @payment.valid?
 			@payment.update(params)
 			flash[:notice] = "Payment confirmed."
-			redirect_to payment_path(@payment)
+			redirect_to_payment
 		else
 			flash[:error] = "Yikes! Problem with payment!"
-			# flash[:error] = @job.errors.full_messages
-			redirect_to payment_path(@payment)
+			redirect_to_payment
 		end
 	end
 	
@@ -76,5 +73,12 @@ class PaymentsController < ApplicationController
 		@job = Job.find_by_id(params[:id])
 	end
 
+	def new_payment_with_payment_params
+		@payment = Payment.new(payment_params)
+	end
+
+	def redirect_to_payment
+		redirect_to payment_path(@payment)
+	end
 end
 

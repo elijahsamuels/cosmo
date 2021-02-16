@@ -1,7 +1,7 @@
 class ContractorsController < ApplicationController
 
 	before_action :require_login
-	before_action :admin_access
+	# before_action :admin_access
 
 	def new
 		@contractor = User.new
@@ -11,37 +11,26 @@ class ContractorsController < ApplicationController
 		if params[:user_id].present?
 			@contractors = User.find_by_id(current_user).contractors
 			@jobs = User.find_by_id(current_user).invoices
-		elsif !params[:user_id].present?
+		else
 			@contractors = User.all
 		end
 	end
-	
 	
 	def create
 		@contractor = User.find_or_create_by(contractor_params)
 		redirect_to contractor_path(@contractor)
 	end
 	
-	# @user = User.new(user_params)
-	# if @user.save
-	#   session[:user_id] = @user.id
-	#   redirect_to user_path(@user)
-	# else
-	#   @error = @user.errors.full_messages
-	#   render :signup
-	# end 
-	
-	
-	# no show page needed
+	# no show page needed, yet
 	
 	def edit
-		@contractor = User.find(params[:id])
+		find_contractor_by_id
 		render "edit"
 	end
 	
 	def update
 		# datetime_for_job_start
-		@contractor = User.find(params[:id])
+		find_contractor_by_id
 		@contractor.update(contractor_params)
 		redirect_to edit_contractor_path(@contractor)
 	end
@@ -51,9 +40,12 @@ class ContractorsController < ApplicationController
 	
 	private
 	
-	
 	def contractor_params
 		params.require(:contractor).permit! #(:first_name.downcase, :last_name.downcase, :email.downcase,
 	end
 	
+	def find_contractor_by_id
+		@contractor = User.find_by(id: params[:id])
+	end
+
 end

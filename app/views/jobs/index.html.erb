@@ -15,7 +15,7 @@
       <th>Client</th>
       <th>Location</th>
       <th>Status</th>
-      <th>Team Size</th>
+      <!-- <th>Team Size</th> <%#breaks if nil%>-->
       <th>Price</th>
       <th>Invoices</th>
       <th>Edit</th>
@@ -30,14 +30,14 @@
   <tr>
     <% client = User.find_by_id(job.client_id) %> <%# QUESTION: is this ok here? how would I move it to the controller since the local varialbe 'job' is inside the line?%>
     <td><%= i %>. <%= job.datetime_for_job_start %></td>
-    <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
+    <td><%#= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
     <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
     <td><%= job.status.titleize %></td>
-    <td><%= job.invoices.map(&:user).each {|c| c.client}.count || "0" %> members</td><%#breaks if nil%>
+    <!-- <td><%#= job.invoices.map(&:user).each {|c| c.client}.count || "0" %> members</td> <%#breaks if nil%> -->
     <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
     <td><%= link_to "Submit Payment", new_job_payment_path(job.id) %></a></td>
     <td><%= link_to "Edit", edit_job_path(job.id) %>
-    <td><%= link_to "Delete", job_path(job.id), data: { confirm: "Delete Job?"}, method: :delete %></td>
+    <td><%= link_to "Delete", job_path(job.id), data: {confirm: "Delete Job?"}, method: :delete %></td>
   </tr>
 
     <% end %>

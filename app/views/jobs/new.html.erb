@@ -1,14 +1,14 @@
 <div>
   <% if current_user.client? %>
-    <h1>New Job Inquiry for <%= current_user.first_name %> </h1>
+    <h2>New Job Inquiry for <%= current_user.first_name %> </h2>
     <%= form_for @job do |j| %>
       <%= render partial: "job_form", locals: {j: j}%>
       <br><%= j.submit  %>
     <% end %>
 
   <% else %>
-  
-    <h1>New Inquiry & Client</h1>
+
+    <h2>New Inquiry & Client</h2>
     <%= form_for @job do |j| %>
     <h3>Job Details:</h3>
       <%= render partial: "job_form", locals: {j: j}%>

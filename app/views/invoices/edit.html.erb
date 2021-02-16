@@ -2,7 +2,6 @@
 
 
 <%= form_for @invoice, url: user_invoice_path(@invoice.user_id) do |form| %><!-- is this the right value??? -->
-<%# byebug %>
 	<%= form.label :invoice_amount, "Invoice Amount " %>
 	<%= form.number_field :invoice_amount, value: @invoice.invoice_amount, placeholder: "#{number_to_currency(@invoice.invoice_amount)} (USD)" %></p>
 

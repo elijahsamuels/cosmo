@@ -11,7 +11,7 @@
 
 <div>
     <h4>Client Info:</h4>
-    <br> <%= link_to @client.first_name.concat(" ", @client.last_name), edit_client_path(@client.id) %> 
+    <br> <%= link_to @client.first_name, edit_client_path(@client.id) %> 
     <br> <%= call_to @client.phone.to_s %>    
     <br> <%= mail_to @client.email.to_s %>    
     <br><%# @job.invoices[0].user.first_name.to_s %> <%# @job.invoices[0].user.last_name.to_s %>
@@ -27,8 +27,8 @@
   <br><td><%# link_to c.first_name.to_s.concat(" ", c.last_name.to_s), edit_contractor_path(c.id) %></td>
   <%# end %>
   <%= button_to "add a new contractor for this job" %>
-  <br>this should send to a page to create OR add an existing contractor
-  <br>should associate this job_id AND admin_id with that contractor  
+  <!-- <br>this should send to a page to create OR add an existing contractor
+  <br>should associate this job_id AND admin_id with that contractor  -->
 </div>
 <br>
 

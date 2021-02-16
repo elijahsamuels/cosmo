@@ -22,7 +22,6 @@
 	  <% admin = job.users.where(admin: true).first %>
 	  <% client = job.users.where(client: true).first %>
 		<tr>
-<%# byebug %>
 			<td><%= i %>. <%= invoice.job_id %></td>
 			<td><%= invoice.id%></td> 
 			<td><%= job.city.concat(", ", job.state) %></td>

@@ -1,4 +1,8 @@
-<h3>All Clients</h3>
+<% if params[:user_id].present? %>
+  <h2>All Clients for <%= current_user.first_name %> </h2>
+<% else %>
+  <h2>All Clients</h2>
+<% end %>
 <table>
   <thead>
     <tr>
