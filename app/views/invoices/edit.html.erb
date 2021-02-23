@@ -11,6 +11,6 @@
     <%= form.hidden_field :id, :value => @invoice.id %>
     <%= form.hidden_field :date_invoice_sent, :value => Time.now %>
 
-	<%= form.submit "Submit Invoice" %>
+	<%= form.submit "Submit Invoice" :class => 'btn btn-info glyphicon' %>
 
 <% end %>

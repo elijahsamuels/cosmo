@@ -3,7 +3,7 @@
     <h2>New Job Inquiry for <%= current_user.first_name %> </h2>
     <%= form_for @job do |j| %>
       <%= render partial: "job_form", locals: {j: j}%>
-      <br><%= j.submit  %>
+      <br><%= j.submit :class => 'btn btn-info glyphicon' %>
     <% end %>
 
   <% else %>
@@ -16,7 +16,7 @@
         <h3>Client Details:</h3>
         <%= render partial: "/clients/client_form", locals: {c: c} %>
       <% end %>
-      <br><%= j.submit  %>
+      <br><%= j.submit :class => 'btn btn-info glyphicon'%>
     <% end %>
 <% end %>
 

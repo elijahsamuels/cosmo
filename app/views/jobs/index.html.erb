@@ -8,15 +8,16 @@
 
 <br>
 <br>
-<table>
+<table class="striped highlight centered responsive-table">
   <thead>
     <tr>
       <th>Date</th>
       <th>Client</th>
       <th>Location</th>
-      <th>Status</th>
+      <th>Booking Status</th>
       <!-- <th>Team Size</th> <%#breaks if nil%>-->
       <th>Price</th>
+      <th>Payment Status</th>
       <th>Invoices</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -28,18 +29,20 @@
 <% @jobs.each.with_index(1) do |job, i| %>
 
   <tr>
-    <% client = User.find_by_id(job.client_id) %> <%# QUESTION: is this ok here? how would I move it to the controller since the local varialbe 'job' is inside the line?%>
+    <% client = User.find_by_id(job.client_id) %>
     <td><%= i %>. <%= job.datetime_for_job_start %></td>
-    <td><%#= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
+    <td><%= link_to client.first_name.concat(" ", client.last_name), user_path(client.id)%>
     <td><%= link_to job.city.concat(", ", job.state), "https://www.google.com/maps/place/#{job.zip}", target: :_blank %></td>
     <td><%= job.status.titleize %></td>
     <!-- <td><%#= job.invoices.map(&:user).each {|c| c.client}.count || "0" %> members</td> <%#breaks if nil%> -->
     <td><%= number_to_currency(job.total_amount) || number_to_currency(0)%></td>
-    <td><%= link_to "Submit Payment", new_job_payment_path(job.id) %></a></td>
-    <td><%= link_to "Edit", edit_job_path(job.id) %>
-    <td><%= link_to "Delete", job_path(job.id), data: {confirm: "Delete Job?"}, method: :delete %></td>
+    <td>payment status??</td>
+    <td><%= link_to "est", new_job_payment_path(job.id), :class => 'btn btn-info glyphicon' %></td>
+    <td><%= link_to "Edit", edit_job_path(job.id), :class => 'btn btn-info glyphicon' %>
+    <td><%= link_to "Delete", job_path(job.id), data: {confirm: "Delete Job?"}, method: :delete, :class => 'btn btn-info glyphicon' %></td>
   </tr>
-
+  
+<%# <i class="material-icons">monetization_on</i> %>
     <% end %>
   </tbody>
 </table>

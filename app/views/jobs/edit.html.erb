@@ -1,32 +1,47 @@
-<h2>Job Details for <%= @client.first_name.concat(" ", @client.last_name) %> on <%= @job.job_start_datetime.strftime("%a, %b %d, %Y") %>
+<h2>Job Details  <%#= @client.first_name.concat(" ", @client.last_name) %> for <%= @job.job_start_datetime.strftime("%a, %b %d, %Y") %>
 </h2>
 
 <div>
-  <h4>Admin Info:</h4> <!-- this will break is admin_id of Jobs is nil -->
+  <h5>Admin Info:</h5> <!-- this will break is admin_id of Jobs is nil -->
   <br><%= admin_of_job.first_name.to_s %> <%= admin_of_job.last_name.to_s %>
   <br><%= link_to admin_of_job.email.to_s %>
   <br><%= call_to admin_of_job.phone.to_s %>
 </div>
 <br>
 
-<div>
-    <h4>Client Info:</h4>
-    <br> <%= link_to @client.first_name, edit_client_path(@client.id) %> 
-    <br> <%= call_to @client.phone.to_s %>    
-    <br> <%= mail_to @client.email.to_s %>    
+  <div class="row">
+    <h5>Client Info <%= link_to "Edit", edit_client_path(@client.id), :class => 'btn btn-info glyphicon' %> </h5>
+      <form class="col s12">
+        <div class="row">
+          <div class="label-field col s1">
+            <label id="first_name"><%= @client.first_name %></label>
+          </div>
+          <div class="label-field col s6">
+            <label for="last_name"><%= @client.last_name %></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label-field col s1">
+            <label id="phone" ><%= call_to @client.phone.to_s %></label>
+          </div>
+          <div class="label-field col s6">
+            <label for="email"><%= mail_to @client.email.to_s %></label>
+          </div>
+        </div>
+  </div>
+
     <br><%# @job.invoices[0].user.first_name.to_s %> <%# @job.invoices[0].user.last_name.to_s %>
     <br><%# call_to @job.invoices[0].user.phone.to_s %>
     <br><%# mail_to @job.invoices[0].user.email.to_s %>
     <br><%# link_to "Edit Client", edit_client_path(@job.client.id) %>
-</div>
-<br>
-
+    
 <div>
-  <h4>Contactor Team:</h4>
+  <h5>Contactor Team:</h5>
   <td><%# all_contractors(@job).each do |c| %></td>
   <br><td><%# link_to c.first_name.to_s.concat(" ", c.last_name.to_s), edit_contractor_path(c.id) %></td>
   <%# end %>
-  <%= button_to "add a new contractor for this job" %>
+  <%= button_to "Add a Contractor", edit_client_path , :class => 'btn btn-info glyphicon' %>
   <!-- <br>this should send to a page to create OR add an existing contractor
   <br>should associate this job_id AND admin_id with that contractor  -->
 </div>
@@ -34,21 +49,17 @@
 
 <div>
   <%= form_with model: @job do |form| %>
-    <h4>Job Info:</h4>
-
-  <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']], @job.status)  %>
+    <h5>Job Info:</h5>
+    <br>Status: <%= form.select :status, options_for_select([['Inquiry'], ['Tentative'], ['Confirmed'], ['Completed'], ['Postponed'], ['Cancelled']], @job.status)  %>
     <br>Date: <%= form.date_select :job_start_datetime, order: [:day, :month, :year] %>
-    <br>
     <br>Address 1: <%= form.text_field :address_1 %>
     <br>Address 2: <%= form.text_field :address_2 %>
     <br>City: <%= form.text_field :city %>
     <br>State: <%= form.text_field :state %>
     <br>Zip: <%= form.text_field :zip %>
-    <br>Description: <%= form.text_area :description, size: "40x20" %>
-    <br>
-    <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
-    <br>
+    <%= form.text_area :description %>
 
+    <br>View on map: <%= link_to @job.city, "https://www.google.com/maps/place/#{@job.zip}", target: :_blank %>, <%= @job.state %>
     <br>Historical weather average on <%= @job.datetime_for_job_start %> in <%= @job.city %>, <%= @job.state %>: Coming soon. Weather API
     <br>Sunrise: Coming soon. Weather API
     <br>Sunset: Coming soon. Weather API
@@ -57,23 +68,23 @@
 </div>
 
 <div>
-    <h4>Finances:</h4>
+    <h5>Finances:</h5>
     <% if current_user.admin?%>
-      <br>Total Quoted: <%= form.number_field :total_amount, placeholder: number_to_currency(@job.total_amount) %> 
+      Total Quoted: <%= form.number_field :total_amount, placeholder: number_to_currency(@job.total_amount) %> 
     <% else %>
-      <br>Total Quoted: <%= number_to_currency(@job.total_amount) %> 
+      <br>Total Quoted: $<%= number_to_currency(@job.total_amount) %> 
     <% end %>
     
     <br>Total Paid: <%= number_to_currency(@total_paid) %>
     <br>Remaining Balance: <%= number_to_currency(@job.total_amount - @total_paid) %>
-    <br><%= link_to "Make a Payment", new_job_payment_path(@job) %>
+    <br><%= link_to "Make a Payment", new_job_payment_path(@job), :class => 'btn btn-info glyphicon' %>
 
     <% if current_user.admin?%>
-      <%= link_to "Issue a Refund", new_job_payment_path(@job) %>
+      <%= link_to "Issue a Refund", new_job_payment_path(@job), :class => 'btn btn-info glyphicon' %>
     <% end %>
 <br>
-  <h4>Payment History:</h4>
-    <table>
+  <h5>Payment History:</h5>
+<table class="striped highlight centered responsive-table">
       <thead>
         <tr>
           <th>Type</th>
@@ -91,6 +102,6 @@
       </tbody>
     </table>
     <br>
-    <br><%= form.submit "Save" %>
+    <br><%= form.submit "Save", :class => 'btn btn-info glyphicon' %>
   <% end %>
 </div>

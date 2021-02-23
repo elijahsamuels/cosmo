@@ -15,7 +15,7 @@ For use, git clone this repo: `$ git clone https://github.com/elijahsamuels/cosm
 `$ rails db:migrate` - migrate the tables
 `$ rails db:seed` - seed the tables
 `$ rails s` - start puma (server)
-`localhost:3000` - open browser to this url and you're ready.
+`localhost:3000` - open browser to this url and you're ready. Avoid using `http://127.0.0.1:3000`
 
 Note: You'll need a Google Dev account for the Google OAuth2 login/signup.
 https://github.com/zquestz/omniauth-google-oauth2
@@ -34,9 +34,6 @@ https://github.com/zquestz/omniauth-google-oauth2
 - [ ] - Add Service/Product table, model, views
 - [ ] - Host (on Heroku to start)
 - [ ] - Add payment gateways
-- [ ] - 
-- [ ] - 
-- [ ] - 
 
 ## License
 

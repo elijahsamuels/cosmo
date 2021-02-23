@@ -9,7 +9,7 @@
     <%= form.hidden_field :user_id, :value => current_user.id %>
     <%= form.hidden_field :job_id, :value => @job.id %>
 
-	<%= form.submit "Submit Payment" %>
+	<%= form.submit "Submit Payment", :class => 'btn btn-info glyphicon'  %>
 
 <% end %>
 

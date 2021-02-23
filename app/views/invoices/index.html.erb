@@ -1,7 +1,7 @@
 <h3>All Invoices for <%= @contractor.first_name %></h3> 
 <!-- FIX: shows current user, not user name for these invoices -->
 
-<table>
+<table class="striped highlight centered responsive-table">
   <thead>
     <tr>
       <th>Job ID</th>
@@ -33,7 +33,7 @@
 					<td> Paid</td>
 				<% else %>
 					<% if job.status == "Completed" %>
-						<td><%= link_to "Submit", edit_user_invoice_path(id: invoice) %></td> 
+						<td><%= link_to "Submit", edit_user_invoice_path(id: invoice), :class => 'btn btn-info glyphicon'  %></td> 
 					<% else %>
 						<td> Waiting</td>
 					<% end %>
