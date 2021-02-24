@@ -75,4 +75,15 @@ module ApplicationHelper
     @total_number_of_cancelled = Job.where(status: "Cancelled").and(Job.where(admin_id: current_user.id)).count
   end
 
+  def admin_stats_financials
+  @total_financials_of_jobs = number_to_currency(Job.where(admin_id: current_user.id).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_inquiries = number_to_currency(Job.where(status: "Inquiry").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_tentative = number_to_currency(Job.where(status: "Tentative").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_completed = number_to_currency(Job.where(status: "Completed").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_confirmed = number_to_currency(Job.where(status: "Confirmed").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_postponed = number_to_currency(Job.where(status: "Postponed").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum)
+  @total_financials_of_cancelled = number_to_currency(Job.where(status: "Cancelled").and(Job.where(admin_id: current_user.id)).map.each{|t| t.total_amount}.sum*-1)
+
+  end
+
 end
