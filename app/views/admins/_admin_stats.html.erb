@@ -30,12 +30,12 @@
 	<tr>
 		<td><%= link_to "Confirmed: ", user_jobs_path(current_user, status: "Confirmed") %></td>
 		<td><%= @total_number_of_confirmed %></td>
-		<td><%= @total_financials_of_completed %></td>
+		<td><%= @total_financials_of_confirmed %></td>
 	</tr>
 	<tr>
 		<td><%= link_to "Completed: ", user_jobs_path(current_user, status: "Completed") %></td>
 		<td><%= @total_number_of_completed %></td>
-		<td><%= @total_financials_of_confirmed %></td>
+		<td><%= @total_financials_of_completed %></td>
 	</tr>
 	<tr>
 		<td><%= link_to "Postponed: ", user_jobs_path(current_user, status: "Postponed") %></td>

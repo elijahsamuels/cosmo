@@ -40,6 +40,14 @@ class JobsController < ApplicationController
     else
       @jobs = Job.sort_by_date(params)
     end
+
+    # /jobs.json this shows the jobs data in json format
+    respond_to do |format|
+      format.html {render :index}
+      format.json {render json: @jobs}
+
+    end
+
   end
   
   def show
