@@ -1,10 +1,12 @@
 <div>
+<%# if logged_in? %>
   <% if current_user.client? %>
     <h2>New Job Inquiry for <%= current_user.first_name %> </h2>
     <%= form_for @job do |j| %>
       <%= render partial: "job_form", locals: {j: j}%>
       <br><%= j.submit :class => 'btn btn-info glyphicon' %>
     <% end %>
+  <%# end %>
 
   <% else %>
 

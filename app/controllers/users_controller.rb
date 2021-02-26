@@ -49,6 +49,7 @@ class UsersController < ApplicationController
 
   def destroy
     find_user_by_id
+    byebug
     @user.delete
     flash[:notice] = "#{@user.first_name} is really gone!"
     redirect_to users_path    
@@ -75,6 +76,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
+    byebug
     params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password, :address_1, :address_2, :city, :state, :zip, :ssn, :admin, :client, :contractor, :admin_id, :client_id, :contractor_id,)
   end    
 

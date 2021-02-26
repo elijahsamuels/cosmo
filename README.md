@@ -34,6 +34,7 @@ https://github.com/zquestz/omniauth-google-oauth2
 - [ ] - Add Service/Product table, model, views
 - [ ] - Host (on Heroku to start)
 - [ ] - Add payment gateways
+- [ ] - Add Mailer options - when client submits a new inquiry, the client gets a confirmation email and the admin/business gets an email AND text notification.
 
 ## License
 

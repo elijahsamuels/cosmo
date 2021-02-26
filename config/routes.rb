@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # resources :businesses do
   #   resources :payments, only: [:index, :show, :new, :create ]
-  #   end
+  #   end 
   
   # USERS
   resources :users do
