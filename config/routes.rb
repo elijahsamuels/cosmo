@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
 
-  # Sessions, Login, Signup, Logout
+  # Sessions, Login, Signup , Logout
   match '/auth/:google_oauth2/callback' => 'sessions#google', via: [:get,:post]
   post '/session', to: 'sessions#create', as: 'session'
   delete '/session', to: 'sessions#destroy', as: 'logout'

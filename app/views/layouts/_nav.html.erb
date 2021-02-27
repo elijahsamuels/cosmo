@@ -19,6 +19,8 @@
 	<%= link_to "Log Out", logout_path, method: :delete %> |
 	<%= render partial: '/layouts/search' %>
 
+<%# byebug %>
+
 <% elsif current_user && current_user.contractor? %>
 	<%= link_to "My Jobs", user_jobs_path(@current_user) %> |
 	<%= link_to "My Profile" %> |
@@ -36,12 +38,10 @@
 	<%= link_to "New Inquiry", new_job_path %> |
 	<%= link_to "Sign Up", new_user_path %> |
 	<%= link_to "Log In", login_path %> |
-	<%= link_to "Log in with ", '/auth/google_oauth2', method: :post %>
-	<%=link_to image_tag("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCuQzA6GQf1JbgkvFCUvDxAN0S5yOiYvdog&usqp=CAU",width: 50, height: 50 ), '/auth/google_oauth2', method:'post' %></p>
+	<%= link_to "Log in with Google", '/auth/google_oauth2', method: :post %>
+	<%#=link_to image_tag("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCuQzA6GQf1JbgkvFCUvDxAN0S5yOiYvdog&usqp=CAU",width: 50, height: 50 ), '/auth/google_oauth2', method:'post' %></p>
 	<%#= link_to image_tag("/Users/elijahsamuels/Flatiron/code/Projects/cosmo/lib/images/google.png", width: 50, height: 50), '/auth/google_oauth2', method:'post' %></p>
 <% end %>
-
-<%#=link_to "Search Restaurants", search_page_path , class:"nav-item nav-link"%>
 
 <%# form_for Users.all.each do |u| %>
 	<%#= form.label :invoice_amount, "Invoice Amount " %>
