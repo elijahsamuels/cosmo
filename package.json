@@ -6,16 +6,11 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "turbolinks": "^5.2.0"
-    
-  },
-  
-  "engines": {
-    "postinstall": "npm rebuild node-sass"
   },
 
   "version": "0.1.0",
   "devDependencies": {
+    "webpack": "^4.43.0",
     "webpack-dev-server": "^3.11.2"
   }
-
 }
